@@ -1,0 +1,5 @@
+# WebStorm files
+.idea
+
+# macOS finder files
+.DS_Store
