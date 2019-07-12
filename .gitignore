@@ -60,3 +60,6 @@ buck-out/
 
 # WebStorm files
 .idea
+
+# Environment variables
+.env
