@@ -1,97 +1,57 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow
- */
+import React, { Component } from 'react';
+import { Alert, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import firebase from 'firebase';
 
-import React, {Fragment} from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-} from 'react-native';
-
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const App = () => {
-  return (
-    <Fragment>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView
-          contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
-          <Header />
-          <View style={styles.body}>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
-              <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.js</Text> to change this
-                screen and then come back to see your edits.
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>See Your Changes</Text>
-              <Text style={styles.sectionDescription}>
-                <ReloadInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Debug</Text>
-              <Text style={styles.sectionDescription}>
-                <DebugInstructions />
-              </Text>
-            </View>
-            <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Learn More</Text>
-              <Text style={styles.sectionDescription}>
-                Read the docs to discover what to do next:
-              </Text>
-            </View>
-            <LearnMoreLinks />
+export default class Rlagu extends Component {
+  constructor(props) {
+    super(props);
+    initializeFirebase();
+  }
+  render() {
+    return(
+      <View style={styles.container}>
+        <TouchableOpacity onPress={() => Alert.alert("Menu", "Food items")}>
+          <View style={styles.button}>
+            <Text style={styles.buttonText}>View Menu</Text>
           </View>
-        </ScrollView>
-      </SafeAreaView>
-    </Fragment>
-  );
-};
+        </TouchableOpacity>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
+  container: {
+    alignItems: 'center',
+    backgroundColor: 'lightgray',
+    flex: 1,
+    justifyContent: 'center'
   },
-  body: {
-    backgroundColor: Colors.white,
+  button: {
+    alignItems: 'center',
+    backgroundColor: '#428BCA',
+    borderRadius: 5,
+    justifyContent: 'center',
+    height: 50,
+    width: 120,
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-    color: Colors.black,
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+  buttonText: {
+    color: 'white',
+    fontWeight: 'bold'
+  }
 });
 
-export default App;
+function initializeFirebase() {
+  const firebaseConfig = {
+    apiKey: process.env.API_KEY,
+    authDomain: process.env.AUTH_DOMAIN,
+    databaseURL: "https://rlagu-a72a5.firebaseio.com",
+    storageBucket: "",
+    projectId: process.env.PROJECT_ID,
+    messagingSenderId: process.env.MESSAGING_SENDER_ID,
+    appId: process.env.APP_ID
+  };
+  if(!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig);
+  }
+}
