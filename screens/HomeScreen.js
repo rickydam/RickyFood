@@ -5,7 +5,7 @@ import touchableOpacity from "../styles/components/TouchableOpacity";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
-    title: "HomeScreen"
+    title: "RLagu"
   };
   render() {
     const {navigate} = this.props.navigation;

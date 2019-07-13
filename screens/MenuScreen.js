@@ -5,7 +5,7 @@ import touchableOpacity from "../styles/components/TouchableOpacity";
 
 export default class MenuScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
-    title: "MenuScreen",
+    title: "Menu Items",
     headerRight: (
       <TouchableOpacity onPress={() => navigation.navigate("AddMenuItem")}>
         <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
