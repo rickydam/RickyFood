@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, TextInput, TouchableOpacity, View } from "react-native";
-import firebase from 'firebase';
+import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 
@@ -35,7 +35,7 @@ export default class AddMenuItem extends React.Component {
 
   addMenuItem = () => {
     let name = this.state.name;
-    firebase.database().ref('Fruits/').push({
+    firebase.database().ref("Fruits/").push({
       name
     }).then((data) => {
       console.log(data);
