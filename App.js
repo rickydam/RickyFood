@@ -2,12 +2,16 @@ import React from "react";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import firebase from "firebase";
 import HomeScreen from "./screens/HomeScreen";
+import MenuScreen from "./screens/MenuScreen";
 
-const AppNavigator = createStackNavigator({
-  Home: {
-    screen: HomeScreen
-  }
-});
+const AppNavigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Menu: MenuScreen
+  },
+  {
+    initialRouteName: "Home"
+  });
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
