@@ -3,11 +3,13 @@ import { createStackNavigator, createAppContainer } from "react-navigation";
 import firebase from "firebase";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
+import AddMenuItemScreen from "./screens/AddMenuItemScreen";
 
 const AppNavigator = createStackNavigator(
   {
     Home: HomeScreen,
-    Menu: MenuScreen
+    Menu: MenuScreen,
+    AddMenuItem: AddMenuItemScreen
   },
   {
     initialRouteName: "Home"
