@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import firebase from 'firebase';
+import firebase from "firebase";
 import HomeScreen from "./screens/HomeScreen";
 
 const AppNavigator = createStackNavigator({
