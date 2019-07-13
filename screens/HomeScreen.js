@@ -1,6 +1,7 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
-import styles from "../styles/MainStyles";
+import mainStyles from "../styles/MainStyles";
+import homeStyles from "../styles/HomeStyles";
 
 export default class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -9,10 +10,10 @@ export default class HomeScreen extends React.Component {
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <View style={styles.container}>
+      <View style={mainStyles.container}>
         <TouchableOpacity onPress={() => navigate("Menu")}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>View Menu</Text>
+          <View style={homeStyles.viewMenuButton}>
+            <Text style={homeStyles.viewMenuButtonText}>View Menu</Text>
           </View>
         </TouchableOpacity>
       </View>
