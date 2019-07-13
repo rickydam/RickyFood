@@ -1,15 +1,15 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../styles/MainStyles";
-import menuStyles from "../styles/MenuStyles";
+import touchableOpacity from "../styles/components/TouchableOpacity";
 
 export default class MenuScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
     title: "MenuScreen",
     headerRight: (
       <TouchableOpacity onPress={() => navigation.navigate("AddMenuItem")}>
-        <View style={menuStyles.addButton}>
-          <Text style={menuStyles.addButtonText}>Add</Text>
+        <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+          <Text style={touchableOpacity().text}>Add</Text>
         </View>
       </TouchableOpacity>
     )
