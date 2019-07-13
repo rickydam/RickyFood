@@ -1,45 +1,23 @@
-import React, { Component } from 'react';
-import { Alert, TouchableOpacity, StyleSheet, Text, View } from 'react-native';
+import React from 'react';
+import { createStackNavigator, createAppContainer } from "react-navigation";
 import firebase from 'firebase';
+import HomeScreen from "./screens/HomeScreen";
 
-export default class Rlagu extends Component {
-  constructor(props) {
-    super(props);
-    initializeFirebase();
+const AppNavigator = createStackNavigator({
+  Home: {
+    screen: HomeScreen
   }
+});
+const AppContainer = createAppContainer(AppNavigator);
+
+export default class App extends React.Component {
   render() {
-    return(
-      <View style={styles.container}>
-        <TouchableOpacity onPress={() => Alert.alert("Menu", "Food items")}>
-          <View style={styles.button}>
-            <Text style={styles.buttonText}>View Menu</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+    initializeFirebase();
+    return (
+      <AppContainer />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: 'lightgray',
-    flex: 1,
-    justifyContent: 'center'
-  },
-  button: {
-    alignItems: 'center',
-    backgroundColor: '#428BCA',
-    borderRadius: 5,
-    justifyContent: 'center',
-    height: 50,
-    width: 120,
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: 'bold'
-  }
-});
 
 function initializeFirebase() {
   const firebaseConfig = {
