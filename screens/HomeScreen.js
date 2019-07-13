@@ -3,6 +3,9 @@ import { Text, TouchableOpacity, View } from "react-native";
 import styles from "../styles/MainStyles";
 
 export default class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: "HomeScreen"
+  };
   render() {
     const {navigate} = this.props.navigation;
     return (
