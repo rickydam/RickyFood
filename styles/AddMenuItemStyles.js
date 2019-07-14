@@ -9,6 +9,12 @@ const addMenuItemStyles = StyleSheet.create({
   fieldContainer: {
     margin: 10
   },
+  picker: {
+    backgroundColor: "white",
+    borderWidth: 1,
+    height: 40,
+    width: deviceWidth * 0.8
+  },
   textInput: {
     backgroundColor: "white",
     borderWidth: 1,

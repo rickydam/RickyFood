@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Picker, Text, TextInput, TouchableOpacity, View } from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import addMenuItemStyles from "../styles/AddMenuItemStyles";
@@ -9,8 +9,9 @@ export default class AddMenuItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      description: "",
-      name: ""
+      type: "Appetizer",
+      name: "",
+      description: ""
     };
   }
 
@@ -21,6 +22,18 @@ export default class AddMenuItem extends React.Component {
   render() {
     return (
       <View style={mainStyles.container}>
+        <View style={addMenuItemStyles.fieldContainer}>
+          <Text style={addMenuItemStyles.textInputLabel}>Type</Text>
+          <Picker
+            onValueChange={(itemValue, itemIndex) => this.setState({type: itemValue})}
+            selectedValue={this.state.type}
+            style={addMenuItemStyles.picker}>
+            <Picker.Item label="Appetizer" value="appetizer" />
+            <Picker.Item label="Main" value="main" />
+            <Picker.Item label="Dessert" value="dessert" />
+            <Picker.Item label="Beverage" value="beverage" />
+          </Picker>
+        </View>
         <View style={addMenuItemStyles.fieldContainer}>
           <Text style={addMenuItemStyles.textInputLabel}>Name</Text>
           <TextInput
@@ -49,9 +62,18 @@ export default class AddMenuItem extends React.Component {
   }
 
   addMenuItem = () => {
+    let type = this.state.type;
     let name = this.state.name;
     let description = this.state.description;
-    firebase.database().ref("Fruits/").push({
+
+    let firebaseRef;
+    if(type === "appetizer") firebaseRef = firebase.database().ref("appetizers/");
+    if(type === "main") firebaseRef = firebase.database().ref("mains/");
+    if(type === "dessert") firebaseRef = firebase.database().ref("desserts/");
+    if(type === "beverage") firebaseRef = firebase.database().ref("beverages/");
+
+    firebaseRef.push({
+      type,
       name,
       description
     }).then((data) => {
