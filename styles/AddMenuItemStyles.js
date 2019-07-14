@@ -11,9 +11,13 @@ const addMenuItemStyles = StyleSheet.create({
   },
   picker: {
     backgroundColor: "white",
+    height: 37,
+    width: deviceWidth * 0.8
+  },
+  pickerView: {
     borderWidth: 1,
     height: 40,
-    width: deviceWidth * 0.8
+    width: (deviceWidth * 0.8) + 2
   },
   textInput: {
     backgroundColor: "white",
