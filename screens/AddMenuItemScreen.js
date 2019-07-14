@@ -25,7 +25,7 @@ export default class AddMenuItem extends React.Component {
         <View style={addMenuItemStyles.fieldContainer}>
           <Text style={addMenuItemStyles.textInputLabel}>Type</Text>
           <Picker
-            onValueChange={(itemValue, itemIndex) => this.setState({type: itemValue})}
+            onValueChange={(itemValue) => this.setState({type: itemValue})}
             selectedValue={this.state.type}
             style={addMenuItemStyles.picker}>
             <Picker.Item label="Appetizer" value="appetizer" />
