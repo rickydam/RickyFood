@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionList, Text, TouchableOpacity, View } from "react-native";
+import { SectionList, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import menuStyles from "../styles/MenuStyles";
@@ -95,7 +95,15 @@ export default class MenuScreen extends React.Component {
               {title: "Desserts", data: this.state.dessertsNames},
               {title: "Beverages", data: this.state.beveragesNames}
             ]}
-            renderItem={({item}) => <Text style={menuStyles.renderItem}>{item}</Text>}
+            renderItem={({item}) => (
+              <TouchableHighlight
+                onPress={() => console.log(item)}
+                underlayColor="black">
+                <View>
+                  <Text style={menuStyles.renderItem}>{item}</Text>
+                </View>
+              </TouchableHighlight>
+            )}
             renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
             keyExtractor={(item, index) => index}
           />
