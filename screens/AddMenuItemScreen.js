@@ -76,8 +76,12 @@ export default class AddMenuItem extends React.Component {
       type,
       name,
       description
-    }).then((data) => {
-      console.log(data);
+    }).then(() => {
+      this.setState({
+        type: "appetizer",
+        name: "",
+        description: ""
+      });
     }).catch((error) => {
       console.log(error)
     });
