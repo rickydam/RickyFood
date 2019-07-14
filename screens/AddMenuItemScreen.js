@@ -1,5 +1,5 @@
 import React from "react";
-import { Picker, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import addMenuItemStyles from "../styles/AddMenuItemStyles";
@@ -82,6 +82,7 @@ export default class AddMenuItem extends React.Component {
         name: "",
         description: ""
       });
+      ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
     }).catch((error) => {
       console.log(error)
     });
