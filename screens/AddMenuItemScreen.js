@@ -9,7 +9,7 @@ export default class AddMenuItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      type: "Appetizer",
+      type: "appetizer",
       name: "",
       description: ""
     };
