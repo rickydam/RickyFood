@@ -91,9 +91,9 @@ export default class MenuScreen extends React.Component {
           <SectionList
             sections={[
               {title: "Appetizers", data: this.state.appetizersNames},
-              {title: "Beverages", data: this.state.beveragesNames},
+              {title: "Mains", data: this.state.mainsNames},
               {title: "Desserts", data: this.state.dessertsNames},
-              {title: "Mains", data: this.state.mainsNames}
+              {title: "Beverages", data: this.state.beveragesNames}
             ]}
             renderItem={({item}) => <Text style={menuStyles.renderItem}>{item}</Text>}
             renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
