@@ -24,7 +24,7 @@ export default class MenuScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
     title: "Menu Items",
     headerRight: (
-      <TouchableOpacity onPress={() => navigation.navigate("AddMenuItem")}>
+      <TouchableOpacity onPress={() => navigation.navigate("MenuItem")}>
         <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
           <Text style={touchableOpacity().text}>Add</Text>
         </View>

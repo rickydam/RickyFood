@@ -5,7 +5,7 @@ import mainStyles from "../styles/MainStyles";
 import addMenuItemStyles from "../styles/AddMenuItemStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 
-export default class AddMenuItem extends React.Component {
+export default class MenuItemScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
