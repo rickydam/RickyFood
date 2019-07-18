@@ -4,14 +4,14 @@ import firebase from "firebase";
 import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
 import MenuItemScreen from "./screens/MenuItemScreen";
+import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 
-const AppNavigator = createStackNavigator(
-  {
+const AppNavigator = createStackNavigator({
     Home: HomeScreen,
     Menu: MenuScreen,
-    MenuItem: MenuItemScreen
-  },
-  {
+    MenuItem: MenuItemScreen,
+    MenuItemDetails: MenuItemDetailsScreen
+  }, {
     initialRouteName: "Home"
   });
 const AppContainer = createAppContainer(AppNavigator);
