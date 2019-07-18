@@ -10,13 +10,9 @@ export default class MenuScreen extends React.Component {
     super(props);
     this.state = {
       appetizers: [],
-      appetizersNames: [],
       beverages: [],
-      beveragesNames: [],
       desserts: [],
-      dessertsNames: [],
       mains: [],
-      mainsNames: [],
       isDoneFetchingMenu: false
     }
   }
@@ -37,7 +33,6 @@ export default class MenuScreen extends React.Component {
 
      let loadAppetizers = firebase.database().ref("appetizers/").once("value", function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
-         menuScreen.state.appetizersNames.push(childSnapshot.val().name);
          let appetizer = {};
          appetizer["name"] = childSnapshot.val().name;
          appetizer["description"] = childSnapshot.val().description;
@@ -47,7 +42,6 @@ export default class MenuScreen extends React.Component {
 
      let loadBeverages = firebase.database().ref("beverages/").once("value", function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
-         menuScreen.state.beveragesNames.push(childSnapshot.val().name);
          let beverage = {};
          beverage["name"] = childSnapshot.val().name;
          beverage["description"] = childSnapshot.val().description;
@@ -57,7 +51,6 @@ export default class MenuScreen extends React.Component {
 
      let loadDesserts = firebase.database().ref("desserts/").once("value", function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
-         menuScreen.state.dessertsNames.push(childSnapshot.val().name);
          let dessert = {};
          dessert["name"] = childSnapshot.val().name;
          dessert["description"] = childSnapshot.val().description;
@@ -67,7 +60,6 @@ export default class MenuScreen extends React.Component {
 
      let loadMains = firebase.database().ref("mains/").once("value", function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
-         menuScreen.state.mainsNames.push(childSnapshot.val().name);
          let main = {};
          main["name"] = childSnapshot.val().name;
          main["description"] = childSnapshot.val().description;
@@ -86,17 +78,17 @@ export default class MenuScreen extends React.Component {
         <View style={mainStyles.container}>
           <SectionList
             sections={[
-              {title: "Appetizers", data: this.state.appetizersNames},
-              {title: "Mains", data: this.state.mainsNames},
-              {title: "Desserts", data: this.state.dessertsNames},
-              {title: "Beverages", data: this.state.beveragesNames}
+              {title: "Appetizers", data: this.state.appetizers},
+              {title: "Mains", data: this.state.mains},
+              {title: "Desserts", data: this.state.desserts},
+              {title: "Beverages", data: this.state.beverages}
             ]}
             renderItem={({item}) => (
               <TouchableHighlight
                 onPress={() => console.log(item)}
                 underlayColor="black">
                 <View>
-                  <Text style={menuStyles.renderItem}>{item}</Text>
+                  <Text style={menuStyles.renderItem}>{item["name"]}</Text>
                 </View>
               </TouchableHighlight>
             )}
