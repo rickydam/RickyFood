@@ -1,6 +1,7 @@
 import React from "react";
-import { Text, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import mainStyles from "../styles/MainStyles";
+import touchableOpacity from "../styles/components/TouchableOpacity";
 
 export default class MenuItemDetailsScreen extends React.Component {
   constructor(props) {
@@ -21,12 +22,18 @@ export default class MenuItemDetailsScreen extends React.Component {
   }
 
   render() {
+    const {navigate} = this.props.navigation;
     return (
       <View style={mainStyles.container}>
         <Text>Name</Text>
         <Text>{this.state.navigationParams["name"]}</Text>
         <Text>Description</Text>
         <Text>{this.state.navigationParams["description"]}</Text>
+        <TouchableOpacity onPress={() => navigate("MenuItem", {purpose: "Edit"})}>
+          <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+            <Text style={touchableOpacity().text}>Edit</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }

@@ -11,13 +11,20 @@ export default class MenuItemScreen extends React.Component {
     this.state = {
       type: "appetizer",
       name: "",
-      description: ""
+      description: "",
+      navigationParams: ""
     };
   }
 
-  static navigationOptions = {
-    title: "Add Menu Item",
-  };
+  componentDidMount() {
+    this.setState({
+      navigationParams: this.props.navigation.state.params
+    });
+  }
+
+  static navigationOptions = ({navigation}) => ({
+    title: navigation.state.params["purpose"]
+  });
 
   render() {
     return (
