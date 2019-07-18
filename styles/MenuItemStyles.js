@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet } from "react-native";
 
 const deviceWidth = Dimensions.get("window").width;
 
-const addMenuItemStyles = StyleSheet.create({
+const menuItemStyles = StyleSheet.create({
   alignTop: {
     textAlignVertical: "top",
   },
@@ -30,4 +30,4 @@ const addMenuItemStyles = StyleSheet.create({
   }
 });
 
-module.exports = addMenuItemStyles;
+module.exports = menuItemStyles;
