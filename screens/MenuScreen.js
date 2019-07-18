@@ -42,7 +42,6 @@ export default class MenuScreen extends React.Component {
          appetizer["name"] = childSnapshot.val().name;
          appetizer["description"] = childSnapshot.val().description;
          menuScreen.state.appetizers.push(appetizer);
-         console.log(childSnapshot.val().name);
        });
      });
 
@@ -53,7 +52,6 @@ export default class MenuScreen extends React.Component {
          beverage["name"] = childSnapshot.val().name;
          beverage["description"] = childSnapshot.val().description;
          menuScreen.state.beverages.push(beverage);
-         console.log(childSnapshot.val().name);
        });
      });
 
@@ -64,7 +62,6 @@ export default class MenuScreen extends React.Component {
          dessert["name"] = childSnapshot.val().name;
          dessert["description"] = childSnapshot.val().description;
          menuScreen.state.desserts.push(dessert);
-         console.log(childSnapshot.val().name);
        });
      });
 
@@ -75,7 +72,6 @@ export default class MenuScreen extends React.Component {
          main["name"] = childSnapshot.val().name;
          main["description"] = childSnapshot.val().description;
          menuScreen.state.mains.push(main);
-         console.log(childSnapshot.val().name);
        });
      });
 
