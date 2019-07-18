@@ -6,7 +6,7 @@ export default class MenuItemDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      values: ""
+      navigationParams: ""
     }
   }
 
@@ -16,7 +16,7 @@ export default class MenuItemDetailsScreen extends React.Component {
 
   componentDidMount() {
     this.setState({
-      values: this.props.navigation.state.params
+      navigationParams: this.props.navigation.state.params
     });
   }
 
@@ -24,9 +24,9 @@ export default class MenuItemDetailsScreen extends React.Component {
     return (
       <View style={mainStyles.container}>
         <Text>Name</Text>
-        <Text>{this.state.values["name"]}</Text>
+        <Text>{this.state.navigationParams["name"]}</Text>
         <Text>Description</Text>
-        <Text>{this.state.values["description"]}</Text>
+        <Text>{this.state.navigationParams["description"]}</Text>
       </View>
     );
   }
