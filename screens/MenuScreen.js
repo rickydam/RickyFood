@@ -29,9 +29,9 @@ export default class MenuScreen extends React.Component {
   });
 
   componentDidMount() {
-     let menuScreen = this;
-     this.loadMenuItems(menuScreen);
-   }
+    let menuScreen = this;
+    this.loadMenuItems(menuScreen);
+  }
 
   render() {
     if(this.state.isDoneFetchingMenu) {
