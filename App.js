@@ -27,6 +27,7 @@ export default class App extends React.Component {
 }
 
 YellowBox.ignoreWarnings(["Setting a timer"]);
+YellowBox.ignoreWarnings(["Remote debugger"]);
 
 function initializeFirebase() {
   const firebaseConfig = {
