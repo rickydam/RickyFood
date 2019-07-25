@@ -28,56 +28,9 @@ export default class MenuScreen extends React.Component {
     )
   });
 
-   async componentDidMount() {
+  componentDidMount() {
      let menuScreen = this;
-
-     let loadAppetizers = firebase.database().ref("appetizer/").once("value", function(snapshot) {
-       snapshot.forEach(function(childSnapshot) {
-         let appetizer = {};
-         appetizer["id"] = childSnapshot.key;
-         appetizer["type"] = childSnapshot.val().type;
-         appetizer["name"] = childSnapshot.val().name;
-         appetizer["description"] = childSnapshot.val().description;
-         menuScreen.state.appetizers.push(appetizer);
-       });
-     });
-
-     let loadBeverages = firebase.database().ref("beverage/").once("value", function(snapshot) {
-       snapshot.forEach(function(childSnapshot) {
-         let beverage = {};
-         beverage["id"] = childSnapshot.key;
-         beverage["type"] = childSnapshot.val().type;
-         beverage["name"] = childSnapshot.val().name;
-         beverage["description"] = childSnapshot.val().description;
-         menuScreen.state.beverages.push(beverage);
-       });
-     });
-
-     let loadDesserts = firebase.database().ref("dessert/").once("value", function(snapshot) {
-       snapshot.forEach(function(childSnapshot) {
-         let dessert = {};
-         dessert["id"] = childSnapshot.key;
-         dessert["type"] = childSnapshot.val().type;
-         dessert["name"] = childSnapshot.val().name;
-         dessert["description"] = childSnapshot.val().description;
-         menuScreen.state.desserts.push(dessert);
-       });
-     });
-
-     let loadMains = firebase.database().ref("main/").once("value", function(snapshot) {
-       snapshot.forEach(function(childSnapshot) {
-         let main = {};
-         main["id"] = childSnapshot.key;
-         main["type"] = childSnapshot.val().type;
-         main["name"] = childSnapshot.val().name;
-         main["description"] = childSnapshot.val().description;
-         menuScreen.state.mains.push(main);
-       });
-     });
-
-     await Promise.all([loadAppetizers, loadBeverages, loadDesserts, loadMains]);
-
-     this.setState({isDoneFetchingMenu: true});
+     this.loadMenuItems(menuScreen);
    }
 
   render() {
@@ -119,5 +72,55 @@ export default class MenuScreen extends React.Component {
         </View>
       );
     }
+  }
+
+  loadMenuItems = async (menuScreen) => {
+    let loadAppetizers = firebase.database().ref("appetizer/").once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        let appetizer = {};
+        appetizer["id"] = childSnapshot.key;
+        appetizer["type"] = childSnapshot.val().type;
+        appetizer["name"] = childSnapshot.val().name;
+        appetizer["description"] = childSnapshot.val().description;
+        menuScreen.state.appetizers.push(appetizer);
+      });
+    });
+
+    let loadBeverages = firebase.database().ref("beverage/").once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        let beverage = {};
+        beverage["id"] = childSnapshot.key;
+        beverage["type"] = childSnapshot.val().type;
+        beverage["name"] = childSnapshot.val().name;
+        beverage["description"] = childSnapshot.val().description;
+        menuScreen.state.beverages.push(beverage);
+      });
+    });
+
+    let loadDesserts = firebase.database().ref("dessert/").once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        let dessert = {};
+        dessert["id"] = childSnapshot.key;
+        dessert["type"] = childSnapshot.val().type;
+        dessert["name"] = childSnapshot.val().name;
+        dessert["description"] = childSnapshot.val().description;
+        menuScreen.state.desserts.push(dessert);
+      });
+    });
+
+    let loadMains = firebase.database().ref("main/").once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        let main = {};
+        main["id"] = childSnapshot.key;
+        main["type"] = childSnapshot.val().type;
+        main["name"] = childSnapshot.val().name;
+        main["description"] = childSnapshot.val().description;
+        menuScreen.state.mains.push(main);
+      });
+    });
+
+    await Promise.all([loadAppetizers, loadBeverages, loadDesserts, loadMains]);
+
+    this.setState({isDoneFetchingMenu: true});
   }
 }
