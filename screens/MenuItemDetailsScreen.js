@@ -1,5 +1,6 @@
 import React from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import firebase from 'firebase';
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 
@@ -34,7 +35,7 @@ export default class MenuItemDetailsScreen extends React.Component {
             <Text style={touchableOpacity().text}>Edit</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => console.log("Delete menu item")}>
+        <TouchableOpacity onPress={() => this.deleteMenuItem()}>
           <View style={touchableOpacity("#CD0000", 40, 10, 60).view}>
             <Text style={touchableOpacity().text}>Delete</Text>
           </View>
@@ -42,4 +43,11 @@ export default class MenuItemDetailsScreen extends React.Component {
       </View>
     );
   }
+
+  deleteMenuItem = () => {
+    let params = this.state.navigationParams;
+    let menuItemRef = firebase.database().ref(params.type);
+    let menuItemChild = menuItemRef.child(params.id);
+    menuItemChild.remove();
+  };
 }
