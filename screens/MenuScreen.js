@@ -14,7 +14,7 @@ export default class MenuScreen extends React.Component {
       desserts: [],
       mains: [],
       isDoneFetchingMenu: false
-    }
+    };
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -122,5 +122,5 @@ export default class MenuScreen extends React.Component {
     await Promise.all([loadAppetizers, loadBeverages, loadDesserts, loadMains]);
 
     this.setState({isDoneFetchingMenu: true});
-  }
+  };
 }
