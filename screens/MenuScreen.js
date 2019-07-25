@@ -96,6 +96,7 @@ export default class MenuScreen extends React.Component {
               <TouchableHighlight
                 onPress={() => navigate("MenuItemDetails", {
                   id: item["id"],
+                  type: item["type"],
                   name: item["name"],
                   description: item["description"]
                 })}
