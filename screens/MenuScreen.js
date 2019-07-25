@@ -31,7 +31,7 @@ export default class MenuScreen extends React.Component {
    async componentDidMount() {
      let menuScreen = this;
 
-     let loadAppetizers = firebase.database().ref("appetizers/").once("value", function(snapshot) {
+     let loadAppetizers = firebase.database().ref("appetizer/").once("value", function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
          let appetizer = {};
          appetizer["id"] = childSnapshot.key;
@@ -42,7 +42,7 @@ export default class MenuScreen extends React.Component {
        });
      });
 
-     let loadBeverages = firebase.database().ref("beverages/").once("value", function(snapshot) {
+     let loadBeverages = firebase.database().ref("beverage/").once("value", function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
          let beverage = {};
          beverage["id"] = childSnapshot.key;
@@ -53,7 +53,7 @@ export default class MenuScreen extends React.Component {
        });
      });
 
-     let loadDesserts = firebase.database().ref("desserts/").once("value", function(snapshot) {
+     let loadDesserts = firebase.database().ref("dessert/").once("value", function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
          let dessert = {};
          dessert["id"] = childSnapshot.key;
@@ -64,7 +64,7 @@ export default class MenuScreen extends React.Component {
        });
      });
 
-     let loadMains = firebase.database().ref("mains/").once("value", function(snapshot) {
+     let loadMains = firebase.database().ref("main/").once("value", function(snapshot) {
        snapshot.forEach(function(childSnapshot) {
          let main = {};
          main["id"] = childSnapshot.key;

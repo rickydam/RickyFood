@@ -76,10 +76,10 @@ export default class MenuItemScreen extends React.Component {
     let description = this.state.description;
 
     let firebaseRef;
-    if(type === "appetizer") firebaseRef = firebase.database().ref("appetizers/");
-    if(type === "main") firebaseRef = firebase.database().ref("mains/");
-    if(type === "dessert") firebaseRef = firebase.database().ref("desserts/");
-    if(type === "beverage") firebaseRef = firebase.database().ref("beverages/");
+    if(type === "appetizer") firebaseRef = firebase.database().ref("appetizer/");
+    if(type === "main") firebaseRef = firebase.database().ref("main/");
+    if(type === "dessert") firebaseRef = firebase.database().ref("dessert/");
+    if(type === "beverage") firebaseRef = firebase.database().ref("beverage/");
 
     firebaseRef.push({
       type,
