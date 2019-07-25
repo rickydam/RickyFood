@@ -34,6 +34,11 @@ export default class MenuItemDetailsScreen extends React.Component {
             <Text style={touchableOpacity().text}>Edit</Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => console.log("Delete menu item")}>
+          <View style={touchableOpacity("#CD0000", 40, 10, 60).view}>
+            <Text style={touchableOpacity().text}>Delete</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
