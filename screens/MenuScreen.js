@@ -30,7 +30,13 @@ export default class MenuScreen extends React.Component {
 
   componentDidMount() {
     let menuScreen = this;
-    this.loadMenuItems(menuScreen);
+    this.reRender = this.props.navigation.addListener("willFocus", () => {
+      this.loadMenuItems(this);
+    });
+  }
+
+  componentWillUnmount() {
+    this.reRender.remove();
   }
 
   render() {
