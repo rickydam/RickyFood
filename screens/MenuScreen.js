@@ -75,6 +75,8 @@ export default class MenuScreen extends React.Component {
   }
 
   loadMenuItems = async (menuScreen) => {
+    this.clearMenuItems();
+
     let loadAppetizers = firebase.database().ref("appetizer/").once("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         let appetizer = {};
@@ -123,4 +125,14 @@ export default class MenuScreen extends React.Component {
 
     this.setState({isDoneFetchingMenu: true});
   };
+
+  clearMenuItems = () => {
+    this.setState({
+      appetizers: [],
+      beverages: [],
+      desserts: [],
+      mains: [],
+      isDoneFetchingMenu: false
+    });
+  }
 }
