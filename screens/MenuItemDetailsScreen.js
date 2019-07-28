@@ -31,7 +31,13 @@ export default class MenuItemDetailsScreen extends React.Component {
         <Text>{this.state.navigationParams["name"]}</Text>
         <Text style={menuItemDetailsStyles.label}>Description</Text>
         <Text>{this.state.navigationParams["description"]}</Text>
-        <TouchableOpacity onPress={() => navigate("MenuItem", {purpose: "Edit"})}>
+        <TouchableOpacity onPress={() => navigate("MenuItem", {
+          purpose: "Edit",
+          id: this.state.navigationParams["id"],
+          name: this.state.navigationParams["name"],
+          description: this.state.navigationParams["description"],
+          type: this.state.navigationParams["type"]
+        })}>
           <View style={touchableOpacity("#2196F3", 40, 15, 60).view}>
             <Text style={touchableOpacity().text}>Edit</Text>
           </View>

@@ -12,14 +12,17 @@ export default class MenuItemScreen extends React.Component {
       type: "appetizer",
       name: "",
       description: "",
-      navigationParams: ""
     };
   }
 
   componentDidMount() {
-    this.setState({
-      navigationParams: this.props.navigation.state.params
-    });
+    if(this.props.navigation.state.params["purpose"] === "Edit") {
+      this.setState({
+        type: this.props.navigation.state.params["type"],
+        name: this.props.navigation.state.params["name"],
+        description: this.props.navigation.state.params["description"]
+      });
+    }
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -61,7 +64,7 @@ export default class MenuItemScreen extends React.Component {
             value={this.state.description}
           />
         </View>
-        <TouchableOpacity onPress={() => this.addMenuItem()}>
+        <TouchableOpacity onPress={() => this.saveButtonPressed()}>
           <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
             <Text style={touchableOpacity().text}>Save</Text>
           </View>
@@ -69,6 +72,15 @@ export default class MenuItemScreen extends React.Component {
       </View>
     );
   }
+
+  saveButtonPressed = () => {
+    if(this.props.navigation.state.params["purpose"] === "Add") {
+      this.addMenuItem();
+    }
+    if(this.props.navigation.state.params["purpose"] === "Edit") {
+      this.editMenuItem();
+    }
+  };
 
   addMenuItem = () => {
     let type = this.state.type;
@@ -97,4 +109,18 @@ export default class MenuItemScreen extends React.Component {
       console.log(error)
     });
   };
+
+  editMenuItem = () => {
+    let params = this.props.navigation.state.params;
+    let menuItemRef = firebase.database().ref(params.type);
+    let menuItem = menuItemRef.child(params.id);
+    menuItem.update({
+      type: this.state.type,
+      name: this.state.name,
+      description: this.state.description
+    }).then(() => {
+      ToastAndroid.show("Successfully updated menu item.", ToastAndroid.LONG);
+      this.props.navigation.goBack();
+    });
+  }
 }
