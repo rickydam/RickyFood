@@ -2,6 +2,7 @@ import React from "react";
 import { Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
+import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
 import touchableOpacity from "../styles/components/TouchableOpacity";
 
 export default class MenuItemDetailsScreen extends React.Component {
@@ -26,17 +27,17 @@ export default class MenuItemDetailsScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={mainStyles.container}>
-        <Text>Name</Text>
+        <Text style={menuItemDetailsStyles.label}>Name</Text>
         <Text>{this.state.navigationParams["name"]}</Text>
-        <Text>Description</Text>
+        <Text style={menuItemDetailsStyles.label}>Description</Text>
         <Text>{this.state.navigationParams["description"]}</Text>
         <TouchableOpacity onPress={() => navigate("MenuItem", {purpose: "Edit"})}>
-          <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+          <View style={touchableOpacity("#2196F3", 40, 15, 60).view}>
             <Text style={touchableOpacity().text}>Edit</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.deleteMenuItem()}>
-          <View style={touchableOpacity("#CD0000", 40, 10, 60).view}>
+          <View style={touchableOpacity("#CD0000", 40, 15, 60).view}>
             <Text style={touchableOpacity().text}>Delete</Text>
           </View>
         </TouchableOpacity>
