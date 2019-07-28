@@ -109,7 +109,7 @@ export default class MenuItemScreen extends React.Component {
       name: this.state.name,
       description: this.state.description
     }).then(() => {
-      ToastAndroid.show("Successfully updated menu item.", ToastAndroid.LONG);
+      ToastAndroid.show("Successfully edited: " + this.state.name, ToastAndroid.LONG);
       this.props.navigation.goBack();
     });
   }
