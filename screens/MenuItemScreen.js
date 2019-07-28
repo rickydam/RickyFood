@@ -74,12 +74,9 @@ export default class MenuItemScreen extends React.Component {
   }
 
   saveButtonPressed = () => {
-    if(this.props.navigation.state.params["purpose"] === "Add") {
-      this.addMenuItem();
-    }
-    if(this.props.navigation.state.params["purpose"] === "Edit") {
-      this.editMenuItem();
-    }
+    if(this.props.navigation.state.params["purpose"] === "Add") this.addMenuItem();
+    else if(this.props.navigation.state.params["purpose"] === "Edit") this.editMenuItem();
+    else {}
   };
 
   addMenuItem = () => {
@@ -107,10 +104,7 @@ export default class MenuItemScreen extends React.Component {
   };
 
   editMenuItem = () => {
-    let params = this.props.navigation.state.params;
-    let menuItemRef = firebase.database().ref("menu/");
-    let menuItem = menuItemRef.child(params.id);
-    menuItem.update({
+    firebase.database().ref("menu/").child(this.props.navigation.state.params.id).update({
       type: this.state.type,
       name: this.state.name,
       description: this.state.description
