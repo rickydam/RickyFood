@@ -46,13 +46,12 @@ export default class MenuItemDetailsScreen extends React.Component {
   }
 
   deleteMenuItem = () => {
-    let menuScreen = this;
     let params = this.state.navigationParams;
     let menuItemRef = firebase.database().ref(params.type);
     let menuItemChild = menuItemRef.child(params.id);
     menuItemChild.remove().then(() => {
       ToastAndroid.show("Successfully removed: " + params.name, ToastAndroid.LONG);
-      menuScreen.props.navigation.goBack();
+      this.props.navigation.goBack();
     });
   };
 }
