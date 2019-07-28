@@ -92,6 +92,7 @@ export default class MenuItemScreen extends React.Component {
         description: ""
       });
       ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
+      this.props.navigation.goBack();
     }).catch((error) => {
       console.log(error)
     });
