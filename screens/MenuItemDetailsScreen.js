@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
@@ -45,9 +45,13 @@ export default class MenuItemDetailsScreen extends React.Component {
   }
 
   deleteMenuItem = () => {
+    let menuScreen = this;
     let params = this.state.navigationParams;
     let menuItemRef = firebase.database().ref(params.type);
     let menuItemChild = menuItemRef.child(params.id);
-    menuItemChild.remove();
+    menuItemChild.remove().then(() => {
+      ToastAndroid.show("Successfully removed: " + params.name, ToastAndroid.LONG);
+      menuScreen.props.navigation.goBack();
+    });
   };
 }
