@@ -29,9 +29,8 @@ export default class MenuScreen extends React.Component {
   });
 
   componentDidMount() {
-    let menuScreen = this;
     this.reRender = this.props.navigation.addListener("willFocus", () => {
-      this.loadMenuItems(this);
+      this.loadMenuItems();
     });
   }
 
@@ -80,7 +79,9 @@ export default class MenuScreen extends React.Component {
     }
   }
 
-  loadMenuItems = async (menuScreen) => {
+  loadMenuItems = async () => {
+    let menuScreen = this;
+
     this.clearMenuItems();
 
     let loadAppetizers = firebase.database().ref("appetizer/").once("value", function(snapshot) {
