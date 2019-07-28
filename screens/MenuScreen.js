@@ -1,5 +1,5 @@
 import React from "react";
-import { SectionList, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import menuStyles from "../styles/MenuStyles";
@@ -13,7 +13,8 @@ export default class MenuScreen extends React.Component {
       beverages: [],
       desserts: [],
       mains: [],
-      isDoneFetchingMenu: false
+      isDoneFetchingMenu: false,
+      refreshing: false
     };
   }
 
@@ -66,6 +67,12 @@ export default class MenuScreen extends React.Component {
             )}
             renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
             keyExtractor={(item, index) => index}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh}
+              />
+            }
           />
         </View>
       );
@@ -78,6 +85,14 @@ export default class MenuScreen extends React.Component {
       );
     }
   }
+
+  onRefresh = () => {
+
+    this.setState({refreshing: true});
+    this.loadMenuItems().then(() => {
+      this.setState({refreshing: false});
+    });
+  };
 
   loadMenuItems = async () => {
     let menuScreen = this;
