@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, ToastAndroid, TouchableOpacity, View } from "react-native";
+import { Alert, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
@@ -33,12 +33,23 @@ export default class MenuItemDetailsScreen extends React.Component {
             <Text style={touchableOpacity().text}>Edit</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.deleteMenuItem()}>
+        <TouchableOpacity onPress={() => this.deleteButtonPressed()}>
           <View style={touchableOpacity("#CD0000", 40, 15, 60).view}>
             <Text style={touchableOpacity().text}>Delete</Text>
           </View>
         </TouchableOpacity>
       </View>
+    );
+  }
+
+  deleteButtonPressed() {
+    Alert.alert(
+      "Confirm Delete",
+      "Are you sure you want to delete this menu item? This cannot be undone.",
+      [
+        {text: "Cancel", onPress: () => {}},
+        {text: "OK", onPress: () => this.deleteMenuItem()}
+      ]
     );
   }
 
