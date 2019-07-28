@@ -87,11 +87,7 @@ export default class MenuItemScreen extends React.Component {
     let name = this.state.name;
     let description = this.state.description;
 
-    let firebaseRef;
-    if(type === "appetizer") firebaseRef = firebase.database().ref("appetizer/");
-    if(type === "main") firebaseRef = firebase.database().ref("main/");
-    if(type === "dessert") firebaseRef = firebase.database().ref("dessert/");
-    if(type === "beverage") firebaseRef = firebase.database().ref("beverage/");
+    let firebaseRef = firebase.database().ref("menu/");
 
     firebaseRef.push({
       type,
@@ -112,7 +108,7 @@ export default class MenuItemScreen extends React.Component {
 
   editMenuItem = () => {
     let params = this.props.navigation.state.params;
-    let menuItemRef = firebase.database().ref(params.type);
+    let menuItemRef = firebase.database().ref("menu/");
     let menuItem = menuItemRef.child(params.id);
     menuItem.update({
       type: this.state.type,
