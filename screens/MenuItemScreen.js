@@ -11,7 +11,7 @@ export default class MenuItemScreen extends React.Component {
     this.state = {
       type: "appetizer",
       name: "",
-      description: "",
+      description: ""
     };
   }
 
