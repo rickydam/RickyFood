@@ -87,7 +87,6 @@ export default class MenuScreen extends React.Component {
   }
 
   onRefresh = () => {
-
     this.setState({refreshing: true});
     this.loadMenuItems().then(() => {
       this.setState({refreshing: false});
