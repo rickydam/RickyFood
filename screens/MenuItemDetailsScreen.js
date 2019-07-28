@@ -38,6 +38,8 @@ export default class MenuItemDetailsScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={mainStyles.container}>
+        <Text style={menuItemDetailsStyles.label}>Type</Text>
+        <Text>{this.state.type.charAt(0).toUpperCase() + this.state.type.slice(1)}</Text>
         <Text style={menuItemDetailsStyles.label}>Name</Text>
         <Text>{this.state.name}</Text>
         <Text style={menuItemDetailsStyles.label}>Description</Text>
