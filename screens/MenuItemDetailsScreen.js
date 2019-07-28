@@ -8,20 +8,40 @@ import touchableOpacity from "../styles/components/TouchableOpacity";
 export default class MenuItemDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      type: "",
+      name: "",
+      description: ""
+    };
   }
 
   static navigationOptions = {
     title: "Menu Item Details"
   };
 
+  componentDidMount() {
+    this.setState({
+      type: this.props.navigation.state.params["type"],
+      name: this.props.navigation.state.params["name"],
+      description: this.props.navigation.state.params["description"]
+    });
+    this.reRender = this.props.navigation.addListener("willFocus", () => {
+      this.reloadMenuItem();
+    });
+  }
+
+  componentWillUnmount() {
+    this.reRender.remove();
+  }
+
   render() {
     const {navigate} = this.props.navigation;
     return (
       <View style={mainStyles.container}>
         <Text style={menuItemDetailsStyles.label}>Name</Text>
-        <Text>{this.props.navigation.state.params["name"]}</Text>
+        <Text>{this.state.name}</Text>
         <Text style={menuItemDetailsStyles.label}>Description</Text>
-        <Text>{this.props.navigation.state.params["description"]}</Text>
+        <Text>{this.state.description}</Text>
         <TouchableOpacity onPress={() => navigate("MenuItem", {
           purpose: "Edit",
           id: this.props.navigation.state.params["id"],
@@ -59,4 +79,15 @@ export default class MenuItemDetailsScreen extends React.Component {
       this.props.navigation.goBack();
     });
   };
+
+  reloadMenuItem = () => {
+    let menuItemDetailScreen = this;
+    let loadMenuItem = firebase.database().ref("/menu").child(this.props.navigation.state.params.id).once("value", function(snapshot) {
+      menuItemDetailScreen.setState({
+        type: snapshot.val().type,
+        name: snapshot.val().name,
+        description: snapshot.val().description
+      });
+    });
+  }
 }
