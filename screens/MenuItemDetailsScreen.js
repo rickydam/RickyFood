@@ -8,35 +8,26 @@ import touchableOpacity from "../styles/components/TouchableOpacity";
 export default class MenuItemDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      navigationParams: ""
-    }
   }
 
   static navigationOptions = {
     title: "Menu Item Details"
   };
 
-  componentDidMount() {
-    this.setState({
-      navigationParams: this.props.navigation.state.params
-    });
-  }
-
   render() {
     const {navigate} = this.props.navigation;
     return (
       <View style={mainStyles.container}>
         <Text style={menuItemDetailsStyles.label}>Name</Text>
-        <Text>{this.state.navigationParams["name"]}</Text>
+        <Text>{this.props.navigation.state.params["name"]}</Text>
         <Text style={menuItemDetailsStyles.label}>Description</Text>
-        <Text>{this.state.navigationParams["description"]}</Text>
+        <Text>{this.props.navigation.state.params["description"]}</Text>
         <TouchableOpacity onPress={() => navigate("MenuItem", {
           purpose: "Edit",
-          id: this.state.navigationParams["id"],
-          name: this.state.navigationParams["name"],
-          description: this.state.navigationParams["description"],
-          type: this.state.navigationParams["type"]
+          id: this.props.navigation.state.params["id"],
+          name: this.props.navigation.state.params["name"],
+          description: this.props.navigation.state.params["description"],
+          type: this.props.navigation.state.params["type"]
         })}>
           <View style={touchableOpacity("#2196F3", 40, 15, 60).view}>
             <Text style={touchableOpacity().text}>Edit</Text>
@@ -52,11 +43,10 @@ export default class MenuItemDetailsScreen extends React.Component {
   }
 
   deleteMenuItem = () => {
-    let params = this.state.navigationParams;
-    let menuItemRef = firebase.database().ref(params.type);
-    let menuItem = menuItemRef.child(params.id);
+    let menuItemRef = firebase.database().ref(this.props.navigation.state.params.type);
+    let menuItem = menuItemRef.child(this.props.navigation.state.params.id);
     menuItem.remove().then(() => {
-      ToastAndroid.show("Successfully removed: " + params.name, ToastAndroid.LONG);
+      ToastAndroid.show("Successfully removed: " + this.props.navigation.state.params.name, ToastAndroid.LONG);
       this.props.navigation.goBack();
     });
   };
