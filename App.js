@@ -6,12 +6,14 @@ import HomeScreen from "./screens/HomeScreen";
 import MenuScreen from "./screens/MenuScreen";
 import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
+import RestaurantScreen from "./screens/RestaurantScreen";
 
 const AppNavigator = createStackNavigator({
   Home: HomeScreen,
   Menu: MenuScreen,
   MenuItem: MenuItemScreen,
-  MenuItemDetails: MenuItemDetailsScreen
+  MenuItemDetails: MenuItemDetailsScreen,
+  Restaurant: RestaurantScreen
 }, {
   initialRouteName: "Home"
 });
