@@ -7,6 +7,7 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = {
     title: "RLagu"
   };
+
   render() {
     return (
       <View style={mainStyles.container}>
