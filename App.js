@@ -3,6 +3,7 @@ import { YellowBox } from "react-native";
 import { createStackNavigator, createAppContainer } from "react-navigation";
 import firebase from "firebase";
 import HomeScreen from "./screens/HomeScreen";
+import LayoutScreen from "./screens/LayoutScreen";
 import MenuScreen from "./screens/MenuScreen";
 import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
@@ -10,6 +11,7 @@ import RestaurantScreen from "./screens/RestaurantScreen";
 
 const AppNavigator = createStackNavigator({
   Home: HomeScreen,
+  Layout: LayoutScreen,
   Menu: MenuScreen,
   MenuItem: MenuItemScreen,
   MenuItemDetails: MenuItemDetailsScreen,
