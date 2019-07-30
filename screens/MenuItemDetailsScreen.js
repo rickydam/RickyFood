@@ -35,7 +35,6 @@ export default class MenuItemDetailsScreen extends React.Component {
   }
 
   render() {
-    const {navigate} = this.props.navigation;
     return (
       <View style={mainStyles.container}>
         <Text style={menuItemDetailsStyles.label}>Type</Text>
@@ -44,7 +43,7 @@ export default class MenuItemDetailsScreen extends React.Component {
         <Text>{this.state.name}</Text>
         <Text style={menuItemDetailsStyles.label}>Description</Text>
         <Text>{this.state.description}</Text>
-        <TouchableOpacity onPress={() => navigate("MenuItem", {
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("MenuItem", {
           purpose: "Edit",
           id: this.props.navigation.state.params["id"],
           name: this.props.navigation.state.params["name"],

@@ -41,7 +41,6 @@ export default class MenuScreen extends React.Component {
 
   render() {
     if(this.state.isDoneFetchingMenu) {
-      const {navigate} = this.props.navigation;
       return (
         <View style={mainStyles.container}>
           <SectionList
@@ -53,7 +52,7 @@ export default class MenuScreen extends React.Component {
             ]}
             renderItem={({item}) => (
               <TouchableHighlight
-                onPress={() => navigate("MenuItemDetails", {
+                onPress={() => this.props.navigation.navigate("MenuItemDetails", {
                   id: item["id"],
                   type: item["type"],
                   name: item["name"],
