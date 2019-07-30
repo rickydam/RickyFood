@@ -16,6 +16,11 @@ export default class HomeScreen extends React.Component {
             <Text style={touchableOpacity().text}>View Menu</Text>
           </View>
         </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate("Restaurant")}>
+          <View style={touchableOpacity("#9932CC", 40, 20, 130).view}>
+            <Text style={touchableOpacity().text}>View Restaurant</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
