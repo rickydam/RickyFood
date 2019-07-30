@@ -8,13 +8,13 @@ import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 
 const AppNavigator = createStackNavigator({
-    Home: HomeScreen,
-    Menu: MenuScreen,
-    MenuItem: MenuItemScreen,
-    MenuItemDetails: MenuItemDetailsScreen
-  }, {
-    initialRouteName: "Home"
-  });
+  Home: HomeScreen,
+  Menu: MenuScreen,
+  MenuItem: MenuItemScreen,
+  MenuItemDetails: MenuItemDetailsScreen
+}, {
+  initialRouteName: "Home"
+});
 const AppContainer = createAppContainer(AppNavigator);
 
 export default class App extends React.Component {
