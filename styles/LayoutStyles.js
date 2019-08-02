@@ -5,6 +5,9 @@ const layoutStyles = StyleSheet.create({
     backgroundColor: "gray",
     width: 60,
     height: 60
+  },
+  header: {
+    flexDirection: "row"
   }
 });
 
