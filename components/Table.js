@@ -26,20 +26,20 @@ export default class Table extends React.Component {
     });
   }
 
-  render() {
+  render = () => {
     return (
       <View>
         {this.renderTable()}
       </View>
     );
-  }
+  };
 
-  renderTable() {
+  renderTable = () => {
     return (
       <Animated.View
         {...this.panResponder.panHandlers}
         style={[this.state.position.getLayout(), layoutStyles.table]}>
       </Animated.View>
     );
-  }
+  };
 }
