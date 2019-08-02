@@ -10,10 +10,7 @@ export default class LayoutScreen extends React.Component {
     super(props);
 
     this.state = {
-      tables: [
-        [-100, -100],
-        [100, 100]
-      ]
+      tables: []
     };
   }
 
