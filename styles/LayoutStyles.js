@@ -4,8 +4,8 @@ const layoutStyles = StyleSheet.create({
   table: {
     backgroundColor: "gray",
     position: "absolute",
-    width: 60,
-    height: 60
+    height: 60,
+    width: 60
   },
   header: {
     flexDirection: "row"
