@@ -1,4 +1,6 @@
 import React from "react";
+import {View} from "react-native";
+import mainStyles from "../styles/MainStyles";
 import Table from "../components/Table";
 
 export default class LayoutScreen extends React.Component {
@@ -8,7 +10,9 @@ export default class LayoutScreen extends React.Component {
 
   render() {
     return (
-      <Table />
+      <View style={mainStyles.container}>
+        <Table />
+      </View>
     );
   }
 }

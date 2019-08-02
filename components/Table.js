@@ -26,7 +26,7 @@ export default class Table extends React.Component {
 
   render() {
     return (
-      <View style={mainStyles.container}>
+      <View>
         {this.renderTable()}
       </View>
     );
