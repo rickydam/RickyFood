@@ -7,7 +7,10 @@ export default class Table extends React.Component {
     super(props);
 
     this.state = {
-      position: new Animated.ValueXY()
+      position: new Animated.ValueXY({
+        x: this.props.values[0],
+        y: this.props.values[1]
+      })
     };
 
     this.panResponder = PanResponder.create({
