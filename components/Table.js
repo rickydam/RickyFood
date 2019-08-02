@@ -1,5 +1,5 @@
 import React from "react";
-import {Animated, PanResponder, Text, View} from "react-native";
+import {Animated, PanResponder, View} from "react-native";
 import layoutStyles from "../styles/LayoutStyles";
 
 export default class Table extends React.Component {
@@ -39,7 +39,6 @@ export default class Table extends React.Component {
       <Animated.View
         {...this.panResponder.panHandlers}
         style={[this.state.position.getLayout(), layoutStyles.table]}>
-        <Text>Drag me!</Text>
       </Animated.View>
     );
   }
