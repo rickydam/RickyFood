@@ -54,7 +54,6 @@ export default class LayoutScreen extends React.Component {
       tables: this.state.tables
     });
   };
-  }
 }
 
 function saveLayout() {}
