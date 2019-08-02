@@ -53,6 +53,7 @@ export default class LayoutScreen extends React.Component {
     this.setState({
       tables: this.state.tables
     });
+  };
   }
 }
 
