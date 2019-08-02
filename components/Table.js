@@ -1,6 +1,5 @@
 import React from "react";
 import {Animated, PanResponder, Text, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
 import layoutStyles from "../styles/LayoutStyles";
 
 export default class Table extends React.Component {
