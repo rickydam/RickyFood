@@ -10,7 +10,12 @@ export default class Table extends React.Component {
       position: new Animated.ValueXY({
         x: this.props.values[0],
         y: this.props.values[1]
-      })
+      }),
+      coordinates: {
+        x: this.props.values[0],
+        y: this.props.values[1]
+      },
+      key: this.props.id
     };
 
     this.panResponder = PanResponder.create({
@@ -22,7 +27,20 @@ export default class Table extends React.Component {
       onPanResponderMove: Animated.event([null, {
         dx: this.state.position.x,
         dy: this.state.position.y
-      }])
+      }]),
+      onPanResponderRelease: (event, gesture) => {
+        this.props.callback({
+          key: this.state.key,
+          x: this.state.coordinates.x + this.state.position.x._value,
+          y: this.state.coordinates.y + this.state.position.y._value
+        });
+        this.setState({
+          coordinates: {
+            x: this.state.coordinates.x + this.state.position.x._value,
+            y: this.state.coordinates.y + this.state.position.y._value
+          }
+        });
+      }
     });
   }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import {Text, TouchableOpacity, View} from "react-native";
+import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import layoutStyles from "../styles/LayoutStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
@@ -23,7 +24,7 @@ export default class LayoutScreen extends React.Component {
             <Text style={touchableOpacity().text}>Add</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => saveLayout()}>
+        <TouchableOpacity onPress={() => navigation.state.params.saveLayout()}>
           <View style={touchableOpacity("#9932CC", 40, 5, 60).view}>
             <Text style={touchableOpacity().text}>Save</Text>
           </View>
@@ -33,12 +34,15 @@ export default class LayoutScreen extends React.Component {
   });
 
   componentDidMount() {
-    this.props.navigation.setParams({addTable: this.addTable})
+    this.props.navigation.setParams({
+      addTable: this.addTable,
+      saveLayout: this.saveLayout
+    });
   }
 
   render() {
     let tables = this.state.tables.map((table, index) => {
-      return <Table key={index} values={[table[0], table[1]]} />
+      return <Table key={index} id={index} values={[table[0], table[1]]} callback={this.updateTableCoordinates} />
     });
 
     return (
@@ -54,6 +58,18 @@ export default class LayoutScreen extends React.Component {
       tables: this.state.tables
     });
   };
-}
 
-function saveLayout() {}
+  updateTableCoordinates = (table) => {
+    let tables = this.state.tables;
+    tables[table.key] = [table.x, table.y];
+    this.setState({
+      tables: tables
+    });
+  };
+
+  saveLayout = () => {
+    firebase.database().ref("tables/").set({
+      restaurant1: this.state.tables
+    })
+  };
+}
