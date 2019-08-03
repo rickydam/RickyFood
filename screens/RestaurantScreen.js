@@ -25,7 +25,14 @@ export default class RestaurantScreen extends React.Component {
   });
 
   componentDidMount() {
-    this.loadTables();
+    this.reRender = this.props.navigation.addListener("willFocus", () => {
+      this.setState({tables: null});
+      this.loadTables();
+    });
+  }
+
+  componentWillUnmount() {
+    this.reRender.remove();
   }
 
   render() {
