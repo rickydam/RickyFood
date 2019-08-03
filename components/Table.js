@@ -18,30 +18,37 @@ export default class Table extends React.Component {
       key: this.props.id
     };
 
-    this.panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
-      onPanResponderGrant: (event, gesture) => {
-        this.state.position.setOffset(this.state.position.__getValue());
-        this.state.position.setValue({x: 0, y: 0})
-      },
-      onPanResponderMove: Animated.event([null, {
-        dx: this.state.position.x,
-        dy: this.state.position.y
-      }]),
-      onPanResponderRelease: (event, gesture) => {
-        this.props.callback({
-          key: this.state.key,
-          x: this.state.coordinates.x + this.state.position.x._value,
-          y: this.state.coordinates.y + this.state.position.y._value
-        });
-        this.setState({
-          coordinates: {
+    if(this.props.screen === "layout") {
+      this.panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: () => true,
+        onPanResponderGrant: (event, gesture) => {
+          this.state.position.setOffset(this.state.position.__getValue());
+          this.state.position.setValue({x: 0, y: 0})
+        },
+        onPanResponderMove: Animated.event([null, {
+          dx: this.state.position.x,
+          dy: this.state.position.y
+        }]),
+        onPanResponderRelease: (event, gesture) => {
+          this.props.callback({
+            key: this.state.key,
             x: this.state.coordinates.x + this.state.position.x._value,
             y: this.state.coordinates.y + this.state.position.y._value
-          }
-        });
-      }
-    });
+          });
+          this.setState({
+            coordinates: {
+              x: this.state.coordinates.x + this.state.position.x._value,
+              y: this.state.coordinates.y + this.state.position.y._value
+            }
+          });
+        }
+      });
+    }
+    else {
+      this.panResponder = PanResponder.create({
+        onStartShouldSetPanResponder: () => true
+      });
+    }
   }
 
   render = () => {
@@ -53,11 +60,20 @@ export default class Table extends React.Component {
   };
 
   renderTable = () => {
-    return (
-      <Animated.View
-        {...this.panResponder.panHandlers}
-        style={[this.state.position.getLayout(), layoutStyles.table]}>
-      </Animated.View>
-    );
+    if(this.props.screen === "layout") {
+      return (
+        <Animated.View
+          {...this.panResponder.panHandlers}
+          style={[this.state.position.getLayout(), layoutStyles.table]}>
+        </Animated.View>
+      );
+    }
+    else {
+      return (
+        <Animated.View
+          style={[this.state.position.getLayout(), layoutStyles.table]}>
+        </Animated.View>
+      );
+    }
   };
 }
