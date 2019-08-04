@@ -92,7 +92,7 @@ export default class MenuScreen extends React.Component {
     });
   };
 
-  async loadMenuItems() {
+  loadMenuItems = async () => {
     this.clearMenuItems();
     let menuObj = await firebaseFunctions.loadMenuItems(this);
     this.setState({
@@ -102,7 +102,7 @@ export default class MenuScreen extends React.Component {
       desserts: menuObj["desserts"],
       mains: menuObj["mains"]
     });
-  }
+  };
 
   clearMenuItems = () => {
     this.setState({
