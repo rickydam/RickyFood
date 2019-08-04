@@ -55,8 +55,10 @@ module.exports = {
       menuItemScreen.props.navigation.goBack();
       return true;
     }).catch((error) => {
-      console.log(error)
+      ToastAndroid.show("Error adding menu item: " + error, ToastAndroid.LONG);
+      console.log(error);
     });
+    ToastAndroid.show("Unable to add menu item: " + name, ToastAndroid.LONG);
     return false;
   }
 };
