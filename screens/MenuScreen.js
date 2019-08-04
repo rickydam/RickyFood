@@ -1,9 +1,9 @@
 import React from "react";
 import { RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
-import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import menuStyles from "../styles/MenuStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
+import firebaseFunctions from "../firebase/firebaseFunctions";
 
 export default class MenuScreen extends React.Component {
   constructor(props) {
@@ -92,53 +92,17 @@ export default class MenuScreen extends React.Component {
     });
   };
 
-  loadMenuItems = async () => {
-    let menuScreen = this;
-
+  async loadMenuItems() {
     this.clearMenuItems();
-
-    let loadMenu = firebase.database().ref("menu/").once("value", function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        if(childSnapshot.val().type === "appetizer") {
-          let appetizer = {};
-          appetizer["id"] = childSnapshot.key;
-          appetizer["type"] = childSnapshot.val().type;
-          appetizer["name"] = childSnapshot.val().name;
-          appetizer["description"] = childSnapshot.val().description;
-          menuScreen.state.appetizers.push(appetizer);
-        }
-        else if(childSnapshot.val().type === "beverage") {
-          let beverage = {};
-          beverage["id"] = childSnapshot.key;
-          beverage["type"] = childSnapshot.val().type;
-          beverage["name"] = childSnapshot.val().name;
-          beverage["description"] = childSnapshot.val().description;
-          menuScreen.state.beverages.push(beverage);
-        }
-        else if(childSnapshot.val().type === "dessert") {
-          let dessert = {};
-          dessert["id"] = childSnapshot.key;
-          dessert["type"] = childSnapshot.val().type;
-          dessert["name"] = childSnapshot.val().name;
-          dessert["description"] = childSnapshot.val().description;
-          menuScreen.state.desserts.push(dessert);
-        }
-        else if(childSnapshot.val().type === "main") {
-          let main = {};
-          main["id"] = childSnapshot.key;
-          main["type"] = childSnapshot.val().type;
-          main["name"] = childSnapshot.val().name;
-          main["description"] = childSnapshot.val().description;
-          menuScreen.state.mains.push(main);
-        }
-        else {}
-      });
+    let menuObj = await firebaseFunctions.loadMenuItems(this);
+    this.setState({
+      isDoneFetchingMenu: true,
+      appetizers: menuObj["appetizers"],
+      beverages: menuObj["beverages"],
+      desserts: menuObj["desserts"],
+      mains: menuObj["mains"]
     });
-
-    await Promise.all([loadMenu]);
-
-    this.setState({isDoneFetchingMenu: true});
-  };
+  }
 
   clearMenuItems = () => {
     this.setState({
