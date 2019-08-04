@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import {StyleSheet} from "react-native";
 
 const touchableOpacity = (backgroundColor, height, margin, width) => StyleSheet.create({
   view: {

@@ -1,5 +1,5 @@
 import React from "react";
-import { RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import {RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import menuStyles from "../styles/MenuStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";

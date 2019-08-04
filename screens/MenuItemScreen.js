@@ -1,5 +1,5 @@
 import React from "react";
-import { Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View } from "react-native";
+import {Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import addMenuItemStyles from "../styles/MenuItemStyles";
