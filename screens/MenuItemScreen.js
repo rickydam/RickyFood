@@ -4,7 +4,7 @@ import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import addMenuItemStyles from "../styles/MenuItemStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../firebase/firebaseFunctions";
+import firebaseFunctions from "../firebase/FirebaseFunctions";
 
 export default class MenuItemScreen extends React.Component {
   constructor(props) {
