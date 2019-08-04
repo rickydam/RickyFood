@@ -4,6 +4,7 @@ import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import addMenuItemStyles from "../styles/MenuItemStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
+import firebaseFunctions from "../firebase/firebaseFunctions";
 
 export default class MenuItemScreen extends React.Component {
   constructor(props) {
@@ -83,24 +84,13 @@ export default class MenuItemScreen extends React.Component {
     let type = this.state.type;
     let name = this.state.name;
     let description = this.state.description;
-
-    let firebaseRef = firebase.database().ref("menu/");
-
-    firebaseRef.push({
-      type,
-      name,
-      description
-    }).then(() => {
+    if(firebaseFunctions.addMenuItem(this, type, name, description)) {
       this.setState({
         type: "appetizer",
         name: "",
         description: ""
       });
-      ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
-      this.props.navigation.goBack();
-    }).catch((error) => {
-      console.log(error)
-    });
+    }
   };
 
   editMenuItem = () => {

@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import {ToastAndroid} from "react-native";
 
 module.exports = {
   loadMenuItems: async (menuScreen) => {
@@ -47,5 +48,15 @@ module.exports = {
     });
     await Promise.all([loadMenu]);
     return menuObj;
+  },
+  addMenuItem: (menuItemScreen, type, name, description) => {
+    firebase.database().ref("menu/").push({type, name, description}).then(() => {
+      ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
+      menuItemScreen.props.navigation.goBack();
+      return true;
+    }).catch((error) => {
+      console.log(error)
+    });
+    return false;
   }
 };
