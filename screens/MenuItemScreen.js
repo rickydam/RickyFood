@@ -81,10 +81,7 @@ export default class MenuItemScreen extends React.Component {
   };
 
   addMenuItem = () => {
-    let type = this.state.type;
-    let name = this.state.name;
-    let description = this.state.description;
-    if(firebaseFunctions.addMenuItem(this, type, name, description)) {
+    if(firebaseFunctions.addMenuItem(this, this.state.type, this.state.name, this.state.description)) {
       this.setState({
         type: "appetizer",
         name: "",
