@@ -60,5 +60,18 @@ module.exports = {
     });
     ToastAndroid.show("Unable to add menu item: " + name, ToastAndroid.LONG);
     return false;
+  },
+  editMenuItem: (menuItemScreen, id, type, name, description) => {
+    firebase.database().ref("menu/").child(id).update({
+      type: type,
+      name: name,
+      description: description
+    }).then(() => {
+      ToastAndroid.show("Successfully edited: " + name, ToastAndroid.LONG);
+      menuItemScreen.props.navigation.goBack();
+      return true;
+    });
+    ToastAndroid.show("Unable to edit menu item: " + name, ToastAndroid.LONG);
+    return false;
   }
 };

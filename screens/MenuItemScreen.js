@@ -91,13 +91,17 @@ export default class MenuItemScreen extends React.Component {
   };
 
   editMenuItem = () => {
-    firebase.database().ref("menu/").child(this.props.navigation.state.params.id).update({
-      type: this.state.type,
-      name: this.state.name,
-      description: this.state.description
-    }).then(() => {
-      ToastAndroid.show("Successfully edited: " + this.state.name, ToastAndroid.LONG);
-      this.props.navigation.goBack();
-    });
+    let menuItemScreen = this;
+    let id = this.props.navigation.state.params.id;
+    let type = this.state.type;
+    let name = this.state.name;
+    let description = this.state.description;
+    if(firebaseFunctions.editMenuItem(menuItemScreen, id, type, name, description)) {
+      this.setState({
+        type: "appetizer",
+        name: "",
+        description: ""
+      })
+    }
   }
 }
