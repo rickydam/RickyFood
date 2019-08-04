@@ -112,5 +112,5 @@ export default class MenuScreen extends React.Component {
       mains: [],
       isDoneFetchingMenu: false
     });
-  }
+  };
 }
