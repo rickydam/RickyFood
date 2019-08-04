@@ -8,7 +8,6 @@ module.exports = {
       desserts: [],
       mains: []
     };
-
     let loadMenu = firebase.database().ref("menu/").once("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         if(childSnapshot.val().type === "appetizer") {
@@ -46,9 +45,7 @@ module.exports = {
         else {}
       });
     });
-
     await Promise.all([loadMenu]);
-
     return menuObj;
   }
 };
