@@ -85,11 +85,7 @@ export default class MenuItemScreen extends React.Component {
     let name = this.state.name;
     let description = this.state.description;
     if(firebaseFunctions.addMenuItem(menuItemScreen, type, name, description)) {
-      this.setState({
-        type: "appetizer",
-        name: "",
-        description: ""
-      });
+      this.resetState();
     }
   };
 
@@ -100,11 +96,15 @@ export default class MenuItemScreen extends React.Component {
     let name = this.state.name;
     let description = this.state.description;
     if(firebaseFunctions.editMenuItem(menuItemScreen, id, type, name, description)) {
-      this.setState({
-        type: "appetizer",
-        name: "",
-        description: ""
-      })
+      this.resetState();
     }
+  };
+
+  resetState = () => {
+    this.setState({
+      type: "appetizer",
+      name: "",
+      description: ""
+    })
   };
 }
