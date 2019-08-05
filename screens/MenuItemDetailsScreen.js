@@ -1,9 +1,10 @@
 import React from "react";
-import {Alert, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Alert, Text, TouchableOpacity, View} from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
 import touchableOpacity from "../styles/components/TouchableOpacity";
+import firebaseFunctions from "../firebase/FirebaseFunctions";
 
 export default class MenuItemDetailsScreen extends React.Component {
   constructor(props) {
@@ -75,10 +76,10 @@ export default class MenuItemDetailsScreen extends React.Component {
   }
 
   deleteMenuItem = () => {
-    firebase.database().ref("menu/").child(this.props.navigation.state.params.id).remove().then(() => {
-      ToastAndroid.show("Successfully deleted: " + this.props.navigation.state.params.name, ToastAndroid.LONG);
-      this.props.navigation.goBack();
-    });
+    let menuItemDetailsScreen = this;
+    let id = this.props.navigation.state.params.id;
+    let name = this.state.name;
+    firebaseFunctions.deleteMenuItem(menuItemDetailsScreen, id, name);
   };
 
   reloadMenuItem = () => {

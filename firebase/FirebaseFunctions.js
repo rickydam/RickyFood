@@ -75,5 +75,15 @@ module.exports = {
     });
     ToastAndroid.show("Unable to edit menu item: " + name, ToastAndroid.LONG);
     return false;
+  },
+
+  deleteMenuItem: (menuItemDetailsScreen, id, name) => {
+    firebase.database().ref("menu").child(id).remove().then(() => {
+      ToastAndroid.show("Successfully deleted: " + name, ToastAndroid.LONG);
+      menuItemDetailsScreen.props.navigation.goBack();
+      return true;
+    });
+    ToastAndroid.show("Unable to delete menu item: " + name, ToastAndroid.LONG);
+    return false;
   }
 };
