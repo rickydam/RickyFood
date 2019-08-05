@@ -85,5 +85,19 @@ module.exports = {
     });
     ToastAndroid.show("Unable to delete menu item: " + name, ToastAndroid.LONG);
     return false;
+  },
+
+  reloadMenuItem: (menuItemDetailsScreen, id) => {
+    firebase.database().ref("menu").child(id).once("value", function(snapshot) {
+      if(snapshot.val() != null) {
+        menuItemDetailsScreen.setState({
+          type: snapshot.val().type,
+          name: snapshot.val().name,
+          description: snapshot.val().description
+        });
+        return true;
+      }
+      return false;
+    });
   }
 };

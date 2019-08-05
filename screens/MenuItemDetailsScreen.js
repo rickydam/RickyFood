@@ -1,6 +1,5 @@
 import React from "react";
 import {Alert, Text, TouchableOpacity, View} from "react-native";
-import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
 import touchableOpacity from "../styles/components/TouchableOpacity";
@@ -83,13 +82,8 @@ export default class MenuItemDetailsScreen extends React.Component {
   };
 
   reloadMenuItem = () => {
-    let menuItemDetailScreen = this;
-    let loadMenuItem = firebase.database().ref("/menu").child(this.props.navigation.state.params.id).once("value", function(snapshot) {
-      menuItemDetailScreen.setState({
-        type: snapshot.val().type,
-        name: snapshot.val().name,
-        description: snapshot.val().description
-      });
-    });
-  }
+    let menuItemDetailsScreen = this;
+    let id = this.props.navigation.state.params.id;
+    firebaseFunctions.reloadMenuItem(menuItemDetailsScreen, id);
+  };
 }
