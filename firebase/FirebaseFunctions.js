@@ -49,6 +49,7 @@ module.exports = {
     await Promise.all([loadMenu]);
     return menuObj;
   },
+
   addMenuItem: (menuItemScreen, type, name, description) => {
     firebase.database().ref("menu/").push({type, name, description}).then(() => {
       ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
@@ -61,6 +62,7 @@ module.exports = {
     ToastAndroid.show("Unable to add menu item: " + name, ToastAndroid.LONG);
     return false;
   },
+
   editMenuItem: (menuItemScreen, id, type, name, description) => {
     firebase.database().ref("menu/").child(id).update({
       type: type,
