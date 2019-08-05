@@ -1,5 +1,5 @@
 import React from "react";
-import { Alert, Text, ToastAndroid, TouchableOpacity, View } from "react-native";
+import {Alert, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
