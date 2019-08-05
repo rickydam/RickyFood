@@ -20,11 +20,6 @@ export default class MenuItemDetailsScreen extends React.Component {
   };
 
   componentDidMount() {
-    this.setState({
-      type: this.props.navigation.state.params["type"],
-      name: this.props.navigation.state.params["name"],
-      description: this.props.navigation.state.params["description"]
-    });
     this.reRender = this.props.navigation.addListener("willFocus", () => {
       this.loadMenuItem();
     });
