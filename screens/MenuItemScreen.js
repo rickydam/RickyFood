@@ -106,5 +106,5 @@ export default class MenuItemScreen extends React.Component {
         description: ""
       })
     }
-  }
+  };
 }
