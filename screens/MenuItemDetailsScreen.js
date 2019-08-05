@@ -46,9 +46,9 @@ export default class MenuItemDetailsScreen extends React.Component {
         <TouchableOpacity onPress={() => this.props.navigation.navigate("MenuItem", {
           purpose: "Edit",
           id: this.props.navigation.state.params["id"],
-          name: this.props.navigation.state.params["name"],
-          description: this.props.navigation.state.params["description"],
-          type: this.props.navigation.state.params["type"]
+          name: this.state.name,
+          description: this.state.description,
+          type: this.state.type
         })}>
           <View style={touchableOpacity("#2196F3", 40, 15, 60).view}>
             <Text style={touchableOpacity().text}>Edit</Text>
