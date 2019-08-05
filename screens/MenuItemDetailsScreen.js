@@ -26,7 +26,7 @@ export default class MenuItemDetailsScreen extends React.Component {
       description: this.props.navigation.state.params["description"]
     });
     this.reRender = this.props.navigation.addListener("willFocus", () => {
-      this.reloadMenuItem();
+      this.loadMenuItem();
     });
   }
 
@@ -81,9 +81,9 @@ export default class MenuItemDetailsScreen extends React.Component {
     firebaseFunctions.deleteMenuItem(menuItemDetailsScreen, id, name);
   };
 
-  reloadMenuItem = () => {
+  loadMenuItem = () => {
     let menuItemDetailsScreen = this;
     let id = this.props.navigation.state.params.id;
-    firebaseFunctions.reloadMenuItem(menuItemDetailsScreen, id);
+    firebaseFunctions.loadMenuItem(menuItemDetailsScreen, id);
   };
 }

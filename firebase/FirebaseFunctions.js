@@ -87,7 +87,7 @@ module.exports = {
     return false;
   },
 
-  reloadMenuItem: (menuItemDetailsScreen, id) => {
+  loadMenuItem: (menuItemDetailsScreen, id) => {
     firebase.database().ref("menu").child(id).once("value", function(snapshot) {
       if(snapshot.val() != null) {
         menuItemDetailsScreen.setState({
