@@ -9,7 +9,7 @@ module.exports = {
       desserts: [],
       mains: []
     };
-    let loadMenu = firebase.database().ref("menu/").once("value", function(snapshot) {
+    let loadMenu = firebase.database().ref("menu").once("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         if(childSnapshot.val().type === "appetizer") {
           let appetizer = {};
@@ -51,7 +51,7 @@ module.exports = {
   },
 
   addMenuItem: (menuItemScreen, type, name, description) => {
-    firebase.database().ref("menu/").push({type, name, description}).then(() => {
+    firebase.database().ref("menu").push({type, name, description}).then(() => {
       ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
       menuItemScreen.props.navigation.goBack();
       return true;
@@ -64,7 +64,7 @@ module.exports = {
   },
 
   editMenuItem: (menuItemScreen, id, type, name, description) => {
-    firebase.database().ref("menu/").child(id).update({
+    firebase.database().ref("menu").child(id).update({
       type: type,
       name: name,
       description: description
