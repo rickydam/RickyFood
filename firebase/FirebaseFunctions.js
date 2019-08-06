@@ -97,6 +97,7 @@ module.exports = {
         });
         return true;
       }
+      ToastAndroid.show("Unable to load menu item", ToastAndroid.LONG);
       return false;
     });
   }
