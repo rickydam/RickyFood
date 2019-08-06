@@ -1,5 +1,7 @@
+import React from "react";
 import firebase from "firebase";
 import {ToastAndroid} from "react-native";
+import Table from "../components/Table";
 
 module.exports = {
   loadMenuItems: async (menuScreen) => {
@@ -100,5 +102,16 @@ module.exports = {
       ToastAndroid.show("Unable to load menu item", ToastAndroid.LONG);
       return false;
     });
+  },
+
+  loadTables: async (screen, callback) => {
+    let tables = null;
+    let loadTablesFirebase = firebase.database().ref("tables").once("value", function (snapshot) {
+      tables = snapshot.val()["restaurant1"].map((table, index) => {
+        return <Table key={index} id={index} values={[table[0], table[1]]} screen={screen} callback={callback}/>
+      });
+    });
+    await Promise.all([loadTablesFirebase]);
+    return tables;
   }
 };

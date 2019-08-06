@@ -1,9 +1,8 @@
 import React from "react";
 import {Text, TouchableOpacity, View} from "react-native";
-import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
-import Table from "../components/Table";
+import firebaseFunctions from "../firebase/FirebaseFunctions";
 
 export default class RestaurantScreen extends React.Component {
   constructor(props) {
@@ -44,15 +43,7 @@ export default class RestaurantScreen extends React.Component {
   }
 
   loadTables = async () => {
-    let tables = null;
-    let loadTablesFirebase = firebase.database().ref("tables/").once("value", function (snapshot) {
-      tables = snapshot.val()["restaurant1"].map((table, index) => {
-        return <Table key={index} id={index} values={[table[0], table[1]]} screen={"restaurant"} callback={this.updateTableCoordinates}/>
-      });
-    });
-
-    await Promise.all([loadTablesFirebase]);
-
+    let tables = await firebaseFunctions.loadTables("restaurant", this.updateTableCoordinates);
     this.setState({tables: tables});
-  }
+  };
 }
