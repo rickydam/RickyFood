@@ -43,7 +43,7 @@ export default class RestaurantScreen extends React.Component {
   }
 
   loadTables = async () => {
-    let tables = await firebaseFunctions.loadTables("restaurant", this.updateTableCoordinates);
+    let tables = await firebaseFunctions.loadTables("RestaurantScreen", this.updateTableCoordinates);
     this.setState({tables: tables});
   };
 }

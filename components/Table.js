@@ -18,7 +18,7 @@ export default class Table extends React.Component {
       key: this.props.id
     };
 
-    if(this.props.screen === "layout") {
+    if(this.props.screen === "LayoutScreen") {
       this.panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderGrant: (event, gesture) => {
@@ -60,7 +60,7 @@ export default class Table extends React.Component {
   };
 
   renderTable = () => {
-    if(this.props.screen === "layout") {
+    if(this.props.screen === "LayoutScreen") {
       return (
         <Animated.View
           {...this.panResponder.panHandlers}

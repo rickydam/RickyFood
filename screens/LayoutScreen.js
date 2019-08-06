@@ -42,7 +42,7 @@ export default class LayoutScreen extends React.Component {
 
   render() {
     let tables = this.state.tables.map((table, index) => {
-      return <Table key={index} id={index} values={[table[0], table[1]]} screen={"layout"} callback={this.updateTableCoordinates} />
+      return <Table key={index} id={index} values={[table[0], table[1]]} screen={"LayoutScreen"} callback={this.updateTableCoordinates} />
     });
 
     return (
