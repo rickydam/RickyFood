@@ -89,7 +89,7 @@ export default class MenuScreen extends React.Component {
 
   loadMenuItems = async () => {
     this.clearMenuItems();
-    let menuObj = await firebaseFunctions.loadMenuItems(this);
+    let menuObj = await firebaseFunctions.loadMenuItems();
     this.setState({
       isDoneFetchingMenu: true,
       appetizers: menuObj["appetizers"],

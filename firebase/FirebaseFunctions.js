@@ -4,7 +4,7 @@ import {ToastAndroid} from "react-native";
 import Table from "../components/Table";
 
 module.exports = {
-  loadMenuItems: async (menuScreen) => {
+  loadMenuItems: async () => {
     let menuObj = {
       appetizers: [],
       beverages: [],
