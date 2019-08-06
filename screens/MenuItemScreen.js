@@ -1,5 +1,5 @@
 import React from "react";
-import {Picker, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import addMenuItemStyles from "../styles/MenuItemStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
@@ -79,13 +79,17 @@ export default class MenuItemScreen extends React.Component {
     else {}
   };
 
-  addMenuItem = () => {
-    let menuItemScreen = this;
+  addMenuItem = async () => {
     let type = this.state.type;
     let name = this.state.name;
     let description = this.state.description;
-    if(firebaseFunctions.addMenuItem(menuItemScreen, type, name, description)) {
+    if(await firebaseFunctions.addMenuItem(type, name, description)) {
+      ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
+      this.props.navigation.goBack();
       this.resetState();
+    }
+    else {
+      ToastAndroid.show("Unable to add menu item: " + name, ToastAndroid.LONG);
     }
   };
 

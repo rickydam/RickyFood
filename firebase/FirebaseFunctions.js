@@ -52,17 +52,16 @@ module.exports = {
     return menuObj;
   },
 
-  addMenuItem: (menuItemScreen, type, name, description) => {
-    firebase.database().ref("menu").push({type, name, description}).then(() => {
-      ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
-      menuItemScreen.props.navigation.goBack();
-      return true;
+  addMenuItem: async (type, name, description) => {
+    let success = false;
+    let addMenuItemFirebase = firebase.database().ref("menu").push({type, name, description}).then(() => {
+      success = true;
     }).catch((error) => {
       ToastAndroid.show("Error adding menu item: " + error, ToastAndroid.LONG);
       console.log(error);
     });
-    ToastAndroid.show("Unable to add menu item: " + name, ToastAndroid.LONG);
-    return false;
+    await Promise.all([addMenuItemFirebase]);
+    return success;
   },
 
   editMenuItem: (menuItemScreen, id, type, name, description) => {
