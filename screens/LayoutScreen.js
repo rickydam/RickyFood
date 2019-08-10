@@ -5,6 +5,7 @@ import mainStyles from "../styles/MainStyles";
 import layoutStyles from "../styles/LayoutStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import Table from "../components/Table";
+import firebaseFunctions from "../firebase/FirebaseFunctions";
 
 export default class LayoutScreen extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ export default class LayoutScreen extends React.Component {
   });
 
   componentDidMount() {
+    this.loadTables();
     this.props.navigation.setParams({
       addTable: this.addTable,
       saveLayout: this.saveLayout
@@ -41,15 +43,22 @@ export default class LayoutScreen extends React.Component {
   }
 
   render() {
-    let tables = this.state.tables.map((table, index) => {
-      return <Table key={index} id={index} values={[table[0], table[1]]} screen={"LayoutScreen"} callback={this.updateTableCoordinates} />
-    });
-
-    return (
-      <View style={mainStyles.container}>
-        {tables}
-      </View>
-    );
+    if(this.state.tables != null) {
+      let tables = this.state.tables.map((table, index) => {
+        return <Table key={index} id={index} values={[table[0], table[1]]} screen={"LayoutScreen"} callback={this.updateTableCoordinates} />
+      });
+      return (
+        <View style={mainStyles.container}>
+          {tables}
+        </View>
+      );
+    }
+    else {
+      return (
+        <View style={mainStyles.container}>
+        </View>
+      );
+    }
   }
 
   addTable = () => {
@@ -74,5 +83,10 @@ export default class LayoutScreen extends React.Component {
       ToastAndroid.show("Successfully saved table layout.", ToastAndroid.LONG);
       this.props.navigation.goBack();
     });
+  };
+
+  loadTables = async() => {
+    let tables = await firebaseFunctions.loadTables();
+    this.setState({tables: tables});
   };
 }
