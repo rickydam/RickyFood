@@ -110,5 +110,17 @@ module.exports = {
     });
     await Promise.all([loadTablesFirebase]);
     return tables;
+  },
+
+  saveLayout: (layoutScreen, tables) => {
+    firebase.database().ref("tables").set({
+      restaurant1: tables
+    }).then(() => {
+      ToastAndroid.show("Successfully saved table layout.", ToastAndroid.LONG);
+      layoutScreen.props.navigation.goBack();
+      return true;
+    });
+    ToastAndroid.show("Unable to save table layout.", ToastAndroid.LONG);
+    return false;
   }
 };

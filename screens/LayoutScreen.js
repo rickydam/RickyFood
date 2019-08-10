@@ -1,6 +1,5 @@
 import React from "react";
 import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
-import firebase from "firebase";
 import mainStyles from "../styles/MainStyles";
 import layoutStyles from "../styles/LayoutStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
@@ -77,12 +76,7 @@ export default class LayoutScreen extends React.Component {
   };
 
   saveLayout = () => {
-    firebase.database().ref("tables/").set({
-      restaurant1: this.state.tables
-    }).then(() => {
-      ToastAndroid.show("Successfully saved table layout.", ToastAndroid.LONG);
-      this.props.navigation.goBack();
-    });
+    firebaseFunctions.saveLayout(this, this.state.tables);
   };
 
   loadTables = async() => {
