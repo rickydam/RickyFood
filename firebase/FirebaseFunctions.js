@@ -103,12 +103,10 @@ module.exports = {
     });
   },
 
-  loadTables: async (screen, callback) => {
+  loadTables: async () => {
     let tables = null;
-    let loadTablesFirebase = firebase.database().ref("tables").once("value", function (snapshot) {
-      tables = snapshot.val()["restaurant1"].map((table, index) => {
-        return <Table key={index} id={index} values={[table[0], table[1]]} screen={screen} callback={callback}/>
-      });
+    let loadTablesFirebase = firebase.database().ref("tables").once("value", function(snapshot) {
+      tables = snapshot.val()["restaurant1"];
     });
     await Promise.all([loadTablesFirebase]);
     return tables;

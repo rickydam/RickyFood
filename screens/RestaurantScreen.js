@@ -3,6 +3,7 @@ import {Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
+import Table from "../components/Table";
 
 export default class RestaurantScreen extends React.Component {
   constructor(props) {
@@ -35,15 +36,26 @@ export default class RestaurantScreen extends React.Component {
   }
 
   render() {
-    return (
-      <View style={mainStyles.container}>
-        {this.state.tables}
-      </View>
-    );
+    if(this.state.tables != null) {
+      let tables = this.state.tables.map((table, index) => {
+        return <Table key={index} id={index} values={[table[0], table[1]]} screen={"RestaurantScreen"} callback={this.updateTableCoordinates} />
+      });
+      return (
+        <View style={mainStyles.container}>
+          {tables}
+        </View>
+      );
+    }
+    else {
+      return (
+        <View style={mainStyles.container}>
+        </View>
+      );
+    }
   }
 
   loadTables = async () => {
-    let tables = await firebaseFunctions.loadTables("RestaurantScreen", this.updateTableCoordinates);
+    let tables = await firebaseFunctions.loadTables();
     this.setState({tables: tables});
   };
 }
