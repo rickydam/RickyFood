@@ -82,7 +82,29 @@ export default class LayoutScreen extends React.Component {
   };
 
   saveLayout = () => {
-    firebaseFunctions.saveLayout(this, this.state.tables);
+    let layoutScreen = this;
+    let tables = this.state.tables;
+    let count = 0;
+    let successCount = 0;
+    tables.forEach(function(table, index) {
+      firebaseFunctions.saveTable(table, function(key) {
+        count++;
+        if(key != null) {
+          successCount++;
+          tables[index][2] = key;
+        }
+        if(count === tables.length) {
+          layoutScreen.setState({tables: tables});
+          if(successCount === tables.length) {
+            ToastAndroid.show("Successfully saved table layout.", ToastAndroid.LONG);
+          }
+          else {
+            ToastAndroid.show("Unable to save table layout.", ToastAndroid.LONG);
+          }
+          layoutScreen.props.navigation.goBack();
+        }
+      });
+    });
   };
 
   loadTables = async() => {

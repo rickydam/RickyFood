@@ -112,15 +112,14 @@ module.exports = {
     return tables;
   },
 
-  saveLayout: (layoutScreen, tables) => {
-    firebase.database().ref("tables").set({
-      restaurant1: tables
-    }).then(() => {
-      ToastAndroid.show("Successfully saved table layout.", ToastAndroid.LONG);
-      layoutScreen.props.navigation.goBack();
-      return true;
-    });
-    ToastAndroid.show("Unable to save table layout.", ToastAndroid.LONG);
-    return false;
+  saveTable: (table, callback) => {
+    firebase.database().ref("tables").child("restaurant1").push(table)
+      .then((snapshot) => {
+        callback(snapshot.key);
+      })
+      .catch(function(err) {
+        ToastAndroid.show("Error saving table: " + err.message, ToastAndroid.LONG);
+        callback(null);
+      });
   }
 };
