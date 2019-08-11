@@ -15,7 +15,7 @@ export default class Table extends React.Component {
         x: this.props.values[0],
         y: this.props.values[1]
       },
-      key: this.props.id
+      index: this.props.index
     };
 
     if(this.props.screen === "LayoutScreen") {
@@ -31,7 +31,7 @@ export default class Table extends React.Component {
         }]),
         onPanResponderRelease: (event, gesture) => {
           this.props.callback({
-            key: this.state.key,
+            index: this.state.index,
             x: this.state.coordinates.x + this.state.position.x._value,
             y: this.state.coordinates.y + this.state.position.y._value
           });
