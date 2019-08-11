@@ -38,7 +38,12 @@ export default class RestaurantScreen extends React.Component {
   render() {
     if(this.state.tables != null) {
       let tables = this.state.tables.map((table, index) => {
-        return <Table key={index} id={index} values={[table[0], table[1]]} screen={"RestaurantScreen"} callback={this.updateTableCoordinates} />
+        return <Table
+          key={index}
+          index={index}
+          values={[table[0], table[1]]}
+          screen={"RestaurantScreen"}
+        />
       });
       return (
         <View style={mainStyles.container}>
