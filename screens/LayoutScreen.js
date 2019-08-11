@@ -67,10 +67,8 @@ export default class LayoutScreen extends React.Component {
   }
 
   addTable = () => {
-    this.state.tables.push([0, 0]);
-    this.setState({
-      tables: this.state.tables
-    });
+    this.state.tables.push([0, 0, null]);
+    this.setState({tables: this.state.tables});
   };
 
   updateTableCoordinates = (table) => {
