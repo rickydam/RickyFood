@@ -75,10 +75,12 @@ export default class LayoutScreen extends React.Component {
 
   updateTableCoordinates = (table) => {
     let tables = this.state.tables;
-    tables[table.index] = [table.x, table.y];
-    this.setState({
-      tables: tables
+    tables.forEach(function(item, index) {
+      if(item.key === table.key) {
+        tables[table.index] = [table.x, table.y];
+      }
     });
+    this.setState({tables: tables});
   };
 
   saveLayout = () => {
