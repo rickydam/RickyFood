@@ -106,13 +106,15 @@ module.exports = {
   loadTables: async () => {
     let tables = [];
     let loadTablesFirebase = firebase.database().ref("tables").once("value", function(snapshot) {
-      let snapshotTablesObj = snapshot.val()["restaurant1"];
-      let snapshotKeys = Object.keys(snapshotTablesObj);
-      snapshotKeys.forEach(function(key) {
-        let table = snapshotTablesObj[key];
-        table[2] = key;
-        tables.push(table);
-      });
+      if(snapshot.exists()) {
+        let snapshotTablesObj = snapshot.val()["restaurant1"];
+        let snapshotKeys = Object.keys(snapshotTablesObj);
+        snapshotKeys.forEach(function(key) {
+          let table = snapshotTablesObj[key];
+          table[2] = key;
+          tables.push(table);
+        });
+      }
     });
     await Promise.all([loadTablesFirebase]);
     return tables;
