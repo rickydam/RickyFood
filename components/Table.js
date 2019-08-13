@@ -33,7 +33,8 @@ export default class Table extends React.Component {
           this.props.callback({
             index: this.state.index,
             x: this.state.coordinates.x + this.state.position.x._value,
-            y: this.state.coordinates.y + this.state.position.y._value
+            y: this.state.coordinates.y + this.state.position.y._value,
+            firebaseKey: this.props.values[2]
           });
           this.setState({
             coordinates: {

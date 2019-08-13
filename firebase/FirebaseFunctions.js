@@ -111,7 +111,7 @@ module.exports = {
         let snapshotKeys = Object.keys(snapshotTablesObj);
         snapshotKeys.forEach(function(key) {
           let table = snapshotTablesObj[key];
-          table[2] = key;
+          table.push(key);
           tables.push(table);
         });
       }
@@ -121,13 +121,42 @@ module.exports = {
   },
 
   saveTable: (table, callback) => {
-    firebase.database().ref("tables").child("restaurant1").push(table)
-      .then((snapshot) => {
-        callback(snapshot.key);
-      })
-      .catch(function(err) {
-        ToastAndroid.show("Error saving table: " + err.message, ToastAndroid.LONG);
-        callback(null);
-      });
+    firebase.database().ref("tables").once("value", function(snapshot) {
+      if(snapshot.exists()) {
+        let snapshotTablesObj = snapshot.val()["restaurant1"];
+        let snapshotKeys = Object.keys(snapshotTablesObj);
+        if(snapshotKeys.indexOf(table[2]) !== -1) {
+          firebase.database().ref("tables").child("restaurant1").child(table[2]).set({
+            0: table[0],
+            1: table[1]
+          }).then(() => {
+            callback(null, true);
+          }).catch(function(err) {
+            callback(null, false);
+          });
+        }
+        else {
+          table.splice(2, 1);
+          firebase.database().ref("tables").child("restaurant1").push(table)
+            .then((snapshot) => {
+              callback(null, true);
+            })
+            .catch(function(err) {
+              ToastAndroid.show("Error saving table: " + err.message, ToastAndroid.LONG);
+              callback(null, false);
+            });
+        }
+      }
+      else {
+        firebase.database().ref("tables").child("restaurant1").push(table)
+          .then((snapshot) => {
+            callback(snapshot.key, true);
+          })
+          .catch(function(err) {
+            ToastAndroid.show("Error saving table: " + err.message, ToastAndroid.LONG);
+            callback(null, false);
+          });
+      }
+    });
   }
 };

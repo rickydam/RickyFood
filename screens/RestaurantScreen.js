@@ -41,7 +41,7 @@ export default class RestaurantScreen extends React.Component {
         return <Table
           key={index}
           index={index}
-          values={[table[0], table[1]]}
+          values={[table[0], table[1], table[2]]}
           screen={"RestaurantScreen"}
         />
       });

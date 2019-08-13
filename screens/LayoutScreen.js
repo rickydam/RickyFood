@@ -47,7 +47,7 @@ export default class LayoutScreen extends React.Component {
         return <Table
           key={index}
           index={index}
-          values={[table[0], table[1]]}
+          values={[table[0], table[1], table[2]]}
           screen={"LayoutScreen"}
           callback={this.updateTableCoordinates}
         />
@@ -74,8 +74,8 @@ export default class LayoutScreen extends React.Component {
   updateTableCoordinates = (table) => {
     let tables = this.state.tables;
     tables.forEach(function(item, index) {
-      if(item.key === table.key) {
-        tables[table.index] = [table.x, table.y];
+      if(item[2] === table.firebaseKey) {
+        tables[table.index] = [table.x, table.y, table.firebaseKey];
       }
     });
     this.setState({tables: tables});
@@ -87,11 +87,14 @@ export default class LayoutScreen extends React.Component {
     let count = 0;
     let successCount = 0;
     tables.forEach(function(table, index) {
-      firebaseFunctions.saveTable(table, function(key) {
+      firebaseFunctions.saveTable(table, function(key, success) {
         count++;
+        if(success) successCount++;
         if(key != null) {
-          successCount++;
-          tables[index][2] = key;
+          let theTable = tables[index];
+          let x = theTable[0];
+          let y = theTable[1];
+          tables[index] = [x, y, key];
         }
         if(count === tables.length) {
           layoutScreen.setState({tables: tables});
