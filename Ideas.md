@@ -1,4 +1,4 @@
-# RLagu
+# RickyFood
 
 * Restaurant Owners
   * Use the React-Native app on an iPad or Android tablet

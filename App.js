@@ -37,7 +37,7 @@ function initializeFirebase() {
   const firebaseConfig = {
     apiKey: process.env.API_KEY,
     authDomain: process.env.AUTH_DOMAIN,
-    databaseURL: "https://rlagu-a72a5.firebaseio.com",
+    databaseURL: "https://rickyfood-8f0e4.firebaseio.com",
     storageBucket: "",
     projectId: process.env.PROJECT_ID,
     messagingSenderId: process.env.MESSAGING_SENDER_ID,
