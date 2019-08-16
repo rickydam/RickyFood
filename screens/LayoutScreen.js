@@ -116,7 +116,7 @@ export default class LayoutScreen extends React.Component {
     this.setState({tables: tables});
   };
 
-  deleteTable = (firebaseKey, index) => {
+  deleteTable = (firebaseKey) => {
     if(firebaseKey != null) {
       let layoutScreen = this;
       firebaseFunctions.deleteTable(firebaseKey, function(success) {
