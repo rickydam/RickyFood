@@ -50,6 +50,7 @@ export default class LayoutScreen extends React.Component {
           values={[table[0], table[1], table[2]]}
           screen={"LayoutScreen"}
           callback={this.updateTableCoordinates}
+          delete={this.deleteTable}
         />
       });
       return (
@@ -113,5 +114,22 @@ export default class LayoutScreen extends React.Component {
   loadTables = async() => {
     let tables = await firebaseFunctions.loadTables();
     this.setState({tables: tables});
+  };
+
+  deleteTable = (firebaseKey, index) => {
+    if(firebaseKey != null) {
+      let layoutScreen = this;
+      firebaseFunctions.deleteTable(firebaseKey, function(success) {
+        if(success) {
+          layoutScreen.setState({tables: []});
+          layoutScreen.loadTables();
+        }
+      });
+    }
+    else {
+      let tables = this.state.tables;
+      this.setState({tables: []});
+      this.loadTables();
+    }
   };
 }

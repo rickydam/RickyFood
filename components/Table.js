@@ -1,5 +1,5 @@
 import React from "react";
-import {Animated, PanResponder, View} from "react-native";
+import {Animated, PanResponder, Text, TouchableOpacity, View} from "react-native";
 import layoutStyles from "../styles/LayoutStyles";
 
 export default class Table extends React.Component {
@@ -15,7 +15,8 @@ export default class Table extends React.Component {
         x: this.props.values[0],
         y: this.props.values[1]
       },
-      index: this.props.index
+      index: this.props.index,
+      firebaseKey: this.props.values[2]
     };
 
     if(this.props.screen === "LayoutScreen") {
@@ -66,6 +67,13 @@ export default class Table extends React.Component {
         <Animated.View
           {...this.panResponder.panHandlers}
           style={[this.state.position.getLayout(), layoutStyles.table]}>
+          <TouchableOpacity
+            onPress={() => this.props.delete(this.state.firebaseKey, this.state.index)}
+            style={layoutStyles.deleteButton}>
+            <View>
+              <Text style={layoutStyles.deleteButtonText}>X</Text>
+            </View>
+          </TouchableOpacity>
         </Animated.View>
       );
     }

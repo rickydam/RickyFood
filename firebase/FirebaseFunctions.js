@@ -158,5 +158,17 @@ module.exports = {
           });
       }
     });
+  },
+
+  deleteTable: (firebaseKey, callback) => {
+    firebase.database().ref("tables").child("restaurant1").child(firebaseKey).remove()
+      .then(() => {
+        ToastAndroid.show("Successfully deleted table.", ToastAndroid.LONG);
+        callback(true);
+      })
+      .catch(function(err) {
+        ToastAndroid.show("Error deleting table: " + err.message, ToastAndroid.LONG);
+        callback(false);
+      });
   }
 };
