@@ -1,6 +1,6 @@
 import React from "react";
-import firebase from "firebase";
 import {ToastAndroid} from "react-native";
+import firebase from "firebase";
 
 module.exports = {
   loadMenuItems: async () => {
