@@ -1,6 +1,6 @@
 import React from "react";
-import { YellowBox } from "react-native";
-import { createStackNavigator, createAppContainer } from "react-navigation";
+import {YellowBox} from "react-native";
+import {createStackNavigator, createAppContainer} from "react-navigation";
 import firebase from "firebase";
 import HomeScreen from "./screens/HomeScreen";
 import LayoutScreen from "./screens/LayoutScreen";
