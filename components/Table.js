@@ -1,5 +1,6 @@
 import React from "react";
 import {Animated, PanResponder, Text, TouchableOpacity, View} from "react-native";
+import mainStyles from "../styles/MainStyles";
 import layoutStyles from "../styles/LayoutStyles";
 
 export default class Table extends React.Component {
@@ -63,7 +64,7 @@ export default class Table extends React.Component {
       return (
         <Animated.View
           {...this.panResponder.panHandlers}
-          style={[this.state.position.getLayout(), layoutStyles.table]}>
+          style={[this.state.position.getLayout(), mainStyles.table]}>
           <TouchableOpacity
             onPress={() => this.props.deleteTable(this.props.table.firebaseKey)}
             style={layoutStyles.deleteButton}>
@@ -77,7 +78,7 @@ export default class Table extends React.Component {
     else {
       return (
         <Animated.View
-          style={[this.state.position.getLayout(), layoutStyles.table]}>
+          style={[this.state.position.getLayout(), mainStyles.table]}>
         </Animated.View>
       );
     }

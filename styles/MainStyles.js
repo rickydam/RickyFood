@@ -6,6 +6,12 @@ const mainStyles = StyleSheet.create({
     backgroundColor: "lightgray",
     flex: 1,
     justifyContent: "center"
+  },
+  table: {
+    backgroundColor: "gray",
+    position: "absolute",
+    height: 60,
+    width: 60
   }
 });
 
