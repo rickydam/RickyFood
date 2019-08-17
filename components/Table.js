@@ -1,5 +1,5 @@
 import React from "react";
-import {Animated, PanResponder, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Animated, PanResponder, Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import layoutStyles from "../styles/LayoutStyles";
 
@@ -79,6 +79,10 @@ export default class Table extends React.Component {
       return (
         <Animated.View
           style={[this.state.position.getLayout(), mainStyles.table]}>
+          <TouchableOpacity
+            onPress={() => Alert.alert("Table onPress", this.props.table.firebaseKey)}
+            style={mainStyles.table}>
+          </TouchableOpacity>
         </Animated.View>
       );
     }
