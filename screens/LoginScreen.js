@@ -1,10 +1,11 @@
 import React from "react";
-import {View} from "react-native";
+import {View} from "react-native"
 import mainStyles from "../styles/MainStyles";
+import loginStyles from "../styles/LoginStyles";
 
-export default class AuthenticationScreen extends React.Component {
+export default class LoginScreen extends React.Component {
   static navigationOptions = {
-    title: "Register or Login"
+    title: "Login"
   };
 
   render() {

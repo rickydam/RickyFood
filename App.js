@@ -2,7 +2,7 @@ import React from "react";
 import {YellowBox} from "react-native";
 import {createStackNavigator, createAppContainer} from "react-navigation";
 import firebase from "firebase";
-import AuthenticationScreen from "./screens/AuthenticationScreen";
+import LoginScreen from "./screens/LoginScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LayoutScreen from "./screens/LayoutScreen";
 import MenuScreen from "./screens/MenuScreen";
@@ -11,15 +11,15 @@ import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
 
 const AppNavigator = createStackNavigator({
-  Authentication: AuthenticationScreen,
   Home: HomeScreen,
   Layout: LayoutScreen,
+  Login: LoginScreen,
   Menu: MenuScreen,
   MenuItem: MenuItemScreen,
   MenuItemDetails: MenuItemDetailsScreen,
   Restaurant: RestaurantScreen
 }, {
-  initialRouteName: "Authentication"
+  initialRouteName: "Login"
 });
 const AppContainer = createAppContainer(AppNavigator);
 
