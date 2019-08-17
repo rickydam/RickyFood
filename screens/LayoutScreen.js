@@ -42,15 +42,14 @@ export default class LayoutScreen extends React.Component {
   }
 
   render() {
-    if(this.state.tables != null) {
-      let tables = this.state.tables.map((table, index) => {
+    if(this.state.tables.length !== 0) {
+      let tables = this.state.tables.map((table) => {
         return <Table
-          key={index}
-          index={index}
-          values={[table[0], table[1], table[2]]}
+          key={table.createdAt}
+          table={table}
           screen={"LayoutScreen"}
-          callback={this.updateTableCoordinates}
-          delete={this.deleteTable}
+          updateTableCoordinates={this.updateTableCoordinates}
+          deleteTable={this.deleteTable}
         />
       });
       return (
@@ -68,15 +67,16 @@ export default class LayoutScreen extends React.Component {
   }
 
   addTable = () => {
-    this.state.tables.push([0, 0, null]);
+    this.state.tables.push({x: 0, y: 0, firebaseKey: null, createdAt: Date.now()});
     this.setState({tables: this.state.tables});
   };
 
-  updateTableCoordinates = (table) => {
+  updateTableCoordinates = (updatedTable) => {
     let tables = this.state.tables;
-    tables.forEach(function(item, index) {
-      if(item[2] === table.firebaseKey) {
-        tables[table.index] = [table.x, table.y, table.firebaseKey];
+    tables.forEach(function(table, index) {
+      if(table.createdAt === updatedTable.createdAt) {
+        tables[index].x = updatedTable.x;
+        tables[index].y = updatedTable.y;
       }
     });
     this.setState({tables: tables});
@@ -88,15 +88,9 @@ export default class LayoutScreen extends React.Component {
     let count = 0;
     let successCount = 0;
     tables.forEach(function(table, index) {
-      firebaseFunctions.saveTable(table, function(key, success) {
+      firebaseFunctions.saveTable(table, function(success) {
         count++;
         if(success) successCount++;
-        if(key != null) {
-          let theTable = tables[index];
-          let x = theTable[0];
-          let y = theTable[1];
-          tables[index] = [x, y, key];
-        }
         if(count === tables.length) {
           layoutScreen.setState({tables: tables});
           if(successCount === tables.length) {

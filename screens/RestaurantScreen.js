@@ -9,7 +9,7 @@ export default class RestaurantScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tables: null
+      tables: []
     }
   }
 
@@ -26,7 +26,7 @@ export default class RestaurantScreen extends React.Component {
 
   componentDidMount() {
     this.reRender = this.props.navigation.addListener("willFocus", () => {
-      this.setState({tables: null});
+      this.setState({tables: []});
       this.loadTables();
     });
   }
@@ -37,11 +37,10 @@ export default class RestaurantScreen extends React.Component {
 
   render() {
     if(this.state.tables != null) {
-      let tables = this.state.tables.map((table, index) => {
+      let tables = this.state.tables.map((table) => {
         return <Table
-          key={index}
-          index={index}
-          values={[table[0], table[1], table[2]]}
+          key={table.createdAt}
+          table={table}
           screen={"RestaurantScreen"}
         />
       });

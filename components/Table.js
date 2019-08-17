@@ -8,15 +8,13 @@ export default class Table extends React.Component {
 
     this.state = {
       position: new Animated.ValueXY({
-        x: this.props.values[0],
-        y: this.props.values[1]
+        x: this.props.table.x,
+        y: this.props.table.y
       }),
       coordinates: {
-        x: this.props.values[0],
-        y: this.props.values[1]
-      },
-      index: this.props.index,
-      firebaseKey: this.props.values[2]
+        x: this.props.table.x,
+        y: this.props.table.y
+      }
     };
 
     if(this.props.screen === "LayoutScreen") {
@@ -31,11 +29,10 @@ export default class Table extends React.Component {
           dy: this.state.position.y
         }]),
         onPanResponderRelease: (event, gesture) => {
-          this.props.callback({
-            index: this.state.index,
+          this.props.updateTableCoordinates({
             x: this.state.coordinates.x + this.state.position.x._value,
             y: this.state.coordinates.y + this.state.position.y._value,
-            firebaseKey: this.props.values[2]
+            createdAt: this.props.table.createdAt
           });
           this.setState({
             coordinates: {
@@ -68,7 +65,7 @@ export default class Table extends React.Component {
           {...this.panResponder.panHandlers}
           style={[this.state.position.getLayout(), layoutStyles.table]}>
           <TouchableOpacity
-            onPress={() => this.props.delete(this.state.firebaseKey, this.state.index)}
+            onPress={() => this.props.deleteTable(this.props.table.firebaseKey)}
             style={layoutStyles.deleteButton}>
             <View>
               <Text style={layoutStyles.deleteButtonText}>X</Text>

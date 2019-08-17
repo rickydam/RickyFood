@@ -108,9 +108,9 @@ module.exports = {
       if(snapshot.exists()) {
         let snapshotTablesObj = snapshot.val()["restaurant1"];
         let snapshotKeys = Object.keys(snapshotTablesObj);
-        snapshotKeys.forEach(function(key) {
-          let table = snapshotTablesObj[key];
-          table.push(key);
+        snapshotKeys.forEach(function(firebaseKey) {
+          let table = snapshotTablesObj[firebaseKey];
+          table.firebaseKey = firebaseKey;
           tables.push(table);
         });
       }
@@ -124,36 +124,39 @@ module.exports = {
       if(snapshot.exists()) {
         let snapshotTablesObj = snapshot.val()["restaurant1"];
         let snapshotKeys = Object.keys(snapshotTablesObj);
-        if(snapshotKeys.indexOf(table[2]) !== -1) {
-          firebase.database().ref("tables").child("restaurant1").child(table[2]).set({
-            0: table[0],
-            1: table[1]
+        if(snapshotKeys.indexOf(table.firebaseKey) !== -1) {
+          // Table already exists, edit the x and y coordinates
+          firebase.database().ref("tables").child("restaurant1").child(table.firebaseKey).set({
+            x: table.x,
+            y: table.y,
+            createdAt: table.createdAt
           }).then(() => {
-            callback(null, true);
+            callback(true);
           }).catch(function(err) {
-            callback(null, false);
+            callback(false);
           });
         }
         else {
-          table.splice(2, 1);
+          // Table does not exist, but Firebase ref exists
           firebase.database().ref("tables").child("restaurant1").push(table)
             .then((snapshot) => {
-              callback(null, true);
+              callback(true);
             })
             .catch(function(err) {
               ToastAndroid.show("Error saving table: " + err.message, ToastAndroid.LONG);
-              callback(null, false);
+              callback(false);
             });
         }
       }
       else {
+        // Firebase ref for this restaurant is missing, this is the first ever table push
         firebase.database().ref("tables").child("restaurant1").push(table)
           .then((snapshot) => {
-            callback(snapshot.key, true);
+            callback(true);
           })
           .catch(function(err) {
             ToastAndroid.show("Error saving table: " + err.message, ToastAndroid.LONG);
-            callback(null, false);
+            callback(false);
           });
       }
     });
