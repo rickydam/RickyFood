@@ -45,6 +45,39 @@ module.exports = {
     });
   },
 
+  menuItemDeletedListener: (menuScreen) => {
+    firebase.database().ref("menu").on("child_removed", function(snapshot) {
+      let appetizers = menuScreen.state.appetizers;
+      appetizers.forEach(function(appetizer, index) {
+        if(appetizer.key === snapshot.key) {
+          appetizers.splice(index, 1);
+          menuScreen.setState({appetizers: appetizers});
+        }
+      });
+      let beverages = menuScreen.state.beverages;
+      beverages.forEach(function(beverage, index) {
+        if(beverage.key === snapshot.key) {
+          beverages.splice(index, 1);
+          menuScreen.setState({beverages: beverages});
+        }
+      });
+      let desserts = menuScreen.state.desserts;
+      desserts.forEach(function(dessert, index) {
+        if(dessert.key === snapshot.key) {
+          desserts.splice(index, 1);
+          menuScreen.setState({desserts: desserts});
+        }
+      });
+      let mains = menuScreen.state.mains;
+      mains.forEach(function(main, index) {
+        if(main.key === snapshot.key) {
+          mains.splice(index, 1);
+          menuScreen.setState({mains: mains});
+        }
+      });
+    });
+  },
+
   addMenuItem: async (type, name, description) => {
     let success = false;
     let addMenuItemFirebase = firebase.database().ref("menu").push({type, name, description}).then(() => {
