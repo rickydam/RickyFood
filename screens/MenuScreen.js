@@ -13,7 +13,6 @@ export default class MenuScreen extends React.Component {
       beverages: [],
       desserts: [],
       mains: [],
-      isDoneFetchingMenu: false,
       refreshing: false
     };
   }
@@ -37,54 +36,39 @@ export default class MenuScreen extends React.Component {
   });
 
   componentDidMount() {
-    this.reRender = this.props.navigation.addListener("willFocus", () => {
-      this.loadMenuItems();
-    });
-  }
-
-  componentWillUnmount() {
-    this.reRender.remove();
+    this.loadMenuItems();
   }
 
   render() {
-    if(this.state.isDoneFetchingMenu) {
-      return (
-        <View style={mainStyles.container}>
-          <SectionList
-            sections={[
-              {title: "Appetizers", data: this.state.appetizers},
-              {title: "Mains", data: this.state.mains},
-              {title: "Desserts", data: this.state.desserts},
-              {title: "Beverages", data: this.state.beverages}
-            ]}
-            renderItem={({item}) => (
-              <TouchableHighlight
-                onPress={() => this.props.navigation.navigate("MenuItemDetails", {id: item["id"]})}
-                underlayColor="black">
-                <View>
-                  <Text style={menuStyles.renderItem}>{item["name"]}</Text>
-                </View>
-              </TouchableHighlight>
-            )}
-            renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
-            keyExtractor={(item, index) => index}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.onRefresh}
-              />
-            }
-          />
-        </View>
-      );
-    }
-    else {
-      return (
-        <View style={mainStyles.container}>
-          <Text>Loading...</Text>
-        </View>
-      );
-    }
+    return (
+      <View style={mainStyles.container}>
+        <SectionList
+          sections={[
+            {title: "Appetizers", data: this.state.appetizers},
+            {title: "Mains", data: this.state.mains},
+            {title: "Desserts", data: this.state.desserts},
+            {title: "Beverages", data: this.state.beverages}
+          ]}
+          renderItem={({item}) => (
+            <TouchableHighlight
+              onPress={() => this.props.navigation.navigate("MenuItemDetails", {id: item["id"]})}
+              underlayColor="black">
+              <View>
+                <Text style={menuStyles.renderItem}>{item["name"]}</Text>
+              </View>
+            </TouchableHighlight>
+          )}
+          renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
+          keyExtractor={(item, index) => index}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.onRefresh}
+            />
+          }
+        />
+      </View>
+    );
   }
 
   onRefresh = () => {
@@ -94,16 +78,9 @@ export default class MenuScreen extends React.Component {
     });
   };
 
-  loadMenuItems = async () => {
+  loadMenuItems = () => {
     this.clearMenuItems();
-    let menuObj = await firebaseFunctions.loadMenuItems();
-    this.setState({
-      isDoneFetchingMenu: true,
-      appetizers: menuObj["appetizers"],
-      beverages: menuObj["beverages"],
-      desserts: menuObj["desserts"],
-      mains: menuObj["mains"]
-    });
+    firebaseFunctions.loadMenuItems(this);
   };
 
   clearMenuItems = () => {
@@ -111,8 +88,7 @@ export default class MenuScreen extends React.Component {
       appetizers: [],
       beverages: [],
       desserts: [],
-      mains: [],
-      isDoneFetchingMenu: false
+      mains: []
     });
   };
 }

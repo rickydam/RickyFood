@@ -3,51 +3,52 @@ import {ToastAndroid} from "react-native";
 import firebase from "firebase";
 
 module.exports = {
-  loadMenuItems: async () => {
+  loadMenuItems: (menuScreen) => {
     let menuObj = {
       appetizers: [],
       beverages: [],
       desserts: [],
       mains: []
     };
-    let loadMenu = firebase.database().ref("menu").once("value", function(snapshot) {
-      snapshot.forEach(function(childSnapshot) {
-        if(childSnapshot.val().type === "appetizer") {
-          let appetizer = {};
-          appetizer["id"] = childSnapshot.key;
-          appetizer["type"] = childSnapshot.val().type;
-          appetizer["name"] = childSnapshot.val().name;
-          appetizer["description"] = childSnapshot.val().description;
-          menuObj.appetizers.push(appetizer);
-        }
-        else if(childSnapshot.val().type === "beverage") {
-          let beverage = {};
-          beverage["id"] = childSnapshot.key;
-          beverage["type"] = childSnapshot.val().type;
-          beverage["name"] = childSnapshot.val().name;
-          beverage["description"] = childSnapshot.val().description;
-          menuObj.beverages.push(beverage);
-        }
-        else if(childSnapshot.val().type === "dessert") {
-          let dessert = {};
-          dessert["id"] = childSnapshot.key;
-          dessert["type"] = childSnapshot.val().type;
-          dessert["name"] = childSnapshot.val().name;
-          dessert["description"] = childSnapshot.val().description;
-          menuObj.desserts.push(dessert);
-        }
-        else if(childSnapshot.val().type === "main") {
-          let main = {};
-          main["id"] = childSnapshot.key;
-          main["type"] = childSnapshot.val().type;
-          main["name"] = childSnapshot.val().name;
-          main["description"] = childSnapshot.val().description;
-          menuObj.mains.push(main);
-        }
-        else {}
-      });
+    firebase.database().ref("menu").on("child_added", function(snapshot) {
+      if(snapshot.val().type === "appetizer") {
+        let appetizer = {};
+        appetizer["id"] = snapshot.key;
+        appetizer["type"] = snapshot.val().type;
+        appetizer["name"] = snapshot.val().name;
+        appetizer["description"] = snapshot.val().description;
+        menuScreen.state.appetizers.push(appetizer);
+        menuScreen.setState({appetizers: menuScreen.state.appetizers});
+      }
+      else if(snapshot.val().type === "beverage") {
+        let beverage = {};
+        beverage["id"] = snapshot.key;
+        beverage["type"] = snapshot.val().type;
+        beverage["name"] = snapshot.val().name;
+        beverage["description"] = snapshot.val().description;
+        menuScreen.state.beverages.push(beverage);
+        menuScreen.setState({beverages: menuScreen.state.beverages});
+      }
+      else if(snapshot.val().type === "dessert") {
+        let dessert = {};
+        dessert["id"] = snapshot.key;
+        dessert["type"] = snapshot.val().type;
+        dessert["name"] = snapshot.val().name;
+        dessert["description"] = snapshot.val().description;
+        menuScreen.state.desserts.push(dessert);
+        menuScreen.setState({desserts: menuScreen.state.desserts});
+      }
+      else if(snapshot.val().type === "main") {
+        let main = {};
+        main["id"] = snapshot.key;
+        main["type"] = snapshot.val().type;
+        main["name"] = snapshot.val().name;
+        main["description"] = snapshot.val().description;
+        menuScreen.state.mains.push(main);
+        menuScreen.setState({mains: menuScreen.state.mains});
+      }
+      else {}
     });
-    await Promise.all([loadMenu]);
     return menuObj;
   },
 
