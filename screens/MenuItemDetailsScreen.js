@@ -38,7 +38,7 @@ export default class MenuItemDetailsScreen extends React.Component {
         <Text>{this.state.name}</Text>
         <Text style={menuItemDetailsStyles.label}>Description</Text>
         <Text>{this.state.description}</Text>
-        <TouchableOpacity onPress={() => ToastAndroid.show("Added " + this.state.name + " to the order.", ToastAndroid.LONG)}>
+        <TouchableOpacity onPress={() => this.authenticateUser()}>
           <View style={touchableOpacity("#9932CC", 40, 15, 100).view}>
             <Text style={touchableOpacity().text}>Add to Order</Text>
           </View>
@@ -86,4 +86,18 @@ export default class MenuItemDetailsScreen extends React.Component {
     let id = this.props.navigation.state.params.id;
     firebaseFunctions.loadMenuItem(menuItemDetailsScreen, id);
   };
+
+  authenticateUser = () => {
+    // if user is authenticated, add the menu item to the order and give success message
+    Alert.alert(
+      "Account Required",
+      "You need to be logged in to order.",
+      [
+        {text: "Cancel", onPress: () => {}},
+        {text: "Register", onPress: () => this.props.navigation.navigate("Register")},
+        {text: "Login", onPress: () => this.props.navigation.navigate("Login")}
+      ],
+      {cancelable: true}
+    );
+  }
 }
