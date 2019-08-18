@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Alert, Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
 import touchableOpacity from "../styles/components/TouchableOpacity";
