@@ -8,6 +8,7 @@ import LoginScreen from "./screens/LoginScreen";
 import MenuScreen from "./screens/MenuScreen";
 import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
+import OrderScreen from "./screens/OrderScreen";
 import RegisterScreen from "./screens/RegisterScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
 
@@ -18,6 +19,7 @@ const AppNavigator = createStackNavigator({
   Menu: MenuScreen,
   MenuItem: MenuItemScreen,
   MenuItemDetails: MenuItemDetailsScreen,
+  Order: OrderScreen,
   Register: RegisterScreen,
   Restaurant: RestaurantScreen
 }, {
