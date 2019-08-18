@@ -8,6 +8,7 @@ import LayoutScreen from "./screens/LayoutScreen";
 import MenuScreen from "./screens/MenuScreen";
 import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
+import RegisterScreen from "./screens/RegisterScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
 
 const AppNavigator = createStackNavigator({
@@ -17,6 +18,7 @@ const AppNavigator = createStackNavigator({
   Menu: MenuScreen,
   MenuItem: MenuItemScreen,
   MenuItemDetails: MenuItemDetailsScreen,
+  Register: RegisterScreen,
   Restaurant: RestaurantScreen
 }, {
   initialRouteName: "Login"
