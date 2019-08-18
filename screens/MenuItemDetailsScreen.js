@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Text, TouchableOpacity, View} from "react-native";
+import {Alert, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
 import touchableOpacity from "../styles/components/TouchableOpacity";
@@ -38,6 +38,11 @@ export default class MenuItemDetailsScreen extends React.Component {
         <Text>{this.state.name}</Text>
         <Text style={menuItemDetailsStyles.label}>Description</Text>
         <Text>{this.state.description}</Text>
+        <TouchableOpacity onPress={() => ToastAndroid.show("Successfully added " + this.state.name + " to the order.", ToastAndroid.LONG)}>
+          <View style={touchableOpacity("#9932CC", 40, 15, 100).view}>
+            <Text style={touchableOpacity().text}>Add to order</Text>
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("MenuItem", {
           purpose: "Edit",
           id: this.props.navigation.state.params["id"],
