@@ -4,12 +4,6 @@ import firebase from "firebase";
 
 module.exports = {
   loadMenuItems: (menuScreen) => {
-    let menuObj = {
-      appetizers: [],
-      beverages: [],
-      desserts: [],
-      mains: []
-    };
     firebase.database().ref("menu").on("child_added", function(snapshot) {
       if(snapshot.val().type === "appetizer") {
         let appetizer = {};
@@ -49,7 +43,6 @@ module.exports = {
       }
       else {}
     });
-    return menuObj;
   },
 
   addMenuItem: async (type, name, description) => {
