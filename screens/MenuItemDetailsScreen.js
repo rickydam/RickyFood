@@ -40,7 +40,7 @@ export default class MenuItemDetailsScreen extends React.Component {
         <Text>{this.state.description}</Text>
         <TouchableOpacity onPress={() => ToastAndroid.show("Successfully added " + this.state.name + " to the order.", ToastAndroid.LONG)}>
           <View style={touchableOpacity("#9932CC", 40, 15, 100).view}>
-            <Text style={touchableOpacity().text}>Add to order</Text>
+            <Text style={touchableOpacity().text}>Add to Order</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("MenuItem", {
