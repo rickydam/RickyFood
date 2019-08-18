@@ -21,7 +21,7 @@ const AppNavigator = createStackNavigator({
   Register: RegisterScreen,
   Restaurant: RestaurantScreen
 }, {
-  initialRouteName: "Login"
+  initialRouteName: "Home"
 });
 const AppContainer = createAppContainer(AppNavigator);
 
