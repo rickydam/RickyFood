@@ -1,9 +1,6 @@
 import {StyleSheet} from "react-native";
 
 const layoutStyles = StyleSheet.create({
-  header: {
-    flexDirection: "row"
-  },
   deleteButton: {
     alignItems: "center",
     backgroundColor: "#CD0000",

@@ -7,6 +7,9 @@ const mainStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center"
   },
+  headerRow: {
+    flexDirection: "row"
+  },
   table: {
     backgroundColor: "gray",
     position: "absolute",

@@ -1,7 +1,6 @@
 import React from "react";
 import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
-import layoutStyles from "../styles/LayoutStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import Table from "../components/Table";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
@@ -18,7 +17,7 @@ export default class LayoutScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
     title: "Layout",
     headerRight: (
-      <View style={layoutStyles.header}>
+      <View style={mainStyles.headerRow}>
         <TouchableOpacity onPress={() => navigation.state.params.addTable()}>
           <View style={touchableOpacity("#9932CC", 40, 5, 60).view}>
             <Text style={touchableOpacity().text}>Add</Text>
