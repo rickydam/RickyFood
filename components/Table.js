@@ -1,7 +1,7 @@
 import React from "react";
 import {Alert, Animated, PanResponder, Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
-import layoutStyles from "../styles/LayoutStyles";
+import tableStyles from "../styles/TableStyles";
 
 export default class Table extends React.Component {
   constructor(props) {
@@ -67,9 +67,9 @@ export default class Table extends React.Component {
           style={[this.state.position.getLayout(), mainStyles.table]}>
           <TouchableOpacity
             onPress={() => this.props.deleteTable(this.props.table.firebaseKey)}
-            style={layoutStyles.deleteButton}>
+            style={tableStyles.deleteButton}>
             <View>
-              <Text style={layoutStyles.deleteButtonText}>X</Text>
+              <Text style={tableStyles.deleteButtonText}>X</Text>
             </View>
           </TouchableOpacity>
         </Animated.View>

@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 
-const layoutStyles = StyleSheet.create({
+const tableStyles = StyleSheet.create({
   deleteButton: {
     alignItems: "center",
     backgroundColor: "#CD0000",
@@ -20,4 +20,4 @@ const layoutStyles = StyleSheet.create({
   }
 });
 
-module.exports = layoutStyles;
+module.exports = tableStyles;
