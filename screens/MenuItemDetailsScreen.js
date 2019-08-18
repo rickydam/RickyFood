@@ -45,7 +45,7 @@ export default class MenuItemDetailsScreen extends React.Component {
         </TouchableOpacity>
         <TouchableOpacity onPress={() => this.props.navigation.navigate("MenuItem", {
           purpose: "Edit",
-          id: this.props.navigation.state.params["id"],
+          key: this.props.navigation.state.params["key"],
           name: this.state.name,
           description: this.state.description,
           type: this.state.type
@@ -76,15 +76,15 @@ export default class MenuItemDetailsScreen extends React.Component {
 
   deleteMenuItem = () => {
     let menuItemDetailsScreen = this;
-    let id = this.props.navigation.state.params.id;
+    let key = this.props.navigation.state.params.key;
     let name = this.state.name;
-    firebaseFunctions.deleteMenuItem(menuItemDetailsScreen, id, name);
+    firebaseFunctions.deleteMenuItem(menuItemDetailsScreen, key, name);
   };
 
   loadMenuItem = () => {
     let menuItemDetailsScreen = this;
-    let id = this.props.navigation.state.params.id;
-    firebaseFunctions.loadMenuItem(menuItemDetailsScreen, id);
+    let key = this.props.navigation.state.params.key;
+    firebaseFunctions.loadMenuItem(menuItemDetailsScreen, key);
   };
 
   authenticateUser = () => {

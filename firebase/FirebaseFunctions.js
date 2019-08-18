@@ -13,7 +13,7 @@ module.exports = {
     firebase.database().ref("menu").on("child_added", function(snapshot) {
       if(snapshot.val().type === "appetizer") {
         let appetizer = {};
-        appetizer["id"] = snapshot.key;
+        appetizer["key"] = snapshot.key;
         appetizer["type"] = snapshot.val().type;
         appetizer["name"] = snapshot.val().name;
         appetizer["description"] = snapshot.val().description;
@@ -22,7 +22,7 @@ module.exports = {
       }
       else if(snapshot.val().type === "beverage") {
         let beverage = {};
-        beverage["id"] = snapshot.key;
+        beverage["key"] = snapshot.key;
         beverage["type"] = snapshot.val().type;
         beverage["name"] = snapshot.val().name;
         beverage["description"] = snapshot.val().description;
@@ -31,7 +31,7 @@ module.exports = {
       }
       else if(snapshot.val().type === "dessert") {
         let dessert = {};
-        dessert["id"] = snapshot.key;
+        dessert["key"] = snapshot.key;
         dessert["type"] = snapshot.val().type;
         dessert["name"] = snapshot.val().name;
         dessert["description"] = snapshot.val().description;
@@ -40,7 +40,7 @@ module.exports = {
       }
       else if(snapshot.val().type === "main") {
         let main = {};
-        main["id"] = snapshot.key;
+        main["key"] = snapshot.key;
         main["type"] = snapshot.val().type;
         main["name"] = snapshot.val().name;
         main["description"] = snapshot.val().description;
@@ -64,8 +64,8 @@ module.exports = {
     return success;
   },
 
-  editMenuItem: (menuItemScreen, id, type, name, description) => {
-    firebase.database().ref("menu").child(id).update({
+  editMenuItem: (menuItemScreen, key, type, name, description) => {
+    firebase.database().ref("menu").child(key).update({
       type: type,
       name: name,
       description: description
@@ -78,8 +78,8 @@ module.exports = {
     return false;
   },
 
-  deleteMenuItem: (menuItemDetailsScreen, id, name) => {
-    firebase.database().ref("menu").child(id).remove().then(() => {
+  deleteMenuItem: (menuItemDetailsScreen, key, name) => {
+    firebase.database().ref("menu").child(key).remove().then(() => {
       ToastAndroid.show("Successfully deleted: " + name, ToastAndroid.LONG);
       menuItemDetailsScreen.props.navigation.goBack();
       return true;
@@ -88,8 +88,8 @@ module.exports = {
     return false;
   },
 
-  loadMenuItem: (menuItemDetailsScreen, id) => {
-    firebase.database().ref("menu").child(id).once("value", function(snapshot) {
+  loadMenuItem: (menuItemDetailsScreen, key) => {
+    firebase.database().ref("menu").child(key).once("value", function(snapshot) {
       if(snapshot.val() != null) {
         menuItemDetailsScreen.setState({
           type: snapshot.val().type,

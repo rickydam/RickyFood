@@ -51,7 +51,7 @@ export default class MenuScreen extends React.Component {
           ]}
           renderItem={({item}) => (
             <TouchableHighlight
-              onPress={() => this.props.navigation.navigate("MenuItemDetails", {id: item["id"]})}
+              onPress={() => this.props.navigation.navigate("MenuItemDetails", {key: item["key"]})}
               underlayColor="black">
               <View>
                 <Text style={menuStyles.renderItem}>{item["name"]}</Text>
