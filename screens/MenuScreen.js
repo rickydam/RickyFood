@@ -38,6 +38,7 @@ export default class MenuScreen extends React.Component {
   componentDidMount() {
     this.loadMenuItems();
     firebaseFunctions.menuItemDeletedListener(this);
+    firebaseFunctions.menuItemChangedListener(this);
   }
 
   render() {

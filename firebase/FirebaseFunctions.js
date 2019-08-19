@@ -78,6 +78,47 @@ module.exports = {
     });
   },
 
+  menuItemChangedListener: (menuScreen) => {
+    firebase.database().ref("menu").on("child_changed", function(snapshot) {
+      let appetizers = menuScreen.state.appetizers;
+      appetizers.forEach(function(appetizer, index) {
+        if(appetizer.key === snapshot.key) {
+          let updatedAppetizer = snapshot.val();
+          updatedAppetizer.key = snapshot.key;
+          appetizers[index] = updatedAppetizer;
+          menuScreen.setState({appetizers: appetizers});
+        }
+      });
+      let beverages = menuScreen.state.beverages;
+      beverages.forEach(function(beverage, index) {
+        if(beverage.key === snapshot.key) {
+          let updatedBeverage = snapshot.val();
+          updatedBeverage.key = snapshot.key;
+          beverages[index] = updatedBeverage;
+          menuScreen.setState({beverages: beverages});
+        }
+      });
+      let desserts = menuScreen.state.desserts;
+      desserts.forEach(function(dessert, index) {
+        if(dessert.key === snapshot.key) {
+          let updatedDessert = snapshot.val();
+          updatedDessert.key = snapshot.key;
+          desserts[index] = updatedDessert;
+          menuScreen.setState({desserts: desserts});
+        }
+      });
+      let mains = menuScreen.state.mains;
+      mains.forEach(function(main, index) {
+        if(main.key === snapshot.key) {
+          let updatedMain = snapshot.val();
+          updatedMain.key = snapshot.key;
+          mains[index] = updatedMain;
+          menuScreen.setState({mains: mains});
+        }
+      });
+    });
+  },
+
   addMenuItem: async (type, name, description) => {
     let success = false;
     let addMenuItemFirebase = firebase.database().ref("menu").push({type, name, description}).then(() => {
