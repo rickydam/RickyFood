@@ -45,6 +45,52 @@ module.exports = {
     });
   },
 
+  loadMenuItemsOnce: async (menuScreen, callback) => {
+    let loadMenuItemsOnceFirebase = firebase.database().ref("menu").once("value", function(snapshot) {
+      snapshot.forEach(function(childSnapshot) {
+        if(childSnapshot.val().type === "appetizer") {
+          let appetizer = {};
+          appetizer.key = childSnapshot.key;
+          appetizer.type = childSnapshot.val().type;
+          appetizer.name = childSnapshot.val().name;
+          appetizer.description = childSnapshot.val().description;
+          menuScreen.state.appetizers.push(appetizer);
+          menuScreen.setState({appetizers: menuScreen.state.appetizers});
+        }
+        else if(childSnapshot.val().type === "beverage") {
+          let beverage = {};
+          beverage["key"] = childSnapshot.key;
+          beverage["type"] = childSnapshot.val().type;
+          beverage["name"] = childSnapshot.val().name;
+          beverage["description"] = childSnapshot.val().description;
+          menuScreen.state.beverages.push(beverage);
+          menuScreen.setState({beverages: menuScreen.state.beverages});
+        }
+        else if(childSnapshot.val().type === "dessert") {
+          let dessert = {};
+          dessert["key"] = childSnapshot.key;
+          dessert["type"] = childSnapshot.val().type;
+          dessert["name"] = childSnapshot.val().name;
+          dessert["description"] = childSnapshot.val().description;
+          menuScreen.state.desserts.push(dessert);
+          menuScreen.setState({desserts: menuScreen.state.desserts});
+        }
+        else if(childSnapshot.val().type === "main") {
+          let main = {};
+          main["key"] = childSnapshot.key;
+          main["type"] = childSnapshot.val().type;
+          main["name"] = childSnapshot.val().name;
+          main["description"] = childSnapshot.val().description;
+          menuScreen.state.mains.push(main);
+          menuScreen.setState({mains: menuScreen.state.mains});
+        }
+        else {}
+      });
+    });
+    await Promise.all([loadMenuItemsOnceFirebase]);
+    callback();
+  },
+
   menuItemDeletedListener: (menuScreen) => {
     firebase.database().ref("menu").on("child_removed", function(snapshot) {
       let appetizers = menuScreen.state.appetizers;
