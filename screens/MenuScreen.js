@@ -86,11 +86,15 @@ export default class MenuScreen extends React.Component {
   };
 
   clearMenuItems = () => {
+    this.state.appetizers.length = 0;
+    this.state.beverages.length = 0;
+    this.state.desserts.length = 0;
+    this.state.mains.length = 0;
     this.setState({
-      appetizers: [],
-      beverages: [],
-      desserts: [],
-      mains: []
+      appetizers: this.state.appetizers,
+      beverages: this.state.beverages,
+      desserts: this.state.desserts,
+      mains: this.state.mains
     });
   };
 }
