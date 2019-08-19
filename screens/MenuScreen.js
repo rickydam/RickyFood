@@ -74,9 +74,11 @@ export default class MenuScreen extends React.Component {
   }
 
   onRefresh = () => {
+    this.clearMenuItems();
     this.setState({refreshing: true});
-    this.loadMenuItems().then(() => {
-      this.setState({refreshing: false});
+    let menuScreen = this;
+    firebaseFunctions.loadMenuItemsOnce(this, function() {
+      menuScreen.setState({refreshing: false});
     });
   };
 
