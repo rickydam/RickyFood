@@ -4,8 +4,24 @@ import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 
 export default class HomeScreen extends React.Component {
-  static navigationOptions = {
-    title: "RickyFood"
+  static navigationOptions = ({navigation}) => {
+    return {
+      title: "RickyFood",
+      headerRight: (
+        <View style={mainStyles.headerRow}>
+          <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+            <View style={touchableOpacity("#707070", 40, 5, 70).view}>
+              <Text style={touchableOpacity().text}>Register</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+            <View style={touchableOpacity("#707070", 40, 5, 60).view}>
+              <Text style={touchableOpacity().text}>Login</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      )
+    }
   };
 
   render() {
