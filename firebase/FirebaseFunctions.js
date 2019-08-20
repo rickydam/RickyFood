@@ -187,8 +187,6 @@ module.exports = {
       menuItemScreen.props.navigation.goBack();
       return true;
     });
-    ToastAndroid.show("Unable to edit menu item: " + name, ToastAndroid.LONG);
-    return false;
   },
 
   deleteMenuItem: (menuItemDetailsScreen, key, name) => {
@@ -197,8 +195,6 @@ module.exports = {
       menuItemDetailsScreen.props.navigation.goBack();
       return true;
     });
-    ToastAndroid.show("Unable to delete menu item: " + name, ToastAndroid.LONG);
-    return false;
   },
 
   loadMenuItem: (menuItemDetailsScreen, key) => {
@@ -211,8 +207,6 @@ module.exports = {
         });
         return true;
       }
-      ToastAndroid.show("Unable to load menu item", ToastAndroid.LONG);
-      return false;
     });
   },
 
