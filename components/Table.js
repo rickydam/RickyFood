@@ -80,7 +80,13 @@ export default class Table extends React.Component {
         <Animated.View
           style={[this.state.position.getLayout(), mainStyles.table]}>
           <TouchableOpacity
-            onPress={() => Alert.alert("Table onPress", this.props.table.firebaseKey)}
+            onPress={() => Alert.alert(
+              "Table onPress",
+              this.props.table.firebaseKey,
+              [{text: "OK", onPress: () => {}}],
+              {cancelable: true}
+              )
+            }
             style={mainStyles.table}>
           </TouchableOpacity>
         </Animated.View>
