@@ -95,11 +95,11 @@ export default class MenuItemScreen extends React.Component {
 
   editMenuItem = () => {
     let menuItemScreen = this;
-    let id = this.props.navigation.state.params.id;
+    let key = this.props.navigation.state.params.key;
     let type = this.state.type;
     let name = this.state.name;
     let description = this.state.description;
-    if(firebaseFunctions.editMenuItem(menuItemScreen, id, type, name, description)) {
+    if(firebaseFunctions.editMenuItem(menuItemScreen, key, type, name, description)) {
       this.resetState();
     }
   };
