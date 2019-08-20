@@ -94,8 +94,8 @@ export default class MenuItemDetailsScreen extends React.Component {
       "You need to be logged in to order.",
       [
         {text: "Cancel", onPress: () => {}},
-        {text: "Register", onPress: () => this.props.navigation.navigate("Register")},
-        {text: "Login", onPress: () => this.props.navigation.navigate("Login")}
+        {text: "Register", onPress: () => this.props.navigation.navigate("Authentication", {purpose: "Register"})},
+        {text: "Login", onPress: () => this.props.navigation.navigate("Authentication", {purpose: "Login"})}
       ],
       {cancelable: true}
     );

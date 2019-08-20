@@ -2,25 +2,23 @@ import React from "react";
 import {YellowBox} from "react-native";
 import {createStackNavigator, createAppContainer} from "react-navigation";
 import firebase from "firebase";
+import AuthenticationScreen from "./screens/AuthenticationScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LayoutScreen from "./screens/LayoutScreen";
-import LoginScreen from "./screens/LoginScreen";
 import MenuScreen from "./screens/MenuScreen";
 import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 import OrderScreen from "./screens/OrderScreen";
-import RegisterScreen from "./screens/RegisterScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
 
 const AppNavigator = createStackNavigator({
+  Authentication: AuthenticationScreen,
   Home: HomeScreen,
   Layout: LayoutScreen,
-  Login: LoginScreen,
   Menu: MenuScreen,
   MenuItem: MenuItemScreen,
   MenuItemDetails: MenuItemDetailsScreen,
   Order: OrderScreen,
-  Register: RegisterScreen,
   Restaurant: RestaurantScreen
 }, {
   initialRouteName: "Home"
