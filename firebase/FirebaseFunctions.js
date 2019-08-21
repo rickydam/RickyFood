@@ -280,5 +280,11 @@ module.exports = {
         ToastAndroid.show("Error deleting table: " + err.message, ToastAndroid.LONG);
         callback(false);
       });
+  },
+
+  registerUser: (email, password, callback) => {
+    firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
+      callback();
+    });
   }
 };

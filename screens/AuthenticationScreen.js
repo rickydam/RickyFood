@@ -1,7 +1,8 @@
 import React from "react";
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
+import firebaseFunctions from "../firebase/FirebaseFunctions";
 
 export default class AuthenticationScreen extends React.Component {
   constructor(props) {
@@ -39,7 +40,7 @@ export default class AuthenticationScreen extends React.Component {
             style={mainStyles.textInput}
             onChangeText={password => this.setState({password: password})}
           />
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity onPress={() => this.registerUser()}>
             <View style={touchableOpacity("#2196F3", 40, 5, 70).view}>
               <Text style={touchableOpacity().text}>{this.props.navigation.state.params.purpose}</Text>
             </View>
@@ -74,5 +75,13 @@ export default class AuthenticationScreen extends React.Component {
         </View>
       );
     }
+  }
+
+  registerUser = () => {
+    let authenticationScreen = this;
+    firebaseFunctions.registerUser(this.state.email, this.state.password, function() {
+      ToastAndroid.show("Registration successful.");
+      authenticationScreen.props.navigation.goBack();
+    });
   }
 }
