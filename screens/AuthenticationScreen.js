@@ -1,6 +1,7 @@
 import React from "react";
-import {Text, TextInput, View} from "react-native";
+import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
+import touchableOpacity from "../styles/components/TouchableOpacity";
 
 export default class AuthenticationScreen extends React.Component {
   constructor(props) {
@@ -39,6 +40,11 @@ export default class AuthenticationScreen extends React.Component {
             style={mainStyles.textInput}
             onChangeText={password => this.setState({password: password})}
           />
+          <TouchableOpacity onPress={() => {}}>
+            <View style={touchableOpacity("#2196F3", 40, 5, 70).view}>
+              <Text style={touchableOpacity().text}>{this.props.navigation.state.params.purpose}</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       );
     }
@@ -61,6 +67,11 @@ export default class AuthenticationScreen extends React.Component {
             style={mainStyles.textInput}
             onChangeText={password => this.setState({password: password})}
           />
+          <TouchableOpacity onPress={() => {}}>
+            <View style={touchableOpacity("#2196F3", 40, 5, 60).view}>
+              <Text style={touchableOpacity().text}>{this.props.navigation.state.params.purpose}</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       );
     }
