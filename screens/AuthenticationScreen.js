@@ -6,7 +6,6 @@ import touchableOpacity from "../styles/components/TouchableOpacity";
 export default class AuthenticationScreen extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       email: null,
       password: null,
