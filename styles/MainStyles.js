@@ -15,6 +15,14 @@ const mainStyles = StyleSheet.create({
     position: "absolute",
     height: 60,
     width: 60
+  },
+  textInput: {
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 1,
+    height: 40,
+    margin: 5,
+    width: 250
   }
 });
 
