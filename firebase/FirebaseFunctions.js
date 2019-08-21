@@ -1,6 +1,20 @@
 import React from "react";
 import {ToastAndroid} from "react-native";
 import firebase from "firebase";
+import {API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID} from "react-native-dotenv";
+
+const firebaseConfig = {
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  databaseURL: DATABASE_URL,
+  storageBucket: "",
+  projectId: PROJECT_ID,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID
+};
+if(!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 module.exports = {
   loadMenuItems: (menuScreen) => {
