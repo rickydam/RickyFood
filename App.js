@@ -10,6 +10,7 @@ import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 import OrderScreen from "./screens/OrderScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
+import {API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID} from "react-native-dotenv";
 
 const AppNavigator = createStackNavigator({
   Authentication: AuthenticationScreen,
@@ -39,13 +40,13 @@ YellowBox.ignoreWarnings(["Remote debugger"]);
 
 function initializeFirebase() {
   const firebaseConfig = {
-    apiKey: process.env.API_KEY,
-    authDomain: process.env.AUTH_DOMAIN,
-    databaseURL: "https://rickyfood-8f0e4.firebaseio.com",
+    apiKey: API_KEY,
+    authDomain: AUTH_DOMAIN,
+    databaseURL: DATABASE_URL,
     storageBucket: "",
-    projectId: process.env.PROJECT_ID,
-    messagingSenderId: process.env.MESSAGING_SENDER_ID,
-    appId: process.env.APP_ID
+    projectId: PROJECT_ID,
+    messagingSenderId: MESSAGING_SENDER_ID,
+    appId: APP_ID
   };
   if(!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
