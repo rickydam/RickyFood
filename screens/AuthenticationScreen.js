@@ -9,8 +9,7 @@ export default class AuthenticationScreen extends React.Component {
     super(props);
     this.state = {
       email: null,
-      password: null,
-      errorMessage: null
+      password: null
     }
   }
 
@@ -24,7 +23,6 @@ export default class AuthenticationScreen extends React.Component {
     if(this.props.navigation.state.params.purpose === "Register") {
       return (
         <View style={mainStyles.container}>
-          {this.state.errorMessage && <Text style={{color: "red"}}>{this.state.errorMessage}</Text>}
           <Text>Email</Text>
           <TextInput
             placeholder="Email"
@@ -51,7 +49,6 @@ export default class AuthenticationScreen extends React.Component {
     else {
       return (
         <View style={mainStyles.container}>
-          {this.state.errorMessage && <Text style={{color: "red"}}>{this.state.errorMessage}</Text>}
           <Text>Email</Text>
           <TextInput
             placeholder="Email"
