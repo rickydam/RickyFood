@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Alert, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
@@ -81,6 +81,15 @@ export default class AuthenticationScreen extends React.Component {
         ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
         authenticationScreen.props.navigation.goBack();
       }
+      else if(response.code === "auth/weak-password") {
+        Alert.alert(
+          "Password too short",
+          "Password should be at least 6 characters",
+          [{text: "OK", onPress: () => {}}],
+          {cancelable: true}
+        );
+      }
+      else {}
     });
   }
 }
