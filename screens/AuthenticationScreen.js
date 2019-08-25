@@ -77,7 +77,7 @@ export default class AuthenticationScreen extends React.Component {
   registerUser = () => {
     let authenticationScreen = this;
     firebaseFunctions.registerUser(this.state.email, this.state.password, function() {
-      ToastAndroid.show("Registration successful.");
+      ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
       authenticationScreen.props.navigation.goBack();
     });
   }
