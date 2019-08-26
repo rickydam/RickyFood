@@ -89,6 +89,9 @@ export default class AuthenticationScreen extends React.Component {
           else if(response.code === "auth/invalid-email") {
             authenticationScreen.createSimpleAlert("Invalid email", response.message);
           }
+          else if(response.code === "auth/email-already-in-use") {
+            authenticationScreen.createSimpleAlert("Email exists", response.message);
+          }
           else {}
         });
       }
