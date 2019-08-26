@@ -76,20 +76,40 @@ export default class AuthenticationScreen extends React.Component {
 
   registerUser = () => {
     let authenticationScreen = this;
-    firebaseFunctions.registerUser(this.state.email, this.state.password, function(response) {
-      if(response === null) {
-        ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
-        authenticationScreen.props.navigation.goBack();
+    if(this.state.email != null) {
+      if(this.state.password != null) {
+        firebaseFunctions.registerUser(this.state.email, this.state.password, function(response) {
+          if(response === null) {
+            ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
+            authenticationScreen.props.navigation.goBack();
+          }
+          else if(response.code === "auth/weak-password") {
+            Alert.alert(
+              "Password too short",
+              response.message,
+              [{text: "OK", onPress: () => {}}],
+              {cancelable: true}
+            );
+          }
+          else {}
+        });
       }
-      else if(response.code === "auth/weak-password") {
+      else {
         Alert.alert(
-          "Password too short",
-          response.message,
+          "Blank password",
+          "Please provide a password.",
           [{text: "OK", onPress: () => {}}],
           {cancelable: true}
         );
       }
-      else {}
-    });
+    }
+    else {
+      Alert.alert(
+        "Blank email",
+        "Please provide an email.",
+        [{text: "OK", onPress: () => {}}],
+        {cancelable: true}
+      );
+    }
   }
 }
