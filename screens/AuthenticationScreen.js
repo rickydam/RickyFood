@@ -84,7 +84,7 @@ export default class AuthenticationScreen extends React.Component {
       else if(response.code === "auth/weak-password") {
         Alert.alert(
           "Password too short",
-          "Password should be at least 6 characters",
+          response.message,
           [{text: "OK", onPress: () => {}}],
           {cancelable: true}
         );
