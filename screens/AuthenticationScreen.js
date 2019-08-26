@@ -84,32 +84,26 @@ export default class AuthenticationScreen extends React.Component {
             authenticationScreen.props.navigation.goBack();
           }
           else if(response.code === "auth/weak-password") {
-            Alert.alert(
-              "Password too short",
-              response.message,
-              [{text: "OK", onPress: () => {}}],
-              {cancelable: true}
-            );
+            authenticationScreen.createSimpleAlert("Password too short", response.message);
           }
           else {}
         });
       }
       else {
-        Alert.alert(
-          "Blank password",
-          "Please provide a password.",
-          [{text: "OK", onPress: () => {}}],
-          {cancelable: true}
-        );
+        authenticationScreen.createSimpleAlert("Blank password", "Please provide a password.");
       }
     }
     else {
-      Alert.alert(
-        "Blank email",
-        "Please provide an email.",
-        [{text: "OK", onPress: () => {}}],
-        {cancelable: true}
-      );
+      authenticationScreen.createSimpleAlert("Blank email", "Please provide an email.");
     }
-  }
+  };
+
+  createSimpleAlert = (title, message) => {
+    Alert.alert(
+      title,
+      message,
+      [{text: "OK", onPress: () => {}}],
+      {cancelable: true}
+    );
+  };
 }
