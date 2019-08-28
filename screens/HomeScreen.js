@@ -26,7 +26,7 @@ export default class HomeScreen extends React.Component {
             </View>
           </TouchableOpacity>
           <TouchableOpacity onPress={() => navigation.state.params.logout()}>
-            <View style={touchableOpacity("#707070", 40, 5, 70).view}>
+            <View style={touchableOpacity("#707070", 40, 5, 60).view}>
               <Text style={touchableOpacity().text}>Logout</Text>
             </View>
           </TouchableOpacity>
