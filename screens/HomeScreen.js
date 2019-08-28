@@ -2,8 +2,14 @@ import React from "react";
 import {Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
+import firebaseFunctions from "../firebase/FirebaseFunctions";
 
 export default class HomeScreen extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {user: null}
+  }
+
   static navigationOptions = ({navigation}) => {
     return {
       title: "RickyFood",
@@ -24,9 +30,16 @@ export default class HomeScreen extends React.Component {
     }
   };
 
+  componentDidMount() {
+    this.reRender = this.props.navigation.addListener("willFocus", () => {
+      this.checkUserAuthentication();
+    });
+  }
+
   render() {
     return (
       <View style={mainStyles.container}>
+        {this.state.user ? <Text>{this.state.user.email}</Text> : null}
         <TouchableOpacity onPress={() => this.props.navigation.navigate("Menu")}>
           <View style={touchableOpacity("#2196F3", 40, 10, 100).view}>
             <Text style={touchableOpacity().text}>View Menu</Text>
@@ -39,5 +52,11 @@ export default class HomeScreen extends React.Component {
         </TouchableOpacity>
       </View>
     );
-  }
+  };
+
+  checkUserAuthentication = () => {
+    firebaseFunctions.checkUserAuthentication(user => {
+      this.setState({user: user});
+    });
+  };
 }

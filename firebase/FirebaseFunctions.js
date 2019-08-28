@@ -302,5 +302,11 @@ module.exports = {
     }).catch(function(err) {
       callback(err);
     });
+  },
+
+  checkUserAuthentication: (callback) => {
+    firebase.auth().onAuthStateChanged(user => {
+      callback(user);
+    });
   }
 };
