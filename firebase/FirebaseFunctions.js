@@ -308,5 +308,13 @@ module.exports = {
     firebase.auth().onAuthStateChanged(user => {
       callback(user);
     });
+  },
+
+  loginUser: (email, password, callback) => {
+    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+      callback(null);
+    }).catch(err => {
+      callback(err);
+    });
   }
 };
