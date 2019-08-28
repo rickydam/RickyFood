@@ -316,5 +316,13 @@ module.exports = {
     }).catch(err => {
       callback(err);
     });
+  },
+
+  logoutUser: (callback) => {
+    firebase.auth().signOut().then(() => {
+      callback();
+    }).catch(function(err) {
+      ToastAndroid.show(err.message, ToastAndroid.LONG);
+    });
   }
 };

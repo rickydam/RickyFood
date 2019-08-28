@@ -1,5 +1,5 @@
 import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
+import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
@@ -25,6 +25,11 @@ export default class HomeScreen extends React.Component {
               <Text style={touchableOpacity().text}>Login</Text>
             </View>
           </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.state.params.logoutUser()}>
+            <View style={touchableOpacity("#707070", 40, 5, 70).view}>
+              <Text style={touchableOpacity().text}>Logout</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       )
     }
@@ -33,6 +38,9 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {
     this.reRender = this.props.navigation.addListener("willFocus", () => {
       this.checkUserAuthentication();
+    });
+    this.props.navigation.setParams({
+      logoutUser: this.logoutUser
     });
   }
 
@@ -59,4 +67,12 @@ export default class HomeScreen extends React.Component {
       this.setState({user: user});
     });
   };
+
+  logoutUser = () => {
+    let homeScreen = this;
+    firebaseFunctions.logoutUser(function() {
+      ToastAndroid.show("Logout successful.", ToastAndroid.LONG);
+      homeScreen.setState({user: null});
+    })
+  }
 }
