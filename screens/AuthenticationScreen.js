@@ -80,7 +80,7 @@ export default class AuthenticationScreen extends React.Component {
       if(this.state.password != null) {
         firebaseFunctions.registerUser(this.state.email, this.state.password, function(response) {
           if(response === null) {
-            ToastAndroid("Registration successful.", ToastAndroid.LONG);
+            ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
             authenticationScreen.props.navigation.goBack();
           }
           else if(response.code === "auth/weak-password") {
@@ -112,7 +112,7 @@ export default class AuthenticationScreen extends React.Component {
       if(this.state.password != null) {
         firebaseFunctions.loginUser(this.state.email, this.state.password, function(response) {
           if(response === null) {
-            ToastAndroid("Login successful.", ToastAndroid.LONG);
+            ToastAndroid.show("Login successful.", ToastAndroid.LONG);
             authenticationScreen.props.navigation.goBack();
           }
           else if(response.code === "auth/invalid-email") {
