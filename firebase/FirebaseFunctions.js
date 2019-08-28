@@ -296,7 +296,7 @@ module.exports = {
       });
   },
 
-  registerUser: (email, password, callback) => {
+  register: (email, password, callback) => {
     firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
       callback(null);
     }).catch(function(err) {
@@ -310,7 +310,7 @@ module.exports = {
     });
   },
 
-  loginUser: (email, password, callback) => {
+  login: (email, password, callback) => {
     firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
       callback(null);
     }).catch(err => {
@@ -318,7 +318,7 @@ module.exports = {
     });
   },
 
-  logoutUser: (callback) => {
+  logout: (callback) => {
     firebase.auth().signOut().then(() => {
       callback();
     }).catch(function(err) {

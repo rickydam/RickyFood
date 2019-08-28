@@ -25,7 +25,7 @@ export default class HomeScreen extends React.Component {
               <Text style={touchableOpacity().text}>Login</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.state.params.logoutUser()}>
+          <TouchableOpacity onPress={() => navigation.state.params.logout()}>
             <View style={touchableOpacity("#707070", 40, 5, 70).view}>
               <Text style={touchableOpacity().text}>Logout</Text>
             </View>
@@ -40,7 +40,7 @@ export default class HomeScreen extends React.Component {
       this.checkUserAuthentication();
     });
     this.props.navigation.setParams({
-      logoutUser: this.logoutUser
+      logout: this.logout
     });
   }
 
@@ -68,9 +68,9 @@ export default class HomeScreen extends React.Component {
     });
   };
 
-  logoutUser = () => {
+  logout = () => {
     let homeScreen = this;
-    firebaseFunctions.logoutUser(function() {
+    firebaseFunctions.logout(function() {
       ToastAndroid.show("Logout successful.", ToastAndroid.LONG);
       homeScreen.setState({user: null});
     })

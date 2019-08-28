@@ -38,7 +38,7 @@ export default class AuthenticationScreen extends React.Component {
             style={mainStyles.textInput}
             onChangeText={password => this.setState({password: password})}
           />
-          <TouchableOpacity onPress={() => this.registerUser()}>
+          <TouchableOpacity onPress={() => this.register()}>
             <View style={touchableOpacity("#2196F3", 40, 5, 70).view}>
               <Text style={touchableOpacity().text}>{this.props.navigation.state.params.purpose}</Text>
             </View>
@@ -64,7 +64,7 @@ export default class AuthenticationScreen extends React.Component {
             style={mainStyles.textInput}
             onChangeText={password => this.setState({password: password})}
           />
-          <TouchableOpacity onPress={() => this.loginUser()}>
+          <TouchableOpacity onPress={() => this.login()}>
             <View style={touchableOpacity("#2196F3", 40, 5, 60).view}>
               <Text style={touchableOpacity().text}>{this.props.navigation.state.params.purpose}</Text>
             </View>
@@ -74,11 +74,11 @@ export default class AuthenticationScreen extends React.Component {
     }
   }
 
-  registerUser = () => {
+  register = () => {
     let authenticationScreen = this;
     if(this.state.email != null) {
       if(this.state.password != null) {
-        firebaseFunctions.registerUser(this.state.email, this.state.password, function(response) {
+        firebaseFunctions.register(this.state.email, this.state.password, function(response) {
           if(response === null) {
             ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
             authenticationScreen.props.navigation.goBack();
@@ -106,11 +106,11 @@ export default class AuthenticationScreen extends React.Component {
     }
   };
 
-  loginUser = () => {
+  login = () => {
     let authenticationScreen = this;
     if(this.state.email != null) {
       if(this.state.password != null) {
-        firebaseFunctions.loginUser(this.state.email, this.state.password, function(response) {
+        firebaseFunctions.login(this.state.email, this.state.password, function(response) {
           if(response === null) {
             ToastAndroid.show("Login successful.", ToastAndroid.LONG);
             authenticationScreen.props.navigation.goBack();
