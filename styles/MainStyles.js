@@ -11,8 +11,8 @@ const mainStyles = StyleSheet.create({
     flexDirection: "row"
   },
   icon: {
-    height: 30,
-    width: 30
+    height: 25,
+    width: 25
   },
   table: {
     backgroundColor: "gray",
