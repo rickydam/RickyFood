@@ -17,7 +17,7 @@ export default class LayoutScreen extends React.Component {
   static navigationOptions = ({navigation}) => ({
     title: "Layout",
     headerRight: (
-      <View style={mainStyles.headerRow}>
+      <View style={mainStyles.row}>
         <TouchableOpacity onPress={() => navigation.state.params.addTable()}>
           <View style={touchableOpacity("#9932CC", 40, 5, 60).view}>
             <Text style={touchableOpacity().text}>Add</Text>
