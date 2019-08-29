@@ -1,11 +1,9 @@
 import React from "react";
-import {Image, RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity, View} from "react-native";
+import {RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import menuStyles from "../styles/MenuStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
-
-const menuIcon = require("../images/icons/menu.png");
 
 export default class MenuScreen extends React.Component {
   constructor(props) {
@@ -20,10 +18,6 @@ export default class MenuScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    tabBarIcon: ({tintColor}) => (
-      <Image source={menuIcon} style={[mainStyles.icon, {tintColor: tintColor}]} />
-    ),
-    tabBarLabel: "Menu",
     title: "Menu Items",
     headerRight: (
       <View style={mainStyles.headerRow}>
