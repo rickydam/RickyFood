@@ -1,5 +1,5 @@
 import React from "react";
-import {YellowBox} from "react-native";
+import {Image, YellowBox} from "react-native";
 import {createStackNavigator, createAppContainer, createBottomTabNavigator} from "react-navigation";
 import AuthenticationScreen from "./screens/AuthenticationScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -10,10 +10,28 @@ import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 import OrderScreen from "./screens/OrderScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
+import mainStyles from "./styles/MainStyles";
+
+const menuIcon = require("./images/icons/menu.png");
+
+const MenuStackNavigator = createStackNavigator({
+  Authentication: AuthenticationScreen,
+  Menu: MenuScreen,
+  MenuItem: MenuItemScreen,
+  MenuItemDetails: MenuItemDetailsScreen
+}, {
+  initialRouteName: "Menu",
+  navigationOptions: {
+    tabBarIcon: ({tintColor}) => (
+      <Image source={menuIcon} style={[mainStyles.icon, {tintColor: tintColor}]} />
+    ),
+    tabBarLabel: "Menu"
+  }
+});
 
 const TabNavigator = createBottomTabNavigator({
   HomeScreen: HomeScreen,
-  MenuScreen: MenuScreen,
+  Menu: MenuStackNavigator,
   OrderScreen: OrderScreen,
   RestaurantScreen: RestaurantScreen,
   ProfileScreen: ProfileScreen
