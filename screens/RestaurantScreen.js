@@ -1,11 +1,9 @@
 import React from "react";
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
 import Table from "../components/Table";
-
-const restaurantIcon = require("../images/icons/restaurant.png");
 
 export default class RestaurantScreen extends React.Component {
   constructor(props) {
@@ -16,10 +14,6 @@ export default class RestaurantScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    tabBarIcon: ({tintColor}) => (
-      <Image source={restaurantIcon} style={[mainStyles.icon, {tintColor: tintColor}]} />
-    ),
-    tabBarLabel: "Restaurant",
     title: "Restaurant",
     headerRight: (
       <TouchableOpacity onPress={() => navigation.navigate("Layout")}>
