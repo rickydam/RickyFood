@@ -7,7 +7,7 @@ const mainStyles = StyleSheet.create({
     flex: 1,
     justifyContent: "center"
   },
-  headerRow: {
+  row: {
     flexDirection: "row"
   },
   icon: {
