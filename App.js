@@ -8,12 +8,14 @@ import MenuScreen from "./screens/MenuScreen";
 import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 import OrderScreen from "./screens/OrderScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
 
 const TabNavigator = createBottomTabNavigator({
   HomeScreen: HomeScreen,
   MenuScreen: MenuScreen,
-  RestaurantScreen: RestaurantScreen
+  RestaurantScreen: RestaurantScreen,
+  ProfileScreen: ProfileScreen
 }, {
   tabBarOptions: {
     activeTintColor: "black",
