@@ -54,16 +54,7 @@ export default class HomeScreen extends React.Component {
     return (
       <View style={mainStyles.container}>
         {this.state.user ? <Text>{this.state.user.email}</Text> : null}
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("Menu")}>
-          <View style={touchableOpacity("#2196F3", 40, 10, 100).view}>
-            <Text style={touchableOpacity().text}>View Menu</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => this.props.navigation.navigate("Restaurant")}>
-          <View style={touchableOpacity("#9932CC", 40, 20, 130).view}>
-            <Text style={touchableOpacity().text}>View Restaurant</Text>
-          </View>
-        </TouchableOpacity>
+        <Text>HomeScreen</Text>
       </View>
     );
   };
