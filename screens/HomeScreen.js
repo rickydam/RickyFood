@@ -1,8 +1,10 @@
 import React from "react";
-import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Image, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
+
+const homeIcon = require("../images/icons/home.png");
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -12,6 +14,13 @@ export default class HomeScreen extends React.Component {
 
   static navigationOptions = ({navigation}) => {
     return {
+      tabBarIcon: ({tintColor}) => (
+        <Image
+          source={homeIcon}
+          style={[mainStyles.icon, {tintColor: tintColor}]}
+        />
+      ),
+      tabBarLabel: "Home",
       title: "RickyFood",
       headerRight: (
         <View style={mainStyles.headerRow}>
