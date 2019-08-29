@@ -12,6 +12,7 @@ import RestaurantScreen from "./screens/RestaurantScreen";
 
 const TabNavigator = createBottomTabNavigator({
   HomeScreen: HomeScreen,
+  MenuScreen: MenuScreen,
   RestaurantScreen: RestaurantScreen
 }, {
   tabBarOptions: {
