@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, View} from "react-native";
+import {Image, Text, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 
 const orderIcon = require("../images/icons/order.png");
@@ -16,6 +16,7 @@ export default class OrderScreen extends React.Component {
   render() {
     return (
       <View style={mainStyles.container}>
+        <Text>OrderScreen</Text>
       </View>
     );
   }
