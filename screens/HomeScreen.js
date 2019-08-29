@@ -1,7 +1,6 @@
 import React from "react";
-import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Text, ToastAndroid, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
 
 export default class HomeScreen extends React.Component {
@@ -12,26 +11,7 @@ export default class HomeScreen extends React.Component {
 
   static navigationOptions = ({navigation}) => {
     return {
-      title: "RickyFood",
-      headerRight: (
-        <View style={mainStyles.headerRow}>
-          <TouchableOpacity onPress={() => navigation.navigate("Authentication", {purpose: "Register"})}>
-            <View style={touchableOpacity("#707070", 40, 5, 70).view}>
-              <Text style={touchableOpacity().text}>Register</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.navigate("Authentication", {purpose: "Login"})}>
-            <View style={touchableOpacity("#707070", 40, 5, 60).view}>
-              <Text style={touchableOpacity().text}>Login</Text>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => navigation.state.params.logout()}>
-            <View style={touchableOpacity("#707070", 40, 5, 60).view}>
-              <Text style={touchableOpacity().text}>Logout</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      )
+      title: "RickyFood"
     }
   };
 
