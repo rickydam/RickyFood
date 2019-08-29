@@ -1,6 +1,6 @@
 import React from "react";
 import {YellowBox} from "react-native";
-import {createStackNavigator, createAppContainer} from "react-navigation";
+import {createStackNavigator, createAppContainer, createBottomTabNavigator} from "react-navigation";
 import AuthenticationScreen from "./screens/AuthenticationScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LayoutScreen from "./screens/LayoutScreen";
@@ -9,6 +9,16 @@ import MenuItemScreen from "./screens/MenuItemScreen";
 import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 import OrderScreen from "./screens/OrderScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
+
+const TabNavigator = createBottomTabNavigator({
+  HomeScreen: HomeScreen,
+  RestaurantScreen: RestaurantScreen
+}, {
+  tabBarOptions: {
+    activeTintColor: "black",
+    inactiveTintColor: "lightgray"
+  }
+});
 
 const AppNavigator = createStackNavigator({
   Authentication: AuthenticationScreen,
@@ -22,7 +32,7 @@ const AppNavigator = createStackNavigator({
 }, {
   initialRouteName: "Home"
 });
-const AppContainer = createAppContainer(AppNavigator);
+const AppContainer = createAppContainer(TabNavigator);
 
 export default class App extends React.Component {
   render() {
