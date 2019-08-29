@@ -17,10 +17,7 @@ export default class RestaurantScreen extends React.Component {
 
   static navigationOptions = ({navigation}) => ({
     tabBarIcon: ({tintColor}) => (
-      <Image
-        source={restaurantIcon}
-        style={[mainStyles.icon, {tintColor: tintColor}]}
-      />
+      <Image source={restaurantIcon} style={[mainStyles.icon, {tintColor: tintColor}]} />
     ),
     tabBarLabel: "Restaurant",
     title: "Restaurant",

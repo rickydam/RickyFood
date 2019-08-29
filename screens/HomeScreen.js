@@ -15,10 +15,7 @@ export default class HomeScreen extends React.Component {
   static navigationOptions = ({navigation}) => {
     return {
       tabBarIcon: ({tintColor}) => (
-        <Image
-          source={homeIcon}
-          style={[mainStyles.icon, {tintColor: tintColor}]}
-        />
+        <Image source={homeIcon} style={[mainStyles.icon, {tintColor: tintColor}]} />
       ),
       tabBarLabel: "Home",
       title: "RickyFood",
