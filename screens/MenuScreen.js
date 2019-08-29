@@ -26,11 +26,6 @@ export default class MenuScreen extends React.Component {
             <Text style={touchableOpacity().text}>Add</Text>
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Order")}>
-          <View style={touchableOpacity("#9932CC", 40, 5, 90).view}>
-            <Text style={touchableOpacity().text}>View Order</Text>
-          </View>
-        </TouchableOpacity>
       </View>
     )
   });
