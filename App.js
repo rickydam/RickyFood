@@ -15,6 +15,7 @@ import mainStyles from "./styles/MainStyles";
 const homeIcon = require("./images/icons/home.png");
 const menuIcon = require("./images/icons/menu.png");
 const orderIcon = require("./images/icons/order.png");
+const restaurantIcon = require("./images/icons/restaurant.png");
 const profileIcon = require("./images/icons/profile.png");
 
 const HomeStackNavigator = createStackNavigator({
@@ -56,6 +57,19 @@ const OrderStackNavigator = createStackNavigator({
   }
 });
 
+const RestaurantStackNavigator = createStackNavigator({
+  Layout: LayoutScreen,
+  Restaurant: RestaurantScreen
+}, {
+  initialRouteName: "Restaurant",
+  navigationOptions: {
+    tabBarIcon: ({tintColor}) => (
+      <Image source={restaurantIcon} style={[mainStyles.icon, {tintColor: tintColor}]} />
+    ),
+    tabBarLabel: "Restaurant"
+  }
+});
+
 const ProfileStackNavigator = createStackNavigator({
   Authentication: AuthenticationScreen,
   Profile: ProfileScreen
@@ -73,7 +87,7 @@ const TabNavigator = createBottomTabNavigator({
   Home: HomeStackNavigator,
   Menu: MenuStackNavigator,
   Order: OrderStackNavigator,
-  RestaurantScreen: RestaurantScreen,
+  Restaurant: RestaurantStackNavigator,
   Profile: ProfileStackNavigator
 }, {
   tabBarOptions: {
