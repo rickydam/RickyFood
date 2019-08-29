@@ -1,16 +1,10 @@
 import React from "react";
-import {Image, Text, TouchableOpacity, View} from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 
-const profileIcon = require("../images/icons/profile.png");
-
 export default class ProfileScreen extends React.Component {
   static navigationOptions = {
-    tabBarIcon: ({tintColor}) => (
-      <Image source={profileIcon} style={[mainStyles.icon, {tintColor: tintColor}]} />
-    ),
-    tabBarLabel: "Profile",
     title: "Profile"
   };
 
