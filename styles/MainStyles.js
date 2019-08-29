@@ -10,6 +10,10 @@ const mainStyles = StyleSheet.create({
   headerRow: {
     flexDirection: "row"
   },
+  icon: {
+    height: 30,
+    width: 30
+  },
   table: {
     backgroundColor: "gray",
     position: "absolute",
