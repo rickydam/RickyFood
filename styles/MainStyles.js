@@ -14,6 +14,19 @@ const mainStyles = StyleSheet.create({
     height: 25,
     width: 25
   },
+  picker: {
+    height: 40,
+    margin: 0,
+    padding: 0,
+    width: 250
+  },
+  pickerView: {
+    backgroundColor: "white",
+    borderColor: "black",
+    borderWidth: 1,
+    height: 40,
+    width: 250
+  },
   table: {
     backgroundColor: "gray",
     position: "absolute",

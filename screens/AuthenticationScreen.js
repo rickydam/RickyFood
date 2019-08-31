@@ -1,5 +1,5 @@
 import React from "react";
-import {Alert, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
+import {Alert, Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
@@ -8,6 +8,7 @@ export default class AuthenticationScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      type: "customer",
       email: null,
       password: null
     }
@@ -23,6 +24,18 @@ export default class AuthenticationScreen extends React.Component {
     if(this.props.navigation.state.params.purpose === "Register") {
       return (
         <View style={mainStyles.container}>
+          <Text>Type</Text>
+          <View style={mainStyles.pickerView}>
+            <Picker
+              style={mainStyles.picker}
+              selectedValue={this.state.type}
+              onValueChange={(value) => {
+                this.setState({type: value})
+              }}>
+              <Picker.Item label="Customer" value="customer" />
+              <Picker.Item label="Owner" value="owner" />
+            </Picker>
+          </View>
           <Text>Email</Text>
           <TextInput
             placeholder="Email"
