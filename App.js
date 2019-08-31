@@ -96,18 +96,6 @@ const TabNavigator = createBottomTabNavigator({
   }
 });
 
-const AppNavigator = createStackNavigator({
-  Authentication: AuthenticationScreen,
-  Home: HomeScreen,
-  Layout: LayoutScreen,
-  Menu: MenuScreen,
-  MenuItem: MenuItemScreen,
-  MenuItemDetails: MenuItemDetailsScreen,
-  Order: OrderScreen,
-  Restaurant: RestaurantScreen
-}, {
-  initialRouteName: "Home"
-});
 const AppContainer = createAppContainer(TabNavigator);
 
 export default class App extends React.Component {
