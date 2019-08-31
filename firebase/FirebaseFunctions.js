@@ -304,6 +304,16 @@ module.exports = {
     });
   },
 
+  saveUserType: (type, uid, callback) => {
+    firebase.database().ref("users").child(uid).set({
+      type: type
+    }).then(function() {
+      callback(null);
+    }).catch(function(err) {
+      callback(err);
+    });
+  },
+
   checkUserAuthentication: (callback) => {
     firebase.auth().onAuthStateChanged(user => {
       callback(user);

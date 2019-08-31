@@ -95,6 +95,7 @@ export default class AuthenticationScreen extends React.Component {
           if(err === null) {
             ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
             authenticationScreen.props.navigation.goBack();
+            authenticationScreen.saveUserType(userCredentials.user.uid);
           }
           else if(err.code === "auth/weak-password") {
             authenticationScreen.createSimpleAlert("Password too short", err.message);
@@ -117,6 +118,13 @@ export default class AuthenticationScreen extends React.Component {
     else {
       authenticationScreen.createSimpleAlert("Blank email", "Please provide an email.");
     }
+  };
+
+  saveUserType = (uid) => {
+    let authenticationScreen = this;
+    firebaseFunctions.saveUserType(this.state.type, uid, function(err) {
+      if(err !== null) ToastAndroid.show("Error saving user type.", ToastAndroid.LONG);
+    });
   };
 
   login = () => {
