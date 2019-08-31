@@ -297,10 +297,10 @@ module.exports = {
   },
 
   register: (email, password, callback) => {
-    firebase.auth().createUserWithEmailAndPassword(email, password).then(() => {
-      callback(null);
+    firebase.auth().createUserWithEmailAndPassword(email, password).then((userCredentials) => {
+      callback(userCredentials, null);
     }).catch(function(err) {
-      callback(err);
+      callback(null, err);
     });
   },
 

@@ -78,19 +78,19 @@ export default class AuthenticationScreen extends React.Component {
     let authenticationScreen = this;
     if(this.state.email != null) {
       if(this.state.password != null) {
-        firebaseFunctions.register(this.state.email, this.state.password, function(response) {
-          if(response === null) {
+        firebaseFunctions.register(this.state.email, this.state.password, function(userCredentials, err) {
+          if(err === null) {
             ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
             authenticationScreen.props.navigation.goBack();
           }
-          else if(response.code === "auth/weak-password") {
-            authenticationScreen.createSimpleAlert("Password too short", response.message);
+          else if(err.code === "auth/weak-password") {
+            authenticationScreen.createSimpleAlert("Password too short", err.message);
           }
-          else if(response.code === "auth/invalid-email") {
-            authenticationScreen.createSimpleAlert("Invalid email", response.message);
+          else if(err.code === "auth/invalid-email") {
+            authenticationScreen.createSimpleAlert("Invalid email", err.message);
           }
-          else if(response.code === "auth/email-already-in-use") {
-            authenticationScreen.createSimpleAlert("Email exists", response.message);
+          else if(err.code === "auth/email-already-in-use") {
+            authenticationScreen.createSimpleAlert("Email exists", err.message);
           }
           else {
             authenticationScreen.createSimpleAlert("Register error", "Unable to register account.");
