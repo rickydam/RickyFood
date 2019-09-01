@@ -18,6 +18,7 @@ export default class ProfileScreen extends React.Component {
   componentDidMount() {
     this.reRender = this.props.navigation.addListener("willFocus", () => {
       this.checkUserAuthentication();
+      this.getUserType();
     });
     this.props.navigation.setParams({
       logout: this.logout
@@ -37,6 +38,7 @@ export default class ProfileScreen extends React.Component {
           </View>
           <View>
             {this.state.user ? <Text>{this.state.user.email}</Text> : null}
+            {this.state.userType ? <Text>{this.state.userType}</Text> : null }
           </View>
         </View>
       );
