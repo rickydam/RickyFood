@@ -74,6 +74,7 @@ export default class ProfileScreen extends React.Component {
     firebaseFunctions.logout(function() {
       ToastAndroid.show("Logout successful.", ToastAndroid.LONG);
       homeScreen.setState({user: null});
+      homeScreen.removeUserType();
     })
   };
 
@@ -83,6 +84,15 @@ export default class ProfileScreen extends React.Component {
       if(value != null) this.setState({userType: value});
     } catch(e) {
       ToastAndroid.show("Unable to get user type from AsyncStorage.", ToastAndroid.LONG);
+    }
+  };
+
+  removeUserType = async () => {
+    try {
+      await AsyncStorage.removeItem("user_type");
+      this.setState({userType: null});
+    } catch(e) {
+      ToastAndroid.show("Unable to remove user type from AsyncStorage.", ToastAndroid.LONG);
     }
   };
 }
