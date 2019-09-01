@@ -38,7 +38,6 @@ const mainStyles = StyleSheet.create({
     borderColor: "black",
     borderWidth: 1,
     height: 40,
-    margin: 5,
     padding: 10,
     width: 250
   }
