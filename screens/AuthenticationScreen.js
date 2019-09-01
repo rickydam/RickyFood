@@ -94,8 +94,10 @@ export default class AuthenticationScreen extends React.Component {
         firebaseFunctions.register(this.state.email, this.state.password, function(userCredentials, err) {
           if(err === null) {
             ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
-            authenticationScreen.props.navigation.goBack();
-            authenticationScreen.saveUserType(userCredentials.user.uid);
+            firebaseFunctions.saveUserType(authenticationScreen.state.type, userCredentials.user.uid, function(err) {
+              if(err === null) authenticationScreen.props.navigation.goBack();
+              else ToastAndroid.show("Error saving user type.", ToastAndroid.LONG)
+            });
           }
           else if(err.code === "auth/weak-password") {
             authenticationScreen.createSimpleAlert("Password too short", err.message);
@@ -120,13 +122,6 @@ export default class AuthenticationScreen extends React.Component {
     }
   };
 
-  saveUserType = (uid) => {
-    let authenticationScreen = this;
-    firebaseFunctions.saveUserType(this.state.type, uid, function(err) {
-      if(err !== null) ToastAndroid.show("Error saving user type.", ToastAndroid.LONG);
-    });
-  };
-
   login = () => {
     let authenticationScreen = this;
     if(this.state.email != null) {
@@ -134,8 +129,9 @@ export default class AuthenticationScreen extends React.Component {
         firebaseFunctions.login(this.state.email, this.state.password, function(userCredentials, err) {
           if(err === null) {
             ToastAndroid.show("Login successful.", ToastAndroid.LONG);
-            authenticationScreen.props.navigation.goBack();
-            firebaseFunctions.getUserType(userCredentials.user.uid);
+            firebaseFunctions.getUserType(userCredentials.user.uid, function() {
+              authenticationScreen.props.navigation.goBack();
+            });
           }
           else if(err.code === "auth/invalid-email") {
             authenticationScreen.createSimpleAlert("Invalid email", err.message);
