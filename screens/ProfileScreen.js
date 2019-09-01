@@ -18,7 +18,7 @@ export default class ProfileScreen extends React.Component {
   componentDidMount() {
     this.reRender = this.props.navigation.addListener("willFocus", () => {
       this.checkUserAuthentication();
-      this.getUserType();
+      this.getItemUserType();
     });
     this.props.navigation.setParams({
       logout: this.logout
@@ -78,7 +78,7 @@ export default class ProfileScreen extends React.Component {
     })
   };
 
-  getUserType = async () => {
+  getItemUserType = async () => {
     try {
       const value = await AsyncStorage.getItem("user_type");
       if(value != null) this.setState({userType: value});
