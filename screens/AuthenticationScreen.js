@@ -135,6 +135,7 @@ export default class AuthenticationScreen extends React.Component {
           if(err === null) {
             ToastAndroid.show("Login successful.", ToastAndroid.LONG);
             authenticationScreen.props.navigation.goBack();
+            firebaseFunctions.getUserType(userCredentials.user.uid);
           }
           else if(err.code === "auth/invalid-email") {
             authenticationScreen.createSimpleAlert("Invalid email", err.message);

@@ -334,6 +334,21 @@ module.exports = {
     });
   },
 
+  getUserType: (uid) => {
+    firebase.database().ref("users").child(uid).once("value", async function(snapshot) {
+      if(snapshot.val() != null) {
+        try {
+          await AsyncStorage.setItem("user_type", snapshot.val().type);
+        } catch(e) {
+          ToastAndroid.show("Unable to save user type to AsyncStorage.", ToastAndroid.LONG);
+        }
+      }
+      else {
+        ToastAndroid.show("Unable to get user type.", ToastAndroid.LONG);
+      }
+    });
+  },
+
   logout: (callback) => {
     firebase.auth().signOut().then(() => {
       callback();
