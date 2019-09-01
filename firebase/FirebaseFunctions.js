@@ -1,5 +1,6 @@
 import React from "react";
 import {ToastAndroid} from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import firebase from "firebase";
 import {API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID} from "react-native-dotenv";
 
@@ -307,8 +308,13 @@ module.exports = {
   saveUserType: (type, uid, callback) => {
     firebase.database().ref("users").child(uid).set({
       type: type
-    }).then(function() {
+    }).then(async function () {
       callback(null);
+      try {
+        await AsyncStorage.setItem("user_type", type);
+      } catch(e) {
+        ToastAndroid.show("Unable to save user type to AsyncStorage.", ToastAndroid.LONG);
+      }
     }).catch(function(err) {
       callback(err);
     });

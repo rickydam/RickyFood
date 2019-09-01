@@ -3,11 +3,12 @@ import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../firebase/FirebaseFunctions";
+import AsyncStorage from "@react-native-community/async-storage";
 
 export default class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {user: null}
+    this.state = {user: null, userType: null}
   }
 
   static navigationOptions = {
@@ -72,5 +73,14 @@ export default class ProfileScreen extends React.Component {
       ToastAndroid.show("Logout successful.", ToastAndroid.LONG);
       homeScreen.setState({user: null});
     })
-  }
+  };
+
+  getUserType = async () => {
+    try {
+      const value = await AsyncStorage.getItem("user_type");
+      if(value != null) this.setState({userType: value});
+    } catch(e) {
+      ToastAndroid.show("Unable to get user type from AsyncStorage.", ToastAndroid.LONG);
+    }
+  };
 }
