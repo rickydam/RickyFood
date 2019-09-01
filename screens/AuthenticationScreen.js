@@ -131,19 +131,19 @@ export default class AuthenticationScreen extends React.Component {
     let authenticationScreen = this;
     if(this.state.email != null) {
       if(this.state.password != null) {
-        firebaseFunctions.login(this.state.email, this.state.password, function(response) {
-          if(response === null) {
+        firebaseFunctions.login(this.state.email, this.state.password, function(userCredentials, err) {
+          if(err === null) {
             ToastAndroid.show("Login successful.", ToastAndroid.LONG);
             authenticationScreen.props.navigation.goBack();
           }
-          else if(response.code === "auth/invalid-email") {
-            authenticationScreen.createSimpleAlert("Invalid email", response.message);
+          else if(err.code === "auth/invalid-email") {
+            authenticationScreen.createSimpleAlert("Invalid email", err.message);
           }
-          else if(response.code === "auth/user-not-found") {
-            authenticationScreen.createSimpleAlert("User not found", response.message);
+          else if(err.code === "auth/user-not-found") {
+            authenticationScreen.createSimpleAlert("User not found", err.message);
           }
-          else if(response.code === "auth/wrong-password") {
-            authenticationScreen.createSimpleAlert("Wrong password", response.message);
+          else if(err.code === "auth/wrong-password") {
+            authenticationScreen.createSimpleAlert("Wrong password", err.message);
           }
           else {
             authenticationScreen.createSimpleAlert("Login error", "Unable to login to this account.");

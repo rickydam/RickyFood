@@ -327,10 +327,10 @@ module.exports = {
   },
 
   login: (email, password, callback) => {
-    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-      callback(null);
+    firebase.auth().signInWithEmailAndPassword(email, password).then((userCredentials) => {
+      callback(userCredentials, null);
     }).catch(err => {
-      callback(err);
+      callback(null, err);
     });
   },
 
