@@ -74,7 +74,7 @@ export default class ProfileScreen extends React.Component {
     firebaseFunctions.logout(function() {
       ToastAndroid.show("Logout successful.", ToastAndroid.LONG);
       homeScreen.setState({user: null});
-      homeScreen.removeUserType();
+      homeScreen.removeItemUserType();
     })
   };
 
@@ -87,7 +87,7 @@ export default class ProfileScreen extends React.Component {
     }
   };
 
-  removeUserType = async () => {
+  removeItemUserType = async () => {
     try {
       await AsyncStorage.removeItem("user_type");
       this.setState({userType: null});
