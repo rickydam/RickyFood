@@ -3,7 +3,7 @@ import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
-import AsyncStorage from "@react-native-community/async-storage";
+import mainFunctions from "../functions/MainFunctions";
 
 export default class ProfileScreen extends React.Component {
   constructor(props) {
@@ -16,9 +16,12 @@ export default class ProfileScreen extends React.Component {
   };
 
   componentDidMount() {
+    let profileScreen = this;
     this.reRender = this.props.navigation.addListener("willFocus", () => {
       this.checkUserAuthentication();
-      this.getItemUserType();
+      mainFunctions.getItemUserType(function(userType) {
+        if(userType !== null) profileScreen.setState({userType: userType});
+      });
     });
     this.props.navigation.setParams({
       logout: this.logout
@@ -70,29 +73,13 @@ export default class ProfileScreen extends React.Component {
   };
 
   logout = () => {
-    let homeScreen = this;
+    let profileScreen = this;
     firebaseFunctions.logout(function() {
       ToastAndroid.show("Logout successful.", ToastAndroid.LONG);
-      homeScreen.setState({user: null});
-      homeScreen.removeItemUserType();
+      profileScreen.setState({user: null});
+      mainFunctions.removeItemUserType(function(err) {
+        if(!err) profileScreen.setState({userType: null});
+      });
     })
-  };
-
-  getItemUserType = async () => {
-    try {
-      const value = await AsyncStorage.getItem("user_type");
-      if(value != null) this.setState({userType: value});
-    } catch(e) {
-      ToastAndroid.show("Unable to get user type from AsyncStorage.", ToastAndroid.LONG);
-    }
-  };
-
-  removeItemUserType = async () => {
-    try {
-      await AsyncStorage.removeItem("user_type");
-      this.setState({userType: null});
-    } catch(e) {
-      ToastAndroid.show("Unable to remove user type from AsyncStorage.", ToastAndroid.LONG);
-    }
   };
 }
