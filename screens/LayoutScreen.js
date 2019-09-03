@@ -3,7 +3,7 @@ import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import Table from "../components/Table";
-import firebaseFunctions from "../firebase/FirebaseFunctions";
+import firebaseFunctions from "../functions/FirebaseFunctions";
 
 export default class LayoutScreen extends React.Component {
   constructor(props) {

@@ -3,7 +3,7 @@ import {Alert, Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
 import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../firebase/FirebaseFunctions";
+import firebaseFunctions from "../functions/FirebaseFunctions";
 
 export default class MenuItemDetailsScreen extends React.Component {
   constructor(props) {

@@ -3,7 +3,7 @@ import {Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "rea
 import mainStyles from "../styles/MainStyles";
 import addMenuItemStyles from "../styles/MenuItemStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../firebase/FirebaseFunctions";
+import firebaseFunctions from "../functions/FirebaseFunctions";
 
 export default class MenuItemScreen extends React.Component {
   constructor(props) {

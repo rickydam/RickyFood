@@ -3,7 +3,7 @@ import {RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity,
 import mainStyles from "../styles/MainStyles";
 import menuStyles from "../styles/MenuStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../firebase/FirebaseFunctions";
+import firebaseFunctions from "../functions/FirebaseFunctions";
 
 export default class MenuScreen extends React.Component {
   constructor(props) {

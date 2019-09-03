@@ -2,7 +2,7 @@ import React from "react";
 import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../firebase/FirebaseFunctions";
+import firebaseFunctions from "../functions/FirebaseFunctions";
 import AsyncStorage from "@react-native-community/async-storage";
 
 export default class ProfileScreen extends React.Component {
