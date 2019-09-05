@@ -305,7 +305,7 @@ module.exports = {
     });
   },
 
-  saveUserType: (type, uid, callback) => {
+  saveUserData: (type, uid, callback) => {
     firebase.database().ref("users").child(uid).set({
       type: type
     }).then(async function () {
@@ -335,7 +335,7 @@ module.exports = {
     });
   },
 
-  getUserType: (uid, callback) => {
+  getUserData: (uid, callback) => {
     firebase.database().ref("users").child(uid).once("value", async function(snapshot) {
       if(snapshot.val() != null) {
         try {

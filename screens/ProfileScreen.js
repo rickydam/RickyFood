@@ -8,7 +8,7 @@ import mainFunctions from "../functions/MainFunctions";
 export default class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {user: null, userType: null}
+    this.state = {user: null, userData: null}
   }
 
   static navigationOptions = {
@@ -19,8 +19,8 @@ export default class ProfileScreen extends React.Component {
     let profileScreen = this;
     this.reRender = this.props.navigation.addListener("willFocus", () => {
       this.checkUserAuthentication();
-      mainFunctions.getItemUserType(function(userType) {
-        if(userType !== null) profileScreen.setState({userType: userType});
+      mainFunctions.getItemUserData(function(userData) {
+        if(userData !== null) profileScreen.setState({userData: userData});
       });
     });
     this.props.navigation.setParams({
@@ -41,7 +41,8 @@ export default class ProfileScreen extends React.Component {
           </View>
           <View>
             {this.state.user ? <Text>{this.state.user.email}</Text> : null}
-            {this.state.userType ? <Text>{this.state.userType}</Text> : null }
+            {this.state.userData ? <Text>{this.state.userData.userId}</Text> : null }
+            {this.state.userData ? <Text>{this.state.userData.userType}</Text> : null }
           </View>
         </View>
       );
@@ -77,8 +78,8 @@ export default class ProfileScreen extends React.Component {
     firebaseFunctions.logout(function() {
       ToastAndroid.show("Logout successful.", ToastAndroid.LONG);
       profileScreen.setState({user: null});
-      mainFunctions.removeItemUserType(function(err) {
-        if(!err) profileScreen.setState({userType: null});
+      mainFunctions.removeItemUserData(function(err) {
+        if(!err) profileScreen.setState({userData: null});
       });
     })
   };

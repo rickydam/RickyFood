@@ -94,7 +94,7 @@ export default class AuthenticationScreen extends React.Component {
         firebaseFunctions.register(this.state.email, this.state.password, function(userCredentials, err) {
           if(err === null) {
             ToastAndroid.show("Registration successful.", ToastAndroid.LONG);
-            firebaseFunctions.saveUserType(authenticationScreen.state.type, userCredentials.user.uid, function(err) {
+            firebaseFunctions.saveUserData(authenticationScreen.state.type, userCredentials.user.uid, function(err) {
               if(err === null) authenticationScreen.props.navigation.goBack();
               else ToastAndroid.show("Error saving user type.", ToastAndroid.LONG)
             });
@@ -129,7 +129,7 @@ export default class AuthenticationScreen extends React.Component {
         firebaseFunctions.login(this.state.email, this.state.password, function(userCredentials, err) {
           if(err === null) {
             ToastAndroid.show("Login successful.", ToastAndroid.LONG);
-            firebaseFunctions.getUserType(userCredentials.user.uid, function() {
+            firebaseFunctions.getUserData(userCredentials.user.uid, function() {
               authenticationScreen.props.navigation.goBack();
             });
           }
