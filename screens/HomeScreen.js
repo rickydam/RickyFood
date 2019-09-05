@@ -1,10 +1,12 @@
 import React from "react";
-import {Text, View} from "react-native";
+import {View} from "react-native";
 import mainStyles from "../styles/MainStyles";
+import RestaurantSelector from "../components/RestaurantSelector";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {restaurant: null, user: null, userType: null};
   }
 
   static navigationOptions = ({navigation}) => {
@@ -16,10 +18,16 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {}
 
   render() {
-    return (
-      <View style={mainStyles.container}>
-        <Text>HomeScreen</Text>
-      </View>
-    );
+    if(this.state.restaurant !== null) {
+      return (
+        <View style={mainStyles.container}>
+        </View>
+      );
+    }
+    else {
+      return (
+        <RestaurantSelector />
+      );
+    }
   };
 }
