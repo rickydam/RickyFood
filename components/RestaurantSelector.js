@@ -17,9 +17,9 @@ export default class RestaurantSelector extends React.Component {
     return (
       <View style={mainStyles.container}>
         <Text>Select a restaurant</Text>
-        <Picker>
-          <Picker.Item />
-        </Picker>
+        {/*<Picker>*/}
+        {/*  <Picker.Item />*/}
+        {/*</Picker>*/}
       </View>
     );
   }
