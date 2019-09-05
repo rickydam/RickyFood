@@ -2,6 +2,7 @@ import React from "react";
 import {Image, YellowBox} from "react-native";
 import {createStackNavigator, createAppContainer, createBottomTabNavigator} from "react-navigation";
 import AuthenticationScreen from "./screens/AuthenticationScreen";
+import CreateRestaurantScreen from "./screens/CreateRestaurantScreen";
 import HomeScreen from "./screens/HomeScreen";
 import LayoutScreen from "./screens/LayoutScreen";
 import MenuScreen from "./screens/MenuScreen";
@@ -19,6 +20,7 @@ const restaurantIcon = require("./images/icons/restaurant.png");
 const profileIcon = require("./images/icons/profile.png");
 
 const HomeStackNavigator = createStackNavigator({
+  CreateRestaurant: CreateRestaurantScreen,
   Home: HomeScreen
 }, {
   initialRouteName: "Home",
