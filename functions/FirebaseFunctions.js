@@ -310,6 +310,7 @@ module.exports = {
       type: type
     }).then(async function () {
       try {
+        await AsyncStorage.setItem("user_id", uid);
         await AsyncStorage.setItem("user_type", type);
         callback(null);
       } catch(e) {
@@ -338,6 +339,7 @@ module.exports = {
     firebase.database().ref("users").child(uid).once("value", async function(snapshot) {
       if(snapshot.val() != null) {
         try {
+          await AsyncStorage.setItem("user_id", uid);
           await AsyncStorage.setItem("user_type", snapshot.val().type);
           callback();
         } catch(e) {
