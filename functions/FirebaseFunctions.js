@@ -374,5 +374,17 @@ module.exports = {
         ToastAndroid.show("Unable to get user data from AsyncStorage.", ToastAndroid.LONG);
       }
     });
+  },
+
+  loadRestaurants: (callback) => {
+    firebase.database().ref("restaurants").once("value", function(snapshot) {
+      if(snapshot.exists()) {
+        callback(snapshot.val());
+      }
+      else {
+        callback(null);
+        ToastAndroid.show("Unable to load restaurants.", ToastAndroid.LONG);
+      }
+    });
   }
 };
