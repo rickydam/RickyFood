@@ -374,7 +374,5 @@ module.exports = {
         ToastAndroid.show("Unable to get user data from AsyncStorage.", ToastAndroid.LONG);
       }
     });
-
-
   }
 };
