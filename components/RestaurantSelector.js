@@ -7,14 +7,19 @@ import firebaseFunctions from "../functions/FirebaseFunctions";
 export default class RestaurantSelector extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {restaurantList: []}
+    this.state = {restaurants: [], selectedRestaurant: null}
   }
 
   componentDidMount() {
-    this.loadRestaurantList();
+    this.reRender = this.props.nav.addListener("willFocus", () => {
+      this.loadRestaurants();
+    });
   }
 
   render() {
+    let restaurantPickerItems = this.state.restaurants.map((restaurant) => {
+      return <Picker.Item key={Math.random()} label={restaurant.name} value={restaurant.name} />
+    });
     return (
       <View style={mainStyles.container}>
         <Text>Create a restaurant</Text>
@@ -24,13 +29,32 @@ export default class RestaurantSelector extends React.Component {
           </View>
         </TouchableOpacity>
         <Text>Select a restaurant</Text>
-        {/*<Picker>*/}
-        {/*  <Picker.Item />*/}
-        {/*</Picker>*/}
+        <View style={mainStyles.pickerView}>
+          <Picker
+            selectedValue={this.state.selectedRestaurant}
+            style={mainStyles.picker}
+            onValueChange={(value) => {
+              this.setState({selectedRestaurant: value})
+            }}>
+            {restaurantPickerItems}
+          </Picker>
+        </View>
       </View>
     );
   }
 
-  loadRestaurantList = () => {
-  }
+  loadRestaurants = () => {
+    this.state.restaurants.length = 0;
+    this.setState({restaurants: this.state.restaurants});
+    let restaurantSelector = this;
+    firebaseFunctions.loadRestaurants(function(restaurantsObj) {
+      if(restaurantsObj !== null) {
+        let restaurantsKeys = Object.keys(restaurantsObj);
+        restaurantsKeys.forEach(function(key) {
+          restaurantSelector.state.restaurants.push(restaurantsObj[key]);
+        });
+        restaurantSelector.setState({restaurants: restaurantSelector.state.restaurants});
+      }
+    });
+  };
 }
