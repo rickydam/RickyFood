@@ -3,31 +3,45 @@ import {Picker, Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
+import mainFunctions from "../functions/MainFunctions";
 
 export default class RestaurantSelector extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {restaurants: [], selectedRestaurant: null}
+    this.state = {restaurants: [], selectedRestaurant: null, userData: null}
   }
 
   componentDidMount() {
+    let restaurantSelector = this;
     this.reRender = this.props.nav.addListener("willFocus", () => {
       this.loadRestaurants();
+      mainFunctions.getItemUserData(function(userData) {
+        if(userData !== null) restaurantSelector.setState({userData: userData});
+      });
     });
   }
 
   render() {
+    let createRestaurantSection = null;
+    if(this.state.userData !== null) {
+      if(this.state.userData.userType === "owner") {
+        createRestaurantSection =
+        <View>
+          <Text>Create a restaurant</Text>
+          <TouchableOpacity onPress={() => this.props.nav.navigate("CreateRestaurant")}>
+            <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+              <Text style={touchableOpacity().text}>Create</Text>
+            </View>
+          </TouchableOpacity>
+        </View>;
+      }
+    }
     let restaurantPickerItems = this.state.restaurants.map((restaurant) => {
       return <Picker.Item key={Math.random()} label={restaurant.name} value={restaurant.name} />
     });
     return (
       <View style={mainStyles.container}>
-        <Text>Create a restaurant</Text>
-        <TouchableOpacity onPress={() => this.props.nav.navigate("CreateRestaurant")}>
-          <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
-            <Text style={touchableOpacity().text}>Create</Text>
-          </View>
-        </TouchableOpacity>
+        {createRestaurantSection}
         <Text>Select a restaurant</Text>
         <View style={mainStyles.pickerView}>
           <Picker
