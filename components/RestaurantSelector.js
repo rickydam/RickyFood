@@ -14,11 +14,9 @@ export default class RestaurantSelector extends React.Component {
 
   componentDidMount() {
     let restaurantSelector = this;
-    this.reRender = this.props.nav.addListener("willFocus", () => {
-      this.loadRestaurants();
-      mainFunctions.getItemUserData(function(userData) {
-        if(userData !== null) restaurantSelector.setState({userData: userData});
-      });
+    this.loadRestaurants();
+    mainFunctions.getItemUserData(function(userData) {
+      if(userData !== null) restaurantSelector.setState({userData: userData});
     });
   }
 
