@@ -26,8 +26,12 @@ export default class HomeScreen extends React.Component {
     }
     else {
       return (
-        <RestaurantSelector nav={this.props.navigation} />
+        <RestaurantSelector nav={this.props.navigation} restaurant={this.setRestaurant} />
       );
     }
   };
+
+  setRestaurant = (restaurant) => {
+    this.setState({restaurant: restaurant});
+  }
 }
