@@ -1,7 +1,7 @@
 import React from "react";
 import {Alert, Animated, PanResponder, Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
-import tableStyles from "../styles/TableStyles";
+import tableStyles from "../styles/components/TableStyles";
 
 export default class Table extends React.Component {
   constructor(props) {
