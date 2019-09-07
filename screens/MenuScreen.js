@@ -4,17 +4,12 @@ import mainStyles from "../styles/MainStyles";
 import menuStyles from "../styles/MenuStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
+import mainFunctions from "../functions/MainFunctions";
 
 export default class MenuScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      appetizers: [],
-      beverages: [],
-      desserts: [],
-      mains: [],
-      refreshing: false
-    };
+    this.state = {appetizers: [], beverages: [], desserts: [], mains: [], refreshing: false, selectedRestaurant: null};
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -31,6 +26,10 @@ export default class MenuScreen extends React.Component {
   });
 
   componentDidMount() {
+    let menuScreen = this;
+    mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
+      if(selectedRestaurant !== null) menuScreen.setState({selectedRestaurant: selectedRestaurant});
+    });
     this.loadMenuItems();
     firebaseFunctions.menuItemDeletedListener(this);
     firebaseFunctions.menuItemChangedListener(this);
