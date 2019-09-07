@@ -73,16 +73,20 @@ export default class MenuItemScreen extends React.Component {
   };
 
   addMenuItem = async () => {
-    let type = this.state.type;
-    let name = this.state.name;
-    let description = this.state.description;
-    if(await firebaseFunctions.addMenuItem(type, name, description)) {
-      ToastAndroid.show("Successfully added: " + name, ToastAndroid.LONG);
-      this.props.navigation.goBack();
-      this.resetState();
+    let menuItemScreen = this;
+    let menuItemObj = {type: this.state.type, name: this.state.name, description: this.state.description};
+    if(this.state.selectedRestaurant !== null) {
+      if(await firebaseFunctions.addMenuItem(menuItemObj)) {
+        ToastAndroid.show("Successfully added: " + menuItemScreen.state.name, ToastAndroid.LONG);
+        menuItemScreen.props.navigation.goBack();
+        menuItemScreen.resetState();
     }
     else {
-      ToastAndroid.show("Unable to add menu item: " + name, ToastAndroid.LONG);
+        ToastAndroid.show("Unable to add menu item: " + this.state.name, ToastAndroid.LONG);
+    }
+    }
+    else {
+      ToastAndroid.show("Unable to add menu item: " + this.state.name, ToastAndroid.LONG);
     }
   };
 
