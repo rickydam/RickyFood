@@ -1,6 +1,9 @@
 import {StyleSheet} from "react-native";
 
 const mainStyles = StyleSheet.create({
+  alignTop: {
+    textAlignVertical: "top",
+  },
   container: {
     alignItems: "center",
     backgroundColor: "lightgray",
