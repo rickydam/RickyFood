@@ -32,10 +32,15 @@ module.exports = {
   getItemSelectedRestaurant: async (callback) => {
     try {
       let selectedRestaurantString = await AsyncStorage.getItem("selected_restaurant");
-      let selectedRestaurantObj = JSON.parse(selectedRestaurantString);
-      callback(selectedRestaurantObj);
+      if(selectedRestaurantString !== null) {
+        let selectedRestaurantObj = JSON.parse(selectedRestaurantString);
+        callback(selectedRestaurantObj);
+      }
+      else {
+        callback(null);
+      }
     } catch(e) {
-      ToastAndroid.show("Unable to get selected restaurant from AsyncStorage.");
+      ToastAndroid.show("Unable to get selected restaurant from AsyncStorage.", ToastAndroid.LONG);
       callback(null);
     }
   }
