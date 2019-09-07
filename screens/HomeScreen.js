@@ -2,6 +2,7 @@ import React from "react";
 import {Text, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import RestaurantSelector from "../components/RestaurantSelector";
+import mainFunctions from "../functions/MainFunctions";
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -15,7 +16,14 @@ export default class HomeScreen extends React.Component {
     }
   };
 
-  componentDidMount() {}
+  componentDidMount() {
+    let homeScreen = this;
+    this.reRender = this.props.navigation.addListener("willFocus", () => {
+      mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
+        if(selectedRestaurant !== null) homeScreen.setState({selectedRestaurant: selectedRestaurant});
+      })
+    });
+  }
 
   render() {
     if(this.state.selectedRestaurant !== null) {
