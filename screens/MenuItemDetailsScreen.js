@@ -1,7 +1,6 @@
 import React from "react";
 import {Alert, Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
-import menuItemDetailsStyles from "../styles/MenuItemDetailsStyles"
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
 
@@ -32,12 +31,9 @@ export default class MenuItemDetailsScreen extends React.Component {
   render() {
     return (
       <View style={mainStyles.container}>
-        <Text style={menuItemDetailsStyles.label}>Type</Text>
-        <Text>{this.state.type.charAt(0).toUpperCase() + this.state.type.slice(1)}</Text>
-        <Text style={menuItemDetailsStyles.label}>Name</Text>
-        <Text>{this.state.name}</Text>
-        <Text style={menuItemDetailsStyles.label}>Description</Text>
-        <Text>{this.state.description}</Text>
+        <Text>Type: {this.state.type.charAt(0).toUpperCase() + this.state.type.slice(1)}</Text>
+        <Text>Name: {this.state.name}</Text>
+        <Text>Description: {this.state.description}</Text>
         <TouchableOpacity onPress={() => this.authenticateUser()}>
           <View style={touchableOpacity("#9932CC", 40, 15, 100).view}>
             <Text style={touchableOpacity().text}>Add to Order</Text>
