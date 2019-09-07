@@ -1,5 +1,6 @@
 import React from "react";
-import {Picker, Text, TouchableOpacity, View} from "react-native";
+import {Picker, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
+import AsyncStorage from "@react-native-community/async-storage";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
@@ -37,7 +38,7 @@ export default class RestaurantSelector extends React.Component {
       }
     }
     let restaurantPickerItems = this.state.restaurants.map((restaurant) => {
-      return <Picker.Item key={Math.random()} label={restaurant.name} value={restaurant.name} />
+      return <Picker.Item key={Math.random()} label={restaurant.name} value={restaurant} />
     });
     return (
       <View style={mainStyles.container}>
@@ -53,6 +54,11 @@ export default class RestaurantSelector extends React.Component {
             {restaurantPickerItems}
           </Picker>
         </View>
+        <TouchableOpacity onPress={() => this.selectRestaurant()}>
+          <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+            <Text style={touchableOpacity().text}>Select</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -65,10 +71,21 @@ export default class RestaurantSelector extends React.Component {
       if(restaurantsObj !== null) {
         let restaurantsKeys = Object.keys(restaurantsObj);
         restaurantsKeys.forEach(function(key) {
-          restaurantSelector.state.restaurants.push(restaurantsObj[key]);
+          let restaurantObj = restaurantsObj[key];
+          restaurantObj.key = key;
+          restaurantSelector.state.restaurants.push(restaurantObj);
         });
         restaurantSelector.setState({restaurants: restaurantSelector.state.restaurants});
       }
     });
+  };
+
+  selectRestaurant = async () => {
+    try {
+      await AsyncStorage.setItem("selected_restaurant", JSON.stringify(this.state.selectedRestaurant));
+      this.props.restaurant(this.state.selectedRestaurant);
+    } catch(e) {
+      ToastAndroid.show("Unable to save selected restaurant to AsyncStorage.", ToastAndroid.LONG);
+    }
   };
 }
