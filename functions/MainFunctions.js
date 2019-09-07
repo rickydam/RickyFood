@@ -3,14 +3,14 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 module.exports = {
   getItemUserData: async (callback) => {
-    let userData = {userId: null, userType: null};
     try {
-      let userId = await AsyncStorage.getItem("user_id");
-      let userType = await AsyncStorage.getItem("user_type");
-      if(userId != null || userType != null) {
-        userData.userId = userId;
-        userData.userType = userType;
-        callback(userData);
+      let userDataString = await AsyncStorage.getItem("user_data");
+      if(userDataString !== null) {
+        let userDataObj = JSON.parse(userDataString);
+        callback(userDataObj);
+      }
+      else {
+        callback(null);
       }
     } catch (e) {
       callback(null);
@@ -20,8 +20,7 @@ module.exports = {
 
   removeItemUserData: async (callback) => {
     try {
-      await AsyncStorage.removeItem("user_id");
-      await AsyncStorage.removeItem("user_type");
+      await AsyncStorage.removeItem("user_data");
       callback(null);
     } catch (e) {
       callback(e);
