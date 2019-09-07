@@ -181,9 +181,9 @@ module.exports = {
     });
   },
 
-  addMenuItem: async (menuItemObj) => {
+  addMenuItem: async (menuItemObj, selectedRestaurantKey) => {
     let success = false;
-    let addMenuItemFirebase = firebase.database().ref("menu").push(menuItemObj).then(() => {
+    let addMenuItemFirebase = firebase.database().ref("menu").child(selectedRestaurantKey).push(menuItemObj).then(() => {
       success = true;
     }).catch((error) => {
       ToastAndroid.show("Error adding menu item: " + error, ToastAndroid.LONG);
