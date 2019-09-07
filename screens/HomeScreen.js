@@ -6,7 +6,7 @@ import RestaurantSelector from "../components/RestaurantSelector";
 export default class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {restaurant: null, user: null, userType: null};
+    this.state = {selectedRestaurant: null, user: null, userType: null};
   }
 
   static navigationOptions = ({navigation}) => {
@@ -18,23 +18,23 @@ export default class HomeScreen extends React.Component {
   componentDidMount() {}
 
   render() {
-    if(this.state.restaurant !== null) {
+    if(this.state.selectedRestaurant !== null) {
       return (
         <View style={mainStyles.container}>
-          <Text>{this.state.restaurant.name}</Text>
-          <Text>{this.state.restaurant.owner}</Text>
-          <Text>{this.state.restaurant.key}</Text>
+          <Text>{this.state.selectedRestaurant.name}</Text>
+          <Text>{this.state.selectedRestaurant.owner}</Text>
+          <Text>{this.state.selectedRestaurant.key}</Text>
         </View>
       );
     }
     else {
       return (
-        <RestaurantSelector nav={this.props.navigation} restaurant={this.setRestaurant} />
+        <RestaurantSelector nav={this.props.navigation} restaurant={this.setSelectedRestaurant()} />
       );
     }
   };
 
-  setRestaurant = (restaurant) => {
-    this.setState({restaurant: restaurant});
+  setSelectedRestaurant = (selectedRestaurant) => {
+    this.setState({selectedRestaurant: selectedRestaurant});
   }
 }
