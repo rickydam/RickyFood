@@ -80,7 +80,7 @@ export default class MenuScreen extends React.Component {
 
   loadMenuItems = () => {
     this.clearMenuItems();
-    firebaseFunctions.loadMenuItems(this);
+    firebaseFunctions.loadMenuItems(this, this.state.selectedRestaurant.key);
   };
 
   clearMenuItems = () => {

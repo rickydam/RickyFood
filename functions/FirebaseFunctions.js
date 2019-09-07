@@ -19,8 +19,8 @@ if(!firebase.apps.length) {
 }
 
 module.exports = {
-  loadMenuItems: (menuScreen) => {
-    firebase.database().ref("menu").on("child_added", function(snapshot) {
+  loadMenuItems: (menuScreen, selectedRestaurantKey) => {
+    firebase.database().ref("menu").child(selectedRestaurantKey).on("child_added", function(snapshot) {
       if(snapshot.val().type === "appetizer") {
         let appetizer = {};
         appetizer["key"] = snapshot.key;
