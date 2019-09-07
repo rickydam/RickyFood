@@ -42,5 +42,15 @@ module.exports = {
       ToastAndroid.show("Unable to get selected restaurant from AsyncStorage.", ToastAndroid.LONG);
       callback(null);
     }
+  },
+
+  removeItemSelectedRestaurant: async (callback) => {
+    try {
+      await AsyncStorage.removeItem("selected_restaurant");
+      callback(null);
+    } catch(e) {
+      ToastAndroid.show("Unable to remove selected restaurant from AsyncStorage." + e.message, ToastAndroid.LONG);
+      callback(e);
+    }
   }
 };
