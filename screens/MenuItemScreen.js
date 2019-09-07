@@ -3,18 +3,19 @@ import {Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "rea
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
+import mainFunctions from "../functions/MainFunctions";
 
 export default class MenuItemScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      type: "appetizer",
-      name: "",
-      description: ""
-    };
+    this.state = {type: "appetizer", name: "", description: "", selectedRestaurant: null};
   }
 
   componentDidMount() {
+    let menuItemScreen = this;
+    mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
+      if(selectedRestaurant !== null) menuItemScreen.setState({selectedRestaurant: selectedRestaurant});
+    });
     if(this.props.navigation.state.params["purpose"] === "Edit") {
       this.setState({
         type: this.props.navigation.state.params["type"],
