@@ -27,5 +27,16 @@ module.exports = {
       callback(e);
       ToastAndroid.show("Unable to remove user data from AsyncStorage.", ToastAndroid.LONG);
     }
+  },
+
+  getItemSelectedRestaurant: async (callback) => {
+    try {
+      let selectedRestaurantString = await AsyncStorage.getItem("selected_restaurant");
+      let selectedRestaurantObj = JSON.parse(selectedRestaurantString);
+      callback(selectedRestaurantObj);
+    } catch(e) {
+      ToastAndroid.show("Unable to get selected restaurant from AsyncStorage.");
+      callback(null);
+    }
   }
 };
