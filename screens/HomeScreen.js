@@ -1,5 +1,5 @@
 import React from "react";
-import {View} from "react-native";
+import {Text, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import RestaurantSelector from "../components/RestaurantSelector";
 
@@ -21,6 +21,9 @@ export default class HomeScreen extends React.Component {
     if(this.state.restaurant !== null) {
       return (
         <View style={mainStyles.container}>
+          <Text>{this.state.restaurant.name}</Text>
+          <Text>{this.state.restaurant.owner}</Text>
+          <Text>{this.state.restaurant.key}</Text>
         </View>
       );
     }
