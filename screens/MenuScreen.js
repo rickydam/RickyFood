@@ -31,7 +31,7 @@ export default class MenuScreen extends React.Component {
       if(selectedRestaurant !== null) {
         menuScreen.setState({selectedRestaurant: selectedRestaurant});
         menuScreen.loadMenuItems();
-        firebaseFunctions.menuItemDeletedListener(menuScreen);
+        firebaseFunctions.menuItemDeletedListener(menuScreen, menuScreen.state.selectedRestaurant.key);
         firebaseFunctions.menuItemChangedListener(menuScreen);
       }
     });
