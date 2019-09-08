@@ -5,6 +5,7 @@ import menuStyles from "../styles/MenuStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
 import mainFunctions from "../functions/MainFunctions";
+import RestaurantSelector from "../components/RestaurantSelector";
 
 export default class MenuScreen extends React.Component {
   constructor(props) {
@@ -27,46 +28,56 @@ export default class MenuScreen extends React.Component {
 
   componentDidMount() {
     let menuScreen = this;
-    mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
-      if(selectedRestaurant !== null) {
-        menuScreen.setState({selectedRestaurant: selectedRestaurant});
-        menuScreen.loadMenuItems();
-        firebaseFunctions.menuItemDeletedListener(menuScreen, menuScreen.state.selectedRestaurant.key);
-        firebaseFunctions.menuItemChangedListener(menuScreen, menuScreen.state.selectedRestaurant.key);
-      }
+    this.reRender = this.props.navigation.addListener("didFocus", () => {
+      mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
+        if(selectedRestaurant !== null) {
+          menuScreen.setState({selectedRestaurant: selectedRestaurant});
+          menuScreen.loadMenu();
+        }
+        else {
+          menuScreen.setState({selectedRestaurant: null});
+        }
+      });
     });
   }
 
   render() {
-    return (
-      <View style={mainStyles.container}>
-        <SectionList
-          sections={[
-            {title: "Appetizers", data: this.state.appetizers},
-            {title: "Mains", data: this.state.mains},
-            {title: "Desserts", data: this.state.desserts},
-            {title: "Beverages", data: this.state.beverages}
-          ]}
-          renderItem={({item}) => (
-            <TouchableHighlight
-              onPress={() => this.props.navigation.navigate("MenuItemDetails", {key: item["key"]})}
-              underlayColor="black">
-              <View>
-                <Text style={menuStyles.renderItem}>{item["name"]}</Text>
-              </View>
-            </TouchableHighlight>
-          )}
-          renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
-          keyExtractor={(item, index) => index}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.onRefresh}
-            />
-          }
-        />
-      </View>
-    );
+    if(this.state.selectedRestaurant !== null) {
+      return (
+        <View style={mainStyles.container}>
+          <SectionList
+            sections={[
+              {title: "Appetizers", data: this.state.appetizers},
+              {title: "Mains", data: this.state.mains},
+              {title: "Desserts", data: this.state.desserts},
+              {title: "Beverages", data: this.state.beverages}
+            ]}
+            renderItem={({item}) => (
+              <TouchableHighlight
+                onPress={() => this.props.navigation.navigate("MenuItemDetails", {key: item["key"]})}
+                underlayColor="black">
+                <View>
+                  <Text style={menuStyles.renderItem}>{item["name"]}</Text>
+                </View>
+              </TouchableHighlight>
+            )}
+            renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
+            keyExtractor={(item, index) => index}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.onRefresh}
+              />
+            }
+          />
+        </View>
+      );
+    }
+    else {
+      return (
+        <RestaurantSelector nav={this.props.navigation} restaurant={this.setSelectedRestaurant} />
+      );
+    }
   }
 
   onRefresh = () => {
@@ -95,4 +106,15 @@ export default class MenuScreen extends React.Component {
       mains: this.state.mains
     });
   };
+
+  setSelectedRestaurant = (selectedRestaurant) => {
+    this.setState({selectedRestaurant: selectedRestaurant});
+    this.loadMenu();
+  };
+
+  loadMenu = () => {
+    this.loadMenuItems();
+    firebaseFunctions.menuItemDeletedListener(this, this.state.selectedRestaurant.key);
+    firebaseFunctions.menuItemChangedListener(this, this.state.selectedRestaurant.key);
+  }
 }
