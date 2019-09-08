@@ -3,15 +3,12 @@ import {Alert, Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
+import mainFunctions from "../functions/MainFunctions";
 
 export default class MenuItemDetailsScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      type: "",
-      name: "",
-      description: ""
-    };
+    this.state = {type: "", name: "", description: "", selectedRestaurant: null};
   }
 
   static navigationOptions = {
@@ -19,7 +16,13 @@ export default class MenuItemDetailsScreen extends React.Component {
   };
 
   componentDidMount() {
+    let menuItemDetailsScreen = this;
     this.reRender = this.props.navigation.addListener("willFocus", () => {
+      mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
+        if(selectedRestaurant !== null) {
+          menuItemDetailsScreen.setState({selectedRestaurant: selectedRestaurant});
+        }
+      });
       this.loadMenuItem();
     });
   }
