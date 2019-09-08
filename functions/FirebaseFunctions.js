@@ -193,8 +193,8 @@ module.exports = {
     return success;
   },
 
-  editMenuItem: (menuItemScreen, key, menuItemObj) => {
-    firebase.database().ref("menu").child(key).update(menuItemObj).then(() => {
+  editMenuItem: (menuItemScreen, menuItemKey, menuItemObj, restaurantKey) => {
+    firebase.database().ref("menus").child(restaurantKey).child(menuItemKey).update(menuItemObj).then(() => {
       ToastAndroid.show("Successfully edited: " + menuItemObj.name, ToastAndroid.LONG);
       menuItemScreen.props.navigation.goBack();
       return true;
