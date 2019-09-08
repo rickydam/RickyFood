@@ -61,8 +61,8 @@ module.exports = {
     });
   },
 
-  loadMenuItemsOnce: async (menuScreen, callback) => {
-    let loadMenuItemsOnceFirebase = firebase.database().ref("menu").once("value", function(snapshot) {
+  loadMenuItemsOnce: async (menuScreen, selectedRestaurantKey, callback) => {
+    let loadMenuItemsOnceFirebase = firebase.database().ref("menu").child(selectedRestaurantKey).once("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         if(childSnapshot.val().type === "appetizer") {
           let appetizer = {};
