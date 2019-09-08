@@ -20,7 +20,7 @@ if(!firebase.apps.length) {
 
 module.exports = {
   loadMenuItems: (menuScreen, selectedRestaurantKey) => {
-    firebase.database().ref("menu").child(selectedRestaurantKey).on("child_added", function(snapshot) {
+    firebase.database().ref("menus").child(selectedRestaurantKey).on("child_added", function(snapshot) {
       if(snapshot.val().type === "appetizer") {
         let appetizer = {};
         appetizer["key"] = snapshot.key;
@@ -62,7 +62,7 @@ module.exports = {
   },
 
   loadMenuItemsOnce: async (menuScreen, selectedRestaurantKey, callback) => {
-    let loadMenuItemsOnceFirebase = firebase.database().ref("menu").child(selectedRestaurantKey).once("value", function(snapshot) {
+    let loadMenuItemsOnceFirebase = firebase.database().ref("menus").child(selectedRestaurantKey).once("value", function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
         if(childSnapshot.val().type === "appetizer") {
           let appetizer = {};
@@ -108,7 +108,7 @@ module.exports = {
   },
 
   menuItemDeletedListener: (menuScreen, selectedRestaurantKey) => {
-    firebase.database().ref("menu").child(selectedRestaurantKey).on("child_removed", function(snapshot) {
+    firebase.database().ref("menus").child(selectedRestaurantKey).on("child_removed", function(snapshot) {
       let appetizers = menuScreen.state.appetizers;
       appetizers.forEach(function(appetizer, index) {
         if(appetizer.key === snapshot.key) {
@@ -141,7 +141,7 @@ module.exports = {
   },
 
   menuItemChangedListener: (menuScreen, selectedRestaurantKey) => {
-    firebase.database().ref("menu").child(selectedRestaurantKey).on("child_changed", function(snapshot) {
+    firebase.database().ref("menus").child(selectedRestaurantKey).on("child_changed", function(snapshot) {
       let appetizers = menuScreen.state.appetizers;
       appetizers.forEach(function(appetizer, index) {
         if(appetizer.key === snapshot.key) {
@@ -183,7 +183,7 @@ module.exports = {
 
   addMenuItem: async (menuItemObj, selectedRestaurantKey) => {
     let success = false;
-    let addMenuItemFirebase = firebase.database().ref("menu").child(selectedRestaurantKey).push(menuItemObj).then(() => {
+    let addMenuItemFirebase = firebase.database().ref("menus").child(selectedRestaurantKey).push(menuItemObj).then(() => {
       success = true;
     }).catch((error) => {
       ToastAndroid.show("Error adding menu item: " + error, ToastAndroid.LONG);
