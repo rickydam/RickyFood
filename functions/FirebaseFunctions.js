@@ -140,8 +140,8 @@ module.exports = {
     });
   },
 
-  menuItemChangedListener: (menuScreen) => {
-    firebase.database().ref("menu").on("child_changed", function(snapshot) {
+  menuItemChangedListener: (menuScreen, selectedRestaurantKey) => {
+    firebase.database().ref("menu").child(selectedRestaurantKey).on("child_changed", function(snapshot) {
       let appetizers = menuScreen.state.appetizers;
       appetizers.forEach(function(appetizer, index) {
         if(appetizer.key === snapshot.key) {
