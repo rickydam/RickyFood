@@ -21,9 +21,9 @@ export default class MenuItemDetailsScreen extends React.Component {
       mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
         if(selectedRestaurant !== null) {
           menuItemDetailsScreen.setState({selectedRestaurant: selectedRestaurant});
+          menuItemDetailsScreen.loadMenuItem();
         }
       });
-      this.loadMenuItem();
     });
   }
 
@@ -82,8 +82,9 @@ export default class MenuItemDetailsScreen extends React.Component {
 
   loadMenuItem = () => {
     let menuItemDetailsScreen = this;
-    let key = this.props.navigation.state.params.key;
-    firebaseFunctions.loadMenuItem(menuItemDetailsScreen, key);
+    let restaurantKey = this.state.selectedRestaurant.key;
+    let menuItemKey = this.props.navigation.state.params.key;
+    firebaseFunctions.loadMenuItem(menuItemDetailsScreen, restaurantKey, menuItemKey);
   };
 
   authenticateUser = () => {

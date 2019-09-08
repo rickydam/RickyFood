@@ -209,8 +209,8 @@ module.exports = {
     });
   },
 
-  loadMenuItem: (menuItemDetailsScreen, key) => {
-    firebase.database().ref("menu").child(key).once("value", function(snapshot) {
+  loadMenuItem: (menuItemDetailsScreen, restaurantKey, menuItemKey) => {
+    firebase.database().ref("menus").child(restaurantKey).child(menuItemKey).once("value", function(snapshot) {
       if(snapshot.val() != null) {
         menuItemDetailsScreen.setState({
           type: snapshot.val().type,
