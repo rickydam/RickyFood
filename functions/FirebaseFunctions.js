@@ -201,8 +201,8 @@ module.exports = {
     });
   },
 
-  deleteMenuItem: (menuItemDetailsScreen, key, name) => {
-    firebase.database().ref("menu").child(key).remove().then(() => {
+  deleteMenuItem: (menuItemDetailsScreen, restaurantKey, menuItemKey, name) => {
+    firebase.database().ref("menus").child(restaurantKey).child(menuItemKey).remove().then(() => {
       ToastAndroid.show("Successfully deleted: " + name, ToastAndroid.LONG);
       menuItemDetailsScreen.props.navigation.goBack();
       return true;

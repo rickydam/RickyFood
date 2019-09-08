@@ -75,9 +75,10 @@ export default class MenuItemDetailsScreen extends React.Component {
 
   deleteMenuItem = () => {
     let menuItemDetailsScreen = this;
-    let key = this.props.navigation.state.params.key;
+    let restaurantKey = this.state.selectedRestaurant.key;
+    let menuItemKey = this.props.navigation.state.params.key;
     let name = this.state.name;
-    firebaseFunctions.deleteMenuItem(menuItemDetailsScreen, key, name);
+    firebaseFunctions.deleteMenuItem(menuItemDetailsScreen, restaurantKey, menuItemKey, name);
   };
 
   loadMenuItem = () => {
