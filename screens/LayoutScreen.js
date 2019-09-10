@@ -4,14 +4,12 @@ import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import Table from "../components/Table";
 import firebaseFunctions from "../functions/FirebaseFunctions";
+import mainFunctions from "../functions/MainFunctions";
 
 export default class LayoutScreen extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      tables: []
-    };
+    this.state = {selectedRestaurant: null, tables: []};
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -33,7 +31,13 @@ export default class LayoutScreen extends React.Component {
   });
 
   componentDidMount() {
-    this.loadTables();
+    let layoutScreen = this;
+    mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
+      if(selectedRestaurant !== null) {
+        layoutScreen.setState({selectedRestaurant: selectedRestaurant});
+        layoutScreen.loadTables();
+      }
+    });
     this.props.navigation.setParams({
       addTable: this.addTable,
       saveLayout: this.saveLayout
