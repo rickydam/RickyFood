@@ -4,13 +4,12 @@ import mainStyles from "../styles/MainStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
 import Table from "../components/Table";
+import mainFunctions from "../functions/MainFunctions";
 
 export default class RestaurantScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      tables: []
-    }
+    this.state = {selectedRestaurant: null, tables: []}
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -25,9 +24,15 @@ export default class RestaurantScreen extends React.Component {
   });
 
   componentDidMount() {
+    let restaurantScreen = this;
     this.reRender = this.props.navigation.addListener("willFocus", () => {
-      this.setState({tables: []});
-      this.loadTables();
+      mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
+        if(selectedRestaurant !== null) {
+          restaurantScreen.setState({selectedRestaurant: selectedRestaurant});
+          restaurantScreen.setState({tables: []});
+          restaurantScreen.loadTables();
+        }
+      });
     });
   }
 
