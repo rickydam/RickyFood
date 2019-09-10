@@ -91,7 +91,7 @@ export default class LayoutScreen extends React.Component {
     let count = 0;
     let successCount = 0;
     tables.forEach(function(table, index) {
-      firebaseFunctions.saveTable(table, function(success) {
+      firebaseFunctions.saveTable(layoutScreen.state.selectedRestaurant.key, table, function(success) {
         count++;
         if(success) successCount++;
         if(count === tables.length) {

@@ -239,14 +239,14 @@ module.exports = {
     return tables;
   },
 
-  saveTable: (table, callback) => {
-    firebase.database().ref("tables").once("value", function(snapshot) {
+  saveTable: (restaurantKey, table, callback) => {
+    firebase.database().ref("tables").child(restaurantKey).once("value", function(snapshot) {
       if(snapshot.exists()) {
-        let snapshotTablesObj = snapshot.val()["restaurant1"];
+        let snapshotTablesObj = snapshot.val();
         let snapshotKeys = Object.keys(snapshotTablesObj);
         if(snapshotKeys.indexOf(table.firebaseKey) !== -1) {
           // Table already exists, edit the x and y coordinates
-          firebase.database().ref("tables").child("restaurant1").child(table.firebaseKey).set({
+          firebase.database().ref("tables").child(restaurantKey).child(table.firebaseKey).set({
             x: table.x,
             y: table.y,
             createdAt: table.createdAt
@@ -258,7 +258,7 @@ module.exports = {
         }
         else {
           // Table does not exist, but Firebase ref exists
-          firebase.database().ref("tables").child("restaurant1").push(table)
+          firebase.database().ref("tables").child(restaurantKey).push(table)
             .then((snapshot) => {
               callback(true);
             })
@@ -270,7 +270,7 @@ module.exports = {
       }
       else {
         // Firebase ref for this restaurant is missing, this is the first ever table push
-        firebase.database().ref("tables").child("restaurant1").push(table)
+        firebase.database().ref("tables").child(restaurantKey).push(table)
           .then((snapshot) => {
             callback(true);
           })
