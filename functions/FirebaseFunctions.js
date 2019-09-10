@@ -222,11 +222,11 @@ module.exports = {
     });
   },
 
-  loadTables: async () => {
+  loadTables: async (restaurantKey) => {
     let tables = [];
-    let loadTablesFirebase = firebase.database().ref("tables").once("value", function(snapshot) {
+    let loadTablesFirebase = firebase.database().ref("tables").child(restaurantKey).once("value", function(snapshot) {
       if(snapshot.exists()) {
-        let snapshotTablesObj = snapshot.val()["restaurant1"];
+        let snapshotTablesObj = snapshot.val();
         let snapshotKeys = Object.keys(snapshotTablesObj);
         snapshotKeys.forEach(function(firebaseKey) {
           let table = snapshotTablesObj[firebaseKey];

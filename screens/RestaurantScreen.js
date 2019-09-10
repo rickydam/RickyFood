@@ -64,7 +64,8 @@ export default class RestaurantScreen extends React.Component {
   }
 
   loadTables = async () => {
-    let tables = await firebaseFunctions.loadTables();
+    let restaurantScreen = this;
+    let tables = await firebaseFunctions.loadTables(restaurantScreen.state.selectedRestaurant.key);
     this.setState({tables: tables});
   };
 }
