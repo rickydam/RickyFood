@@ -5,6 +5,7 @@ import touchableOpacity from "../styles/components/TouchableOpacity";
 import Table from "../components/Table";
 import firebaseFunctions from "../functions/FirebaseFunctions";
 import mainFunctions from "../functions/MainFunctions";
+import RestaurantSelector from "../components/RestaurantSelector";
 
 export default class LayoutScreen extends React.Component {
   constructor(props) {
@@ -32,11 +33,16 @@ export default class LayoutScreen extends React.Component {
 
   componentDidMount() {
     let layoutScreen = this;
-    mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
-      if(selectedRestaurant !== null) {
-        layoutScreen.setState({selectedRestaurant: selectedRestaurant});
-        layoutScreen.loadTables();
-      }
+    this.reRender = this.props.navigation.addListener("didFocus", () => {
+      mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
+        if(selectedRestaurant !== null) {
+          layoutScreen.setState({selectedRestaurant: selectedRestaurant});
+          layoutScreen.loadTables();
+        }
+        else {
+          layoutScreen.setState({selectedRestaurant: null});
+        }
+      });
     });
     this.props.navigation.setParams({
       addTable: this.addTable,
@@ -45,27 +51,34 @@ export default class LayoutScreen extends React.Component {
   }
 
   render() {
-    if(this.state.tables.length > 0) {
-      let tables = this.state.tables.map((table) => {
-        return <Table
-          key={table.createdAt}
-          table={table}
-          screen={"LayoutScreen"}
-          updateTableCoordinates={this.updateTableCoordinates}
-          deleteTable={this.deleteTable}
-        />
-      });
-      return (
-        <View style={mainStyles.container}>
-          {tables}
-        </View>
-      );
+    if(this.state.selectedRestaurant) {
+      if(this.state.tables.length > 0) {
+        let tables = this.state.tables.map((table) => {
+          return <Table
+            key={table.createdAt}
+            table={table}
+            screen={"LayoutScreen"}
+            updateTableCoordinates={this.updateTableCoordinates}
+            deleteTable={this.deleteTable}
+          />
+        });
+        return (
+          <View style={mainStyles.container}>
+            {tables}
+          </View>
+        );
+      }
+      else {
+        return (
+          <View style={mainStyles.container}>
+            <Text>No restaurant tables to display.</Text>
+          </View>
+        );
+      }
     }
     else {
       return (
-        <View style={mainStyles.container}>
-          <Text>No restaurant tables to display.</Text>
-        </View>
+        <RestaurantSelector nav={this.props.navigation} restaurant={this.setSelectedRestaurant} />
       );
     }
   }
@@ -130,5 +143,10 @@ export default class LayoutScreen extends React.Component {
       this.setState({tables: []});
       this.loadTables();
     }
+  };
+
+  setSelectedRestaurant = (selectedRestaurant) => {
+    this.setState({selectedRestaurant: selectedRestaurant});
+    this.loadTables();
   };
 }
