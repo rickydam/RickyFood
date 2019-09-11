@@ -45,7 +45,7 @@ export default class LayoutScreen extends React.Component {
   }
 
   render() {
-    if(this.state.tables.length !== 0) {
+    if(this.state.tables.length > 0) {
       let tables = this.state.tables.map((table) => {
         return <Table
           key={table.createdAt}
@@ -64,6 +64,7 @@ export default class LayoutScreen extends React.Component {
     else {
       return (
         <View style={mainStyles.container}>
+          <Text>No restaurant tables to display.</Text>
         </View>
       );
     }
