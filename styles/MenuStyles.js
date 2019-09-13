@@ -9,13 +9,13 @@ const menuStyles = StyleSheet.create({
     height: 50,
     textAlign: "center",
     textAlignVertical: "center",
-    width: screenWidth
+    width: screenWidth * 0.70
   },
   renderSectionHeader: {
     backgroundColor: "lightblue",
     borderBottomWidth: 1,
     padding: 5,
-    width: screenWidth
+    width: screenWidth * 0.70
   }
 });
 
