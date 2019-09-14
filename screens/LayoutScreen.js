@@ -14,21 +14,7 @@ export default class LayoutScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    title: "Layout",
-    headerRight: (
-      <View style={mainStyles.row}>
-        <TouchableOpacity onPress={() => navigation.state.params.addTable()}>
-          <View style={touchableOpacity("#9932CC", 40, 5, 60).view}>
-            <Text style={touchableOpacity().text}>Add</Text>
-          </View>
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.state.params.saveLayout()}>
-          <View style={touchableOpacity("#9932CC", 40, 5, 60).view}>
-            <Text style={touchableOpacity().text}>Save</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
+    title: "Layout"
   });
 
   componentDidMount() {
@@ -64,6 +50,18 @@ export default class LayoutScreen extends React.Component {
         });
         return (
           <View style={mainStyles.container}>
+            <View style={[mainStyles.row, mainStyles.buttonsContainer]}>
+              <TouchableOpacity onPress={() => this.props.navigation.state.params.addTable()}>
+                <View style={touchableOpacity("#9932CC", 30, 5, 50).view}>
+                  <Text style={touchableOpacity().text}>Add</Text>
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={() => this.props.navigation.state.params.saveLayout()}>
+                <View style={touchableOpacity("#9932CC", 30, 5, 50).view}>
+                  <Text style={touchableOpacity().text}>Save</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
             {tables}
           </View>
         );
