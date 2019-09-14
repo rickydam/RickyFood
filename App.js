@@ -1,5 +1,5 @@
 import React from "react";
-import {Image, YellowBox} from "react-native";
+import {Image} from "react-native";
 import {createStackNavigator, createAppContainer, createBottomTabNavigator} from "react-navigation";
 import AuthenticationScreen from "./screens/AuthenticationScreen";
 import CreateRestaurantScreen from "./screens/CreateRestaurantScreen";
