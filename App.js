@@ -1,6 +1,7 @@
 import React from "react";
 import {Image} from "react-native";
 import {createStackNavigator, createAppContainer, createBottomTabNavigator} from "react-navigation";
+
 import AuthenticationScreen from "./screens/AuthenticationScreen";
 import CreateRestaurantScreen from "./screens/CreateRestaurantScreen";
 import HomeScreen from "./screens/HomeScreen";
@@ -11,6 +12,7 @@ import MenuItemDetailsScreen from "./screens/MenuItemDetailsScreen";
 import OrderScreen from "./screens/OrderScreen";
 import ProfileScreen from "./screens/ProfileScreen";
 import RestaurantScreen from "./screens/RestaurantScreen";
+
 import mainStyles from "./styles/MainStyles";
 
 const homeIcon = require("./images/icons/home.png");
