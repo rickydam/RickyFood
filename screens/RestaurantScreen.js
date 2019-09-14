@@ -1,6 +1,7 @@
 import React from "react";
 import {Text, TouchableOpacity, View} from "react-native";
 import mainStyles from "../styles/MainStyles";
+import restaurantStyles from "../styles/RestaurantStyles";
 import touchableOpacity from "../styles/components/TouchableOpacity";
 import firebaseFunctions from "../functions/FirebaseFunctions";
 import Table from "../components/Table";
@@ -14,14 +15,7 @@ export default class RestaurantScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    title: "Restaurant",
-    headerRight: (
-      <TouchableOpacity onPress={() => navigation.navigate("Layout")}>
-        <View style={touchableOpacity("#9932CC", 40, 10, 60).view}>
-          <Text style={touchableOpacity().text}>Layout</Text>
-        </View>
-      </TouchableOpacity>
-    )
+    title: "Restaurant"
   });
 
   componentDidMount() {
@@ -56,6 +50,11 @@ export default class RestaurantScreen extends React.Component {
         });
         return (
           <View style={mainStyles.container}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate("Layout")} style={restaurantStyles.layoutButton}>
+              <View style={touchableOpacity("#9932CC", 30, 10, 55).view}>
+                <Text style={touchableOpacity().text}>Layout</Text>
+              </View>
+            </TouchableOpacity>
             {tables}
           </View>
         );
