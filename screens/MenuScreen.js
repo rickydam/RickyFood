@@ -14,16 +14,7 @@ export default class MenuScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    title: "Menu Items",
-    headerRight: (
-      <View style={mainStyles.headerRow}>
-        <TouchableOpacity onPress={() => navigation.navigate("MenuItem", {purpose: "Add"})}>
-          <View style={touchableOpacity("#2196F3", 40, 5, 60).view}>
-            <Text style={touchableOpacity().text}>Add</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    )
+    title: "Menu Items"
   });
 
   componentDidMount() {
@@ -45,6 +36,11 @@ export default class MenuScreen extends React.Component {
     if(this.state.selectedRestaurant !== null) {
       return (
         <View style={mainStyles.container}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("MenuItem", {purpose: "Add"})}>
+            <View style={touchableOpacity("#2196F3", 40, 5, 60).view}>
+              <Text style={touchableOpacity().text}>Add</Text>
+            </View>
+          </TouchableOpacity>
           <View style={menuStyles.menuContainer}>
             <SectionList
               sections={[
