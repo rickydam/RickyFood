@@ -43,6 +43,11 @@ const mainStyles = StyleSheet.create({
     height: 40,
     padding: 10,
     width: 250
+  },
+  buttonsContainer: {
+    position: "absolute",
+    right: 0,
+    top: 0
   }
 });
 
