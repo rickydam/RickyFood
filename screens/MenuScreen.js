@@ -45,31 +45,33 @@ export default class MenuScreen extends React.Component {
     if(this.state.selectedRestaurant !== null) {
       return (
         <View style={mainStyles.container}>
-          <SectionList
-            sections={[
-              {title: "Appetizers", data: this.state.appetizers},
-              {title: "Mains", data: this.state.mains},
-              {title: "Desserts", data: this.state.desserts},
-              {title: "Beverages", data: this.state.beverages}
-            ]}
-            renderItem={({item}) => (
-              <TouchableHighlight
-                onPress={() => this.props.navigation.navigate("MenuItemDetails", {key: item["key"]})}
-                underlayColor="black">
-                <View>
-                  <Text style={menuStyles.renderItem}>{item["name"]}</Text>
-                </View>
-              </TouchableHighlight>
-            )}
-            renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
-            keyExtractor={(item, index) => index}
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.onRefresh}
-              />
-            }
-          />
+          <View style={menuStyles.menuContainer}>
+            <SectionList
+              sections={[
+                {title: "Appetizers", data: this.state.appetizers},
+                {title: "Mains", data: this.state.mains},
+                {title: "Desserts", data: this.state.desserts},
+                {title: "Beverages", data: this.state.beverages}
+              ]}
+              renderItem={({item}) => (
+                <TouchableHighlight
+                  onPress={() => this.props.navigation.navigate("MenuItemDetails", {key: item["key"]})}
+                  underlayColor="black">
+                  <View>
+                    <Text style={menuStyles.renderItem}>{item["name"]}</Text>
+                  </View>
+                </TouchableHighlight>
+              )}
+              renderSectionHeader={({section}) => <Text style={menuStyles.renderSectionHeader}>{section.title}</Text>}
+              keyExtractor={(item, index) => index}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.onRefresh}
+                />
+              }
+            />
+          </View>
         </View>
       );
     }

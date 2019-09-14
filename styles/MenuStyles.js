@@ -1,8 +1,13 @@
 import {Dimensions, StyleSheet} from "react-native";
 
+const screenHeight = Dimensions.get("window").height;
 const screenWidth = Dimensions.get("window").width;
 
 const menuStyles = StyleSheet.create({
+  menuContainer: {
+    borderWidth: 1,
+    height: screenHeight * 0.5
+  },
   renderItem: {
     backgroundColor: "white",
     borderBottomWidth: 1,
