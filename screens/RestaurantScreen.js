@@ -1,11 +1,11 @@
-import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../functions/FirebaseFunctions";
-import Table from "../components/Table";
-import mainFunctions from "../functions/MainFunctions";
-import RestaurantSelector from "../components/RestaurantSelector";
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
+import firebaseFunctions from '../functions/FirebaseFunctions';
+import Table from '../components/Table';
+import mainFunctions from '../functions/MainFunctions';
+import RestaurantSelector from '../components/RestaurantSelector';
 
 export default class RestaurantScreen extends React.Component {
   constructor(props) {
@@ -14,12 +14,12 @@ export default class RestaurantScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    title: "Restaurant"
+    title: 'Restaurant'
   });
 
   componentDidMount() {
     let restaurantScreen = this;
-    this.reRender = this.props.navigation.addListener("didFocus", () => {
+    this.reRender = this.props.navigation.addListener('didFocus', () => {
       mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
         if(selectedRestaurant !== null) {
           restaurantScreen.setState({selectedRestaurant: selectedRestaurant});
@@ -44,14 +44,14 @@ export default class RestaurantScreen extends React.Component {
           return <Table
             key={table.createdAt}
             table={table}
-            screen={"RestaurantScreen"}
+            screen={'RestaurantScreen'}
           />
         });
         return (
           <View style={mainStyles.container}>
             <View style={mainStyles.buttonsContainer}>
-              <TouchableOpacity onPress={() => this.props.navigation.navigate("Layout")}>
-                <View style={touchableOpacity("#9932CC", 30, 10, 55).view}>
+              <TouchableOpacity onPress={() => this.props.navigation.navigate('Layout')}>
+                <View style={touchableOpacity('#9932CC', 30, 10, 55).view}>
                   <Text style={touchableOpacity().text}>Layout</Text>
                 </View>
               </TouchableOpacity>

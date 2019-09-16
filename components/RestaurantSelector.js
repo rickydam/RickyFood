@@ -1,10 +1,10 @@
-import React from "react";
-import {Picker, Text, ToastAndroid, TouchableOpacity, View} from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
-import mainStyles from "../styles/MainStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../functions/FirebaseFunctions";
-import mainFunctions from "../functions/MainFunctions";
+import React from 'react';
+import {Picker, Text, ToastAndroid, TouchableOpacity, View} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import mainStyles from '../styles/MainStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
+import firebaseFunctions from '../functions/FirebaseFunctions';
+import mainFunctions from '../functions/MainFunctions';
 
 export default class RestaurantSelector extends React.Component {
   constructor(props) {
@@ -23,12 +23,12 @@ export default class RestaurantSelector extends React.Component {
   render() {
     let createRestaurantSection = null;
     if(this.state.userData !== null) {
-      if(this.state.userData.userType === "owner") {
+      if(this.state.userData.userType === 'owner') {
         createRestaurantSection =
         <View>
           <Text>Create a restaurant</Text>
-          <TouchableOpacity onPress={() => this.props.nav.navigate("CreateRestaurant")}>
-            <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+          <TouchableOpacity onPress={() => this.props.nav.navigate('CreateRestaurant')}>
+            <View style={touchableOpacity('#2196F3', 40, 10, 60).view}>
               <Text style={touchableOpacity().text}>Create</Text>
             </View>
           </TouchableOpacity>
@@ -53,7 +53,7 @@ export default class RestaurantSelector extends React.Component {
           </Picker>
         </View>
         <TouchableOpacity onPress={() => this.selectRestaurant()}>
-          <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+          <View style={touchableOpacity('#2196F3', 40, 10, 60).view}>
             <Text style={touchableOpacity().text}>Select</Text>
           </View>
         </TouchableOpacity>
@@ -80,10 +80,10 @@ export default class RestaurantSelector extends React.Component {
 
   selectRestaurant = async () => {
     try {
-      await AsyncStorage.setItem("selected_restaurant", JSON.stringify(this.state.selectedRestaurant));
+      await AsyncStorage.setItem('selected_restaurant', JSON.stringify(this.state.selectedRestaurant));
       this.props.restaurant(this.state.selectedRestaurant);
     } catch(e) {
-      ToastAndroid.show("Unable to save selected restaurant to AsyncStorage.", ToastAndroid.LONG);
+      ToastAndroid.show('Unable to save selected restaurant to AsyncStorage.', ToastAndroid.LONG);
     }
   };
 }

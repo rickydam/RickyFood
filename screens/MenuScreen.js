@@ -1,11 +1,11 @@
-import React from "react";
-import {RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
-import menuStyles from "../styles/MenuStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../functions/FirebaseFunctions";
-import mainFunctions from "../functions/MainFunctions";
-import RestaurantSelector from "../components/RestaurantSelector";
+import React from 'react';
+import {RefreshControl, SectionList, Text, TouchableHighlight, TouchableOpacity, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
+import menuStyles from '../styles/MenuStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
+import firebaseFunctions from '../functions/FirebaseFunctions';
+import mainFunctions from '../functions/MainFunctions';
+import RestaurantSelector from '../components/RestaurantSelector';
 
 export default class MenuScreen extends React.Component {
   constructor(props) {
@@ -14,12 +14,12 @@ export default class MenuScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    title: "Menu Items"
+    title: 'Menu Items'
   });
 
   componentDidMount() {
     let menuScreen = this;
-    this.reRender = this.props.navigation.addListener("didFocus", () => {
+    this.reRender = this.props.navigation.addListener('didFocus', () => {
       mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
         if(selectedRestaurant !== null) {
           menuScreen.setState({selectedRestaurant: selectedRestaurant});
@@ -36,25 +36,25 @@ export default class MenuScreen extends React.Component {
     if(this.state.selectedRestaurant !== null) {
       return (
         <View style={mainStyles.container}>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("MenuItem", {purpose: "Add"})}>
-            <View style={touchableOpacity("#2196F3", 40, 5, 60).view}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('MenuItem', {purpose: 'Add'})}>
+            <View style={touchableOpacity('#2196F3', 40, 5, 60).view}>
               <Text style={touchableOpacity().text}>Add</Text>
             </View>
           </TouchableOpacity>
           <View style={menuStyles.menuContainer}>
             <SectionList
               sections={[
-                {title: "Appetizers", data: this.state.appetizers},
-                {title: "Mains", data: this.state.mains},
-                {title: "Desserts", data: this.state.desserts},
-                {title: "Beverages", data: this.state.beverages}
+                {title: 'Appetizers', data: this.state.appetizers},
+                {title: 'Mains', data: this.state.mains},
+                {title: 'Desserts', data: this.state.desserts},
+                {title: 'Beverages', data: this.state.beverages}
               ]}
               renderItem={({item}) => (
                 <TouchableHighlight
-                  onPress={() => this.props.navigation.navigate("MenuItemDetails", {key: item["key"]})}
-                  underlayColor="black">
+                  onPress={() => this.props.navigation.navigate('MenuItemDetails', {key: item['key']})}
+                  underlayColor='black'>
                   <View>
-                    <Text style={menuStyles.renderItem}>{item["name"]}</Text>
+                    <Text style={menuStyles.renderItem}>{item['name']}</Text>
                   </View>
                 </TouchableHighlight>
               )}

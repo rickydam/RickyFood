@@ -1,14 +1,14 @@
-import React from "react";
-import {Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../functions/FirebaseFunctions";
-import mainFunctions from "../functions/MainFunctions";
+import React from 'react';
+import {Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
+import firebaseFunctions from '../functions/FirebaseFunctions';
+import mainFunctions from '../functions/MainFunctions';
 
 export default class MenuItemScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {type: "appetizer", name: "", description: "", selectedRestaurant: null};
+    this.state = {type: 'appetizer', name: '', description: '', selectedRestaurant: null};
   }
 
   componentDidMount() {
@@ -16,17 +16,17 @@ export default class MenuItemScreen extends React.Component {
     mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
       if(selectedRestaurant !== null) menuItemScreen.setState({selectedRestaurant: selectedRestaurant});
     });
-    if(this.props.navigation.state.params["purpose"] === "Edit") {
+    if(this.props.navigation.state.params['purpose'] === 'Edit') {
       this.setState({
-        type: this.props.navigation.state.params["type"],
-        name: this.props.navigation.state.params["name"],
-        description: this.props.navigation.state.params["description"]
+        type: this.props.navigation.state.params['type'],
+        name: this.props.navigation.state.params['name'],
+        description: this.props.navigation.state.params['description']
       });
     }
   }
 
   static navigationOptions = ({navigation}) => ({
-    title: navigation.state.params["purpose"]
+    title: navigation.state.params['purpose']
   });
 
   render() {
@@ -38,10 +38,10 @@ export default class MenuItemScreen extends React.Component {
             onValueChange={(itemValue) => this.setState({type: itemValue})}
             selectedValue={this.state.type}
             style={mainStyles.picker}>
-            <Picker.Item label="Appetizer" value="appetizer" />
-            <Picker.Item label="Main" value="main" />
-            <Picker.Item label="Dessert" value="dessert" />
-            <Picker.Item label="Beverage" value="beverage" />
+            <Picker.Item label='Appetizer' value='appetizer' />
+            <Picker.Item label='Main' value='main' />
+            <Picker.Item label='Dessert' value='dessert' />
+            <Picker.Item label='Beverage' value='beverage' />
           </Picker>
         </View>
         <Text>Name</Text>
@@ -59,7 +59,7 @@ export default class MenuItemScreen extends React.Component {
           value={this.state.description}
         />
         <TouchableOpacity onPress={() => this.saveButtonPressed()}>
-          <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+          <View style={touchableOpacity('#2196F3', 40, 10, 60).view}>
             <Text style={touchableOpacity().text}>Save</Text>
           </View>
         </TouchableOpacity>
@@ -68,8 +68,8 @@ export default class MenuItemScreen extends React.Component {
   }
 
   saveButtonPressed = () => {
-    if(this.props.navigation.state.params["purpose"] === "Add") this.addMenuItem();
-    else if(this.props.navigation.state.params["purpose"] === "Edit") this.editMenuItem();
+    if(this.props.navigation.state.params['purpose'] === 'Add') this.addMenuItem();
+    else if(this.props.navigation.state.params['purpose'] === 'Edit') this.editMenuItem();
     else {}
   };
 
@@ -78,16 +78,16 @@ export default class MenuItemScreen extends React.Component {
     let menuItemObj = {type: this.state.type, name: this.state.name, description: this.state.description};
     if(this.state.selectedRestaurant !== null) {
       if(await firebaseFunctions.addMenuItem(menuItemObj, menuItemScreen.state.selectedRestaurant.key)) {
-        ToastAndroid.show("Successfully added: " + menuItemScreen.state.name, ToastAndroid.LONG);
+        ToastAndroid.show('Successfully added: ' + menuItemScreen.state.name, ToastAndroid.LONG);
         menuItemScreen.props.navigation.goBack();
         menuItemScreen.resetState();
       }
       else {
-        ToastAndroid.show("Unable to add menu item: " + this.state.name, ToastAndroid.LONG);
+        ToastAndroid.show('Unable to add menu item: ' + this.state.name, ToastAndroid.LONG);
       }
     }
     else {
-      ToastAndroid.show("Unable to add menu item: " + this.state.name, ToastAndroid.LONG);
+      ToastAndroid.show('Unable to add menu item: ' + this.state.name, ToastAndroid.LONG);
     }
   };
 
@@ -103,9 +103,9 @@ export default class MenuItemScreen extends React.Component {
 
   resetState = () => {
     this.setState({
-      type: "appetizer",
-      name: "",
-      description: ""
+      type: 'appetizer',
+      name: '',
+      description: ''
     })
   };
 }

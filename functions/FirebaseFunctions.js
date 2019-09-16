@@ -1,15 +1,15 @@
-import React from "react";
-import {ToastAndroid} from "react-native";
-import AsyncStorage from "@react-native-community/async-storage";
-import firebase from "firebase";
-import {API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID} from "react-native-dotenv";
-import mainFunctions from "./MainFunctions";
+import React from 'react';
+import {ToastAndroid} from 'react-native';
+import AsyncStorage from '@react-native-community/async-storage';
+import firebase from 'firebase';
+import {API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID} from 'react-native-dotenv';
+import mainFunctions from './MainFunctions';
 
 const firebaseConfig = {
   apiKey: API_KEY,
   authDomain: AUTH_DOMAIN,
   databaseURL: DATABASE_URL,
-  storageBucket: "",
+  storageBucket: '',
   projectId: PROJECT_ID,
   messagingSenderId: MESSAGING_SENDER_ID,
   appId: APP_ID
@@ -20,40 +20,40 @@ if(!firebase.apps.length) {
 
 module.exports = {
   loadMenuItems: (menuScreen, selectedRestaurantKey) => {
-    firebase.database().ref("menus").child(selectedRestaurantKey).on("child_added", function(snapshot) {
-      if(snapshot.val().type === "appetizer") {
+    firebase.database().ref('menus').child(selectedRestaurantKey).on('child_added', function(snapshot) {
+      if(snapshot.val().type === 'appetizer') {
         let appetizer = {};
-        appetizer["key"] = snapshot.key;
-        appetizer["type"] = snapshot.val().type;
-        appetizer["name"] = snapshot.val().name;
-        appetizer["description"] = snapshot.val().description;
+        appetizer['key'] = snapshot.key;
+        appetizer['type'] = snapshot.val().type;
+        appetizer['name'] = snapshot.val().name;
+        appetizer['description'] = snapshot.val().description;
         menuScreen.state.appetizers.push(appetizer);
         menuScreen.setState({appetizers: menuScreen.state.appetizers});
       }
-      else if(snapshot.val().type === "beverage") {
+      else if(snapshot.val().type === 'beverage') {
         let beverage = {};
-        beverage["key"] = snapshot.key;
-        beverage["type"] = snapshot.val().type;
-        beverage["name"] = snapshot.val().name;
-        beverage["description"] = snapshot.val().description;
+        beverage['key'] = snapshot.key;
+        beverage['type'] = snapshot.val().type;
+        beverage['name'] = snapshot.val().name;
+        beverage['description'] = snapshot.val().description;
         menuScreen.state.beverages.push(beverage);
         menuScreen.setState({beverages: menuScreen.state.beverages});
       }
-      else if(snapshot.val().type === "dessert") {
+      else if(snapshot.val().type === 'dessert') {
         let dessert = {};
-        dessert["key"] = snapshot.key;
-        dessert["type"] = snapshot.val().type;
-        dessert["name"] = snapshot.val().name;
-        dessert["description"] = snapshot.val().description;
+        dessert['key'] = snapshot.key;
+        dessert['type'] = snapshot.val().type;
+        dessert['name'] = snapshot.val().name;
+        dessert['description'] = snapshot.val().description;
         menuScreen.state.desserts.push(dessert);
         menuScreen.setState({desserts: menuScreen.state.desserts});
       }
-      else if(snapshot.val().type === "main") {
+      else if(snapshot.val().type === 'main') {
         let main = {};
-        main["key"] = snapshot.key;
-        main["type"] = snapshot.val().type;
-        main["name"] = snapshot.val().name;
-        main["description"] = snapshot.val().description;
+        main['key'] = snapshot.key;
+        main['type'] = snapshot.val().type;
+        main['name'] = snapshot.val().name;
+        main['description'] = snapshot.val().description;
         menuScreen.state.mains.push(main);
         menuScreen.setState({mains: menuScreen.state.mains});
       }
@@ -62,9 +62,9 @@ module.exports = {
   },
 
   loadMenuItemsOnce: async (menuScreen, selectedRestaurantKey, callback) => {
-    let loadMenuItemsOnceFirebase = firebase.database().ref("menus").child(selectedRestaurantKey).once("value", function(snapshot) {
+    let loadMenuItemsOnceFirebase = firebase.database().ref('menus').child(selectedRestaurantKey).once('value', function(snapshot) {
       snapshot.forEach(function(childSnapshot) {
-        if(childSnapshot.val().type === "appetizer") {
+        if(childSnapshot.val().type === 'appetizer') {
           let appetizer = {};
           appetizer.key = childSnapshot.key;
           appetizer.type = childSnapshot.val().type;
@@ -73,30 +73,30 @@ module.exports = {
           menuScreen.state.appetizers.push(appetizer);
           menuScreen.setState({appetizers: menuScreen.state.appetizers});
         }
-        else if(childSnapshot.val().type === "beverage") {
+        else if(childSnapshot.val().type === 'beverage') {
           let beverage = {};
-          beverage["key"] = childSnapshot.key;
-          beverage["type"] = childSnapshot.val().type;
-          beverage["name"] = childSnapshot.val().name;
-          beverage["description"] = childSnapshot.val().description;
+          beverage['key'] = childSnapshot.key;
+          beverage['type'] = childSnapshot.val().type;
+          beverage['name'] = childSnapshot.val().name;
+          beverage['description'] = childSnapshot.val().description;
           menuScreen.state.beverages.push(beverage);
           menuScreen.setState({beverages: menuScreen.state.beverages});
         }
-        else if(childSnapshot.val().type === "dessert") {
+        else if(childSnapshot.val().type === 'dessert') {
           let dessert = {};
-          dessert["key"] = childSnapshot.key;
-          dessert["type"] = childSnapshot.val().type;
-          dessert["name"] = childSnapshot.val().name;
-          dessert["description"] = childSnapshot.val().description;
+          dessert['key'] = childSnapshot.key;
+          dessert['type'] = childSnapshot.val().type;
+          dessert['name'] = childSnapshot.val().name;
+          dessert['description'] = childSnapshot.val().description;
           menuScreen.state.desserts.push(dessert);
           menuScreen.setState({desserts: menuScreen.state.desserts});
         }
-        else if(childSnapshot.val().type === "main") {
+        else if(childSnapshot.val().type === 'main') {
           let main = {};
-          main["key"] = childSnapshot.key;
-          main["type"] = childSnapshot.val().type;
-          main["name"] = childSnapshot.val().name;
-          main["description"] = childSnapshot.val().description;
+          main['key'] = childSnapshot.key;
+          main['type'] = childSnapshot.val().type;
+          main['name'] = childSnapshot.val().name;
+          main['description'] = childSnapshot.val().description;
           menuScreen.state.mains.push(main);
           menuScreen.setState({mains: menuScreen.state.mains});
         }
@@ -108,7 +108,7 @@ module.exports = {
   },
 
   menuItemDeletedListener: (menuScreen, selectedRestaurantKey) => {
-    firebase.database().ref("menus").child(selectedRestaurantKey).on("child_removed", function(snapshot) {
+    firebase.database().ref('menus').child(selectedRestaurantKey).on('child_removed', function(snapshot) {
       let appetizers = menuScreen.state.appetizers;
       appetizers.forEach(function(appetizer, index) {
         if(appetizer.key === snapshot.key) {
@@ -141,7 +141,7 @@ module.exports = {
   },
 
   menuItemChangedListener: (menuScreen, selectedRestaurantKey) => {
-    firebase.database().ref("menus").child(selectedRestaurantKey).on("child_changed", function(snapshot) {
+    firebase.database().ref('menus').child(selectedRestaurantKey).on('child_changed', function(snapshot) {
       let appetizers = menuScreen.state.appetizers;
       appetizers.forEach(function(appetizer, index) {
         if(appetizer.key === snapshot.key) {
@@ -183,10 +183,10 @@ module.exports = {
 
   addMenuItem: async (menuItemObj, selectedRestaurantKey) => {
     let success = false;
-    let addMenuItemFirebase = firebase.database().ref("menus").child(selectedRestaurantKey).push(menuItemObj).then(() => {
+    let addMenuItemFirebase = firebase.database().ref('menus').child(selectedRestaurantKey).push(menuItemObj).then(() => {
       success = true;
     }).catch((error) => {
-      ToastAndroid.show("Error adding menu item: " + error, ToastAndroid.LONG);
+      ToastAndroid.show('Error adding menu item: ' + error, ToastAndroid.LONG);
       console.log(error);
     });
     await Promise.all([addMenuItemFirebase]);
@@ -194,23 +194,23 @@ module.exports = {
   },
 
   editMenuItem: (menuItemScreen, menuItemKey, menuItemObj, restaurantKey) => {
-    firebase.database().ref("menus").child(restaurantKey).child(menuItemKey).update(menuItemObj).then(() => {
-      ToastAndroid.show("Successfully edited: " + menuItemObj.name, ToastAndroid.LONG);
+    firebase.database().ref('menus').child(restaurantKey).child(menuItemKey).update(menuItemObj).then(() => {
+      ToastAndroid.show('Successfully edited: ' + menuItemObj.name, ToastAndroid.LONG);
       menuItemScreen.props.navigation.goBack();
       return true;
     });
   },
 
   deleteMenuItem: (menuItemDetailsScreen, restaurantKey, menuItemKey, name) => {
-    firebase.database().ref("menus").child(restaurantKey).child(menuItemKey).remove().then(() => {
-      ToastAndroid.show("Successfully deleted: " + name, ToastAndroid.LONG);
+    firebase.database().ref('menus').child(restaurantKey).child(menuItemKey).remove().then(() => {
+      ToastAndroid.show('Successfully deleted: ' + name, ToastAndroid.LONG);
       menuItemDetailsScreen.props.navigation.goBack();
       return true;
     });
   },
 
   loadMenuItem: (menuItemDetailsScreen, restaurantKey, menuItemKey) => {
-    firebase.database().ref("menus").child(restaurantKey).child(menuItemKey).once("value", function(snapshot) {
+    firebase.database().ref('menus').child(restaurantKey).child(menuItemKey).once('value', function(snapshot) {
       if(snapshot.val() != null) {
         menuItemDetailsScreen.setState({
           type: snapshot.val().type,
@@ -224,7 +224,7 @@ module.exports = {
 
   loadTables: async (restaurantKey) => {
     let tables = [];
-    let loadTablesFirebase = firebase.database().ref("tables").child(restaurantKey).once("value", function(snapshot) {
+    let loadTablesFirebase = firebase.database().ref('tables').child(restaurantKey).once('value', function(snapshot) {
       if(snapshot.exists()) {
         let snapshotTablesObj = snapshot.val();
         let snapshotKeys = Object.keys(snapshotTablesObj);
@@ -240,13 +240,13 @@ module.exports = {
   },
 
   saveTable: (restaurantKey, table, callback) => {
-    firebase.database().ref("tables").child(restaurantKey).once("value", function(snapshot) {
+    firebase.database().ref('tables').child(restaurantKey).once('value', function(snapshot) {
       if(snapshot.exists()) {
         let snapshotTablesObj = snapshot.val();
         let snapshotKeys = Object.keys(snapshotTablesObj);
         if(snapshotKeys.indexOf(table.firebaseKey) !== -1) {
           // Table already exists, edit the x and y coordinates
-          firebase.database().ref("tables").child(restaurantKey).child(table.firebaseKey).set({
+          firebase.database().ref('tables').child(restaurantKey).child(table.firebaseKey).set({
             x: table.x,
             y: table.y,
             createdAt: table.createdAt
@@ -258,24 +258,24 @@ module.exports = {
         }
         else {
           // Table does not exist, but Firebase ref exists
-          firebase.database().ref("tables").child(restaurantKey).push(table)
+          firebase.database().ref('tables').child(restaurantKey).push(table)
             .then((snapshot) => {
               callback(true);
             })
             .catch(function(err) {
-              ToastAndroid.show("Error saving table: " + err.message, ToastAndroid.LONG);
+              ToastAndroid.show('Error saving table: ' + err.message, ToastAndroid.LONG);
               callback(false);
             });
         }
       }
       else {
         // Firebase ref for this restaurant is missing, this is the first ever table push
-        firebase.database().ref("tables").child(restaurantKey).push(table)
+        firebase.database().ref('tables').child(restaurantKey).push(table)
           .then((snapshot) => {
             callback(true);
           })
           .catch(function(err) {
-            ToastAndroid.show("Error saving table: " + err.message, ToastAndroid.LONG);
+            ToastAndroid.show('Error saving table: ' + err.message, ToastAndroid.LONG);
             callback(false);
           });
       }
@@ -283,13 +283,13 @@ module.exports = {
   },
 
   deleteTable: (firebaseKey, callback) => {
-    firebase.database().ref("tables").child("restaurant1").child(firebaseKey).remove()
+    firebase.database().ref('tables').child('restaurant1').child(firebaseKey).remove()
       .then(() => {
-        ToastAndroid.show("Successfully deleted table.", ToastAndroid.LONG);
+        ToastAndroid.show('Successfully deleted table.', ToastAndroid.LONG);
         callback(true);
       })
       .catch(function(err) {
-        ToastAndroid.show("Error deleting table: " + err.message, ToastAndroid.LONG);
+        ToastAndroid.show('Error deleting table: ' + err.message, ToastAndroid.LONG);
         callback(false);
       });
   },
@@ -303,15 +303,15 @@ module.exports = {
   },
 
   saveUserData: (type, uid, callback) => {
-    firebase.database().ref("users").child(uid).set({
+    firebase.database().ref('users').child(uid).set({
       type: type
     }).then(async function () {
       try {
         let userData = {userId: uid, userType: type};
-        await AsyncStorage.setItem("user_data", JSON.stringify(userData));
+        await AsyncStorage.setItem('user_data', JSON.stringify(userData));
         callback(null);
       } catch(e) {
-        ToastAndroid.show("Unable to save user type to AsyncStorage.", ToastAndroid.LONG);
+        ToastAndroid.show('Unable to save user type to AsyncStorage.', ToastAndroid.LONG);
       }
     }).catch(function(err) {
       callback(err);
@@ -333,18 +333,18 @@ module.exports = {
   },
 
   getUserData: (uid, callback) => {
-    firebase.database().ref("users").child(uid).once("value", async function(snapshot) {
+    firebase.database().ref('users').child(uid).once('value', async function(snapshot) {
       if(snapshot.val() != null) {
         try {
           let userData = {userId: uid, userType: snapshot.val().type};
-          await AsyncStorage.setItem("user_data", JSON.stringify(userData));
+          await AsyncStorage.setItem('user_data', JSON.stringify(userData));
           callback();
         } catch(e) {
-          ToastAndroid.show("Unable to save user type to AsyncStorage.", ToastAndroid.LONG);
+          ToastAndroid.show('Unable to save user type to AsyncStorage.', ToastAndroid.LONG);
         }
       }
       else {
-        ToastAndroid.show("Unable to get user type.", ToastAndroid.LONG);
+        ToastAndroid.show('Unable to get user type.', ToastAndroid.LONG);
       }
     });
   },
@@ -361,25 +361,25 @@ module.exports = {
     mainFunctions.getItemUserData(function(userData) {
       if(userData !== null) {
         let restaurantObj = {name: restaurantName, owner: userData.userId};
-        firebase.database().ref("restaurants").push(restaurantObj).then(() => {
-          ToastAndroid.show("Successfully created restaurant.", ToastAndroid.LONG);
+        firebase.database().ref('restaurants').push(restaurantObj).then(() => {
+          ToastAndroid.show('Successfully created restaurant.', ToastAndroid.LONG);
           createRestaurantScreen.props.navigation.goBack();
         })
       }
       else {
-        ToastAndroid.show("Unable to get user data from AsyncStorage.", ToastAndroid.LONG);
+        ToastAndroid.show('Unable to get user data from AsyncStorage.', ToastAndroid.LONG);
       }
     });
   },
 
   loadRestaurants: (callback) => {
-    firebase.database().ref("restaurants").once("value", function(snapshot) {
+    firebase.database().ref('restaurants').once('value', function(snapshot) {
       if(snapshot.exists()) {
         callback(snapshot.val());
       }
       else {
         callback(null);
-        ToastAndroid.show("Unable to load restaurants.", ToastAndroid.LONG);
+        ToastAndroid.show('Unable to load restaurants.', ToastAndroid.LONG);
       }
     });
   }

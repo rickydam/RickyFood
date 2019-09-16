@@ -1,10 +1,10 @@
-import React from "react";
-import {Text, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
+import React from 'react';
+import {Text, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
 
 export default class OrderScreen extends React.Component {
   static navigationOptions = {
-    title: "Order"
+    title: 'Order'
   };
 
   render() {

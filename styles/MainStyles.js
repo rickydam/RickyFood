@@ -1,17 +1,17 @@
-import {StyleSheet} from "react-native";
+import {StyleSheet} from 'react-native';
 
 const mainStyles = StyleSheet.create({
   alignTop: {
-    textAlignVertical: "top",
+    textAlignVertical: 'top',
   },
   container: {
-    alignItems: "center",
-    backgroundColor: "lightgray",
+    alignItems: 'center',
+    backgroundColor: 'lightgray',
     flex: 1,
-    justifyContent: "center"
+    justifyContent: 'center'
   },
   row: {
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   icon: {
     height: 25,
@@ -24,28 +24,28 @@ const mainStyles = StyleSheet.create({
     width: 250
   },
   pickerView: {
-    backgroundColor: "white",
-    borderColor: "black",
+    backgroundColor: 'white',
+    borderColor: 'black',
     borderWidth: 1,
     height: 40,
     width: 250
   },
   table: {
-    backgroundColor: "gray",
-    position: "absolute",
+    backgroundColor: 'gray',
+    position: 'absolute',
     height: 60,
     width: 60
   },
   textInput: {
-    backgroundColor: "white",
-    borderColor: "black",
+    backgroundColor: 'white',
+    borderColor: 'black',
     borderWidth: 1,
     height: 40,
     padding: 10,
     width: 250
   },
   buttonsContainer: {
-    position: "absolute",
+    position: 'absolute',
     right: 0,
     top: 0
   }

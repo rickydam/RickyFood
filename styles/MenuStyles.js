@@ -1,7 +1,7 @@
-import {Dimensions, StyleSheet} from "react-native";
+import {Dimensions, StyleSheet} from 'react-native';
 
-const screenHeight = Dimensions.get("window").height;
-const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get('window').width;
 
 const menuStyles = StyleSheet.create({
   menuContainer: {
@@ -9,15 +9,15 @@ const menuStyles = StyleSheet.create({
     height: screenHeight * 0.5
   },
   renderItem: {
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderBottomWidth: 1,
     height: 50,
-    textAlign: "center",
-    textAlignVertical: "center",
+    textAlign: 'center',
+    textAlignVertical: 'center',
     width: screenWidth * 0.80
   },
   renderSectionHeader: {
-    backgroundColor: "lightblue",
+    backgroundColor: 'lightblue',
     borderBottomWidth: 1,
     padding: 5,
     width: screenWidth * 0.80

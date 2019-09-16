@@ -1,11 +1,11 @@
-import React from "react";
-import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
-import Table from "../components/Table";
-import firebaseFunctions from "../functions/FirebaseFunctions";
-import mainFunctions from "../functions/MainFunctions";
-import RestaurantSelector from "../components/RestaurantSelector";
+import React from 'react';
+import {Text, ToastAndroid, TouchableOpacity, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
+import Table from '../components/Table';
+import firebaseFunctions from '../functions/FirebaseFunctions';
+import mainFunctions from '../functions/MainFunctions';
+import RestaurantSelector from '../components/RestaurantSelector';
 
 export default class LayoutScreen extends React.Component {
   constructor(props) {
@@ -14,12 +14,12 @@ export default class LayoutScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    title: "Layout"
+    title: 'Layout'
   });
 
   componentDidMount() {
     let layoutScreen = this;
-    this.reRender = this.props.navigation.addListener("didFocus", () => {
+    this.reRender = this.props.navigation.addListener('didFocus', () => {
       mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
         if(selectedRestaurant !== null) {
           layoutScreen.setState({selectedRestaurant: selectedRestaurant});
@@ -43,7 +43,7 @@ export default class LayoutScreen extends React.Component {
           return <Table
             key={table.createdAt}
             table={table}
-            screen={"LayoutScreen"}
+            screen={'LayoutScreen'}
             updateTableCoordinates={this.updateTableCoordinates}
             deleteTable={this.deleteTable}
           />
@@ -52,12 +52,12 @@ export default class LayoutScreen extends React.Component {
           <View style={mainStyles.container}>
             <View style={[mainStyles.row, mainStyles.buttonsContainer]}>
               <TouchableOpacity onPress={() => this.props.navigation.state.params.addTable()}>
-                <View style={touchableOpacity("#9932CC", 30, 5, 50).view}>
+                <View style={touchableOpacity('#9932CC', 30, 5, 50).view}>
                   <Text style={touchableOpacity().text}>Add</Text>
                 </View>
               </TouchableOpacity>
               <TouchableOpacity onPress={() => this.props.navigation.state.params.saveLayout()}>
-                <View style={touchableOpacity("#9932CC", 30, 5, 50).view}>
+                <View style={touchableOpacity('#9932CC', 30, 5, 50).view}>
                   <Text style={touchableOpacity().text}>Save</Text>
                 </View>
               </TouchableOpacity>
@@ -109,10 +109,10 @@ export default class LayoutScreen extends React.Component {
         if(count === tables.length) {
           layoutScreen.setState({tables: tables});
           if(successCount === tables.length) {
-            ToastAndroid.show("Successfully saved table layout.", ToastAndroid.LONG);
+            ToastAndroid.show('Successfully saved table layout.', ToastAndroid.LONG);
           }
           else {
-            ToastAndroid.show("Unable to save table layout.", ToastAndroid.LONG);
+            ToastAndroid.show('Unable to save table layout.', ToastAndroid.LONG);
           }
           layoutScreen.props.navigation.goBack();
         }

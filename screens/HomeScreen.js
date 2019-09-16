@@ -1,9 +1,9 @@
-import React from "react";
-import {Text, TouchableOpacity, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
-import RestaurantSelector from "../components/RestaurantSelector";
-import mainFunctions from "../functions/MainFunctions";
+import React from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
+import RestaurantSelector from '../components/RestaurantSelector';
+import mainFunctions from '../functions/MainFunctions';
 
 export default class HomeScreen extends React.Component {
   constructor(props) {
@@ -13,13 +13,13 @@ export default class HomeScreen extends React.Component {
 
   static navigationOptions = ({navigation}) => {
     return {
-      title: "RickyFood"
+      title: 'RickyFood'
     }
   };
 
   componentDidMount() {
     let homeScreen = this;
-    this.reRender = this.props.navigation.addListener("willFocus", () => {
+    this.reRender = this.props.navigation.addListener('willFocus', () => {
       mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
         if(selectedRestaurant !== null) homeScreen.setState({selectedRestaurant: selectedRestaurant});
       })
@@ -34,7 +34,7 @@ export default class HomeScreen extends React.Component {
           <Text>{this.state.selectedRestaurant.owner}</Text>
           <Text>{this.state.selectedRestaurant.key}</Text>
           <TouchableOpacity onPress={() => this.clearSelectedRestaurant()}>
-            <View style={touchableOpacity("#9932CC", 40, 10, 60).view}>
+            <View style={touchableOpacity('#9932CC', 40, 10, 60).view}>
               <Text style={touchableOpacity().text}>Switch</Text>
             </View>
           </TouchableOpacity>

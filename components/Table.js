@@ -1,7 +1,7 @@
-import React from "react";
-import {Alert, Animated, PanResponder, Text, TouchableOpacity, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
-import tableStyles from "../styles/components/TableStyles";
+import React from 'react';
+import {Alert, Animated, PanResponder, Text, TouchableOpacity, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
+import tableStyles from '../styles/components/TableStyles';
 
 export default class Table extends React.Component {
   constructor(props) {
@@ -18,7 +18,7 @@ export default class Table extends React.Component {
       }
     };
 
-    if(this.props.screen === "LayoutScreen") {
+    if(this.props.screen === 'LayoutScreen') {
       this.panResponder = PanResponder.create({
         onStartShouldSetPanResponder: () => true,
         onPanResponderGrant: (event, gesture) => {
@@ -60,7 +60,7 @@ export default class Table extends React.Component {
   };
 
   renderTable = () => {
-    if(this.props.screen === "LayoutScreen") {
+    if(this.props.screen === 'LayoutScreen') {
       return (
         <Animated.View
           {...this.panResponder.panHandlers}
@@ -81,9 +81,9 @@ export default class Table extends React.Component {
           style={[this.state.position.getLayout(), mainStyles.table]}>
           <TouchableOpacity
             onPress={() => Alert.alert(
-              "Table onPress",
+              'Table onPress',
               this.props.table.firebaseKey,
-              [{text: "OK", onPress: () => {}}],
+              [{text: 'OK', onPress: () => {}}],
               {cancelable: true}
               )
             }

@@ -1,9 +1,9 @@
-import React from "react";
-import {Text, ToastAndroid, TouchableOpacity, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../functions/FirebaseFunctions";
-import mainFunctions from "../functions/MainFunctions";
+import React from 'react';
+import {Text, ToastAndroid, TouchableOpacity, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
+import firebaseFunctions from '../functions/FirebaseFunctions';
+import mainFunctions from '../functions/MainFunctions';
 
 export default class ProfileScreen extends React.Component {
   constructor(props) {
@@ -12,12 +12,12 @@ export default class ProfileScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: "Profile"
+    title: 'Profile'
   };
 
   componentDidMount() {
     let profileScreen = this;
-    this.reRender = this.props.navigation.addListener("willFocus", () => {
+    this.reRender = this.props.navigation.addListener('willFocus', () => {
       this.checkUserAuthentication();
       mainFunctions.getItemUserData(function(userData) {
         if(userData !== null) profileScreen.setState({userData: userData});
@@ -34,7 +34,7 @@ export default class ProfileScreen extends React.Component {
         <View style={mainStyles.container}>
           <View style={mainStyles.row}>
             <TouchableOpacity onPress={() => this.props.navigation.state.params.logout()}>
-              <View style={touchableOpacity("#707070", 40, 5, 60).view}>
+              <View style={touchableOpacity('#707070', 40, 5, 60).view}>
                 <Text style={touchableOpacity().text}>Logout</Text>
               </View>
             </TouchableOpacity>
@@ -51,13 +51,13 @@ export default class ProfileScreen extends React.Component {
       return (
         <View style={mainStyles.container}>
           <View style={mainStyles.row}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("Authentication", {purpose: "Register"})}>
-              <View style={touchableOpacity("#707070", 40, 5, 70).view}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Authentication', {purpose: 'Register'})}>
+              <View style={touchableOpacity('#707070', 40, 5, 70).view}>
                 <Text style={touchableOpacity().text}>Register</Text>
               </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate("Authentication", {purpose: "Login"})}>
-              <View style={touchableOpacity("#707070", 40, 5, 60).view}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Authentication', {purpose: 'Login'})}>
+              <View style={touchableOpacity('#707070', 40, 5, 60).view}>
                 <Text style={touchableOpacity().text}>Login</Text>
               </View>
             </TouchableOpacity>
@@ -76,7 +76,7 @@ export default class ProfileScreen extends React.Component {
   logout = () => {
     let profileScreen = this;
     firebaseFunctions.logout(function() {
-      ToastAndroid.show("Logout successful.", ToastAndroid.LONG);
+      ToastAndroid.show('Logout successful.', ToastAndroid.LONG);
       profileScreen.setState({user: null});
       mainFunctions.removeItemUserData(function(err) {
         if(!err) profileScreen.setState({userData: null});

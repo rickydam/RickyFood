@@ -1,8 +1,8 @@
-import React from "react";
-import {Text, TextInput, TouchableOpacity, View} from "react-native";
-import mainStyles from "../styles/MainStyles";
-import touchableOpacity from "../styles/components/TouchableOpacity";
-import firebaseFunctions from "../functions/FirebaseFunctions";
+import React from 'react';
+import {Text, TextInput, TouchableOpacity, View} from 'react-native';
+import mainStyles from '../styles/MainStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
+import firebaseFunctions from '../functions/FirebaseFunctions';
 
 export default class CreateRestaurantScreen extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class CreateRestaurantScreen extends React.Component {
   }
 
   static navigationOptions = {
-    title: "Create Restaurant"
+    title: 'Create Restaurant'
   };
 
   render() {
@@ -20,12 +20,12 @@ export default class CreateRestaurantScreen extends React.Component {
         <Text>Restaurant Name</Text>
         <TextInput
           onChangeText={(restaurantName) => this.setState({restaurantName: restaurantName})}
-          placeholder="Restaurant Name"
+          placeholder='Restaurant Name'
           style={mainStyles.textInput}
           value={this.state.restaurantName}
         />
         <TouchableOpacity onPress={() => firebaseFunctions.createRestaurant(this, this.state.restaurantName)}>
-          <View style={touchableOpacity("#2196F3", 40, 10, 60).view}>
+          <View style={touchableOpacity('#2196F3', 40, 10, 60).view}>
             <Text style={touchableOpacity().text}>Submit</Text>
           </View>
         </TouchableOpacity>
