@@ -3,7 +3,9 @@ import {Alert, Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} fr
 import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {setUserData} from '../reduxActions';
 
 class AuthenticationScreen extends React.Component {
   constructor(props) {
@@ -124,14 +126,24 @@ class AuthenticationScreen extends React.Component {
   };
 
   login = () => {
+    console.log(this.state);
+    console.log(this.props);
     let authenticationScreen = this;
     if(this.state.email != null) {
       if(this.state.password != null) {
         firebaseFunctions.login(this.state.email, this.state.password, function(userCredentials, err) {
           if(err === null) {
             ToastAndroid.show('Login successful.', ToastAndroid.LONG);
-            firebaseFunctions.getUserData(userCredentials.user.uid, function() {
-              authenticationScreen.props.navigation.goBack();
+            firebaseFunctions.getUserData(userCredentials.user.uid, function(userData) {
+              if(userData !== null) {
+                console.log("@@@@@@@@@@@@@");
+                console.log(userData);
+                authenticationScreen.props.setUserData(userData);
+                // authenticationScreen.props.navigation.goBack();
+              }
+              else {
+                authenticationScreen.createSimpleAlert("Error", "Unable to get user data.");
+              }
             });
           }
           else if(err.code === 'auth/invalid-email') {
@@ -172,4 +184,10 @@ const mapStateToProps = (state) => {
   return {reduxUserAuthentication};
 };
 
-export default connect(mapStateToProps)(AuthenticationScreen);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    setUserData
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AuthenticationScreen);
