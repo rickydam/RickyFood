@@ -2,6 +2,10 @@ import React from 'react';
 import {Image} from 'react-native';
 import {createStackNavigator, createAppContainer, createBottomTabNavigator} from 'react-navigation';
 
+import {createStore} from 'redux';
+import {Provider} from 'react-redux';
+import reduxReducer from './reduxReducer';
+
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import CreateRestaurantScreen from './screens/CreateRestaurantScreen';
 import HomeScreen from './screens/HomeScreen';
@@ -102,10 +106,14 @@ const TabNavigator = createBottomTabNavigator({
 
 const AppContainer = createAppContainer(TabNavigator);
 
+const store = createStore(reduxReducer);
+
 export default class App extends React.Component {
   render() {
     return (
-      <AppContainer />
+      <Provider store={store}>
+        <AppContainer />
+      </Provider>
     );
   }
 }
