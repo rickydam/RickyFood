@@ -3,8 +3,9 @@ import {Alert, Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} fr
 import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
+import {connect} from 'react-redux';
 
-export default class AuthenticationScreen extends React.Component {
+class AuthenticationScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -165,3 +166,10 @@ export default class AuthenticationScreen extends React.Component {
     );
   };
 }
+
+const mapStateToProps = (state) => {
+  const {reduxUserAuthentication} = state;
+  return {reduxUserAuthentication};
+};
+
+export default connect(mapStateToProps)(AuthenticationScreen);
