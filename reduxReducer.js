@@ -1,17 +1,13 @@
 import {combineReducers} from 'redux';
 import {SET_USER_DATA} from './types';
 
-let INITIAL_STATE = {
-  dataArr: []
-};
+let initialState = {userData: null};
 
-const reduxReducer = (state = INITIAL_STATE, action) => {
+const reduxReducer = (state = initialState, action) => {
   switch(action.type) {
     case SET_USER_DATA:
-      const {dataArr} = state;
-      dataArr.push(action.payload);
-      const updatedState = {dataArr};
-      return updatedState;
+      state.userData = action.payload;
+      return state;
     default:
       return state;
   }
