@@ -1,6 +1,7 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import mainStyles from '../styles/MainStyles';
+import touchableOpacity from '../styles/components/TouchableOpacity';
 
 export default class OrderScreen extends React.Component {
   static navigationOptions = {
@@ -11,6 +12,11 @@ export default class OrderScreen extends React.Component {
     return (
       <View style={mainStyles.container}>
         <Text>OrderScreen</Text>
+        <TouchableOpacity onPress={() => console.log(this.props)}>
+          <View style={touchableOpacity('#9932CC', 30, 10, 55).view}>
+            <Text style={touchableOpacity().text}>Order</Text>
+      </View>
+        </TouchableOpacity>
       </View>
     );
   }
