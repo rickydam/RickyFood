@@ -11,7 +11,6 @@ import {setUserData} from '../redux/reduxActions';
 class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {user: null, userData: null}
   }
 
   static navigationOptions = {
@@ -19,20 +18,13 @@ class ProfileScreen extends React.Component {
   };
 
   componentDidMount() {
-    let profileScreen = this;
-    this.reRender = this.props.navigation.addListener('willFocus', () => {
-      this.checkUserAuthentication();
-      mainFunctions.getItemUserData(function(userData) {
-        if(userData !== null) profileScreen.setState({userData: userData});
-      });
-    });
     this.props.navigation.setParams({
       logout: this.logout
     });
   }
 
   render() {
-    if(this.state.user) {
+    if(this.props.redux.userData) {
       return (
         <View style={mainStyles.container}>
           <View style={mainStyles.row}>
@@ -43,9 +35,8 @@ class ProfileScreen extends React.Component {
             </TouchableOpacity>
           </View>
           <View>
-            {this.state.user ? <Text>{this.state.user.email}</Text> : null}
-            {this.state.userData ? <Text>{this.state.userData.userId}</Text> : null }
-            {this.state.userData ? <Text>{this.state.userData.userType}</Text> : null }
+            {this.props.redux.userData.userId ? <Text>{this.props.redux.userData.userId}</Text> : null }
+            {this.props.redux.userData.userType ? <Text>{this.props.redux.userData.userType}</Text> : null }
           </View>
         </View>
       );
@@ -69,12 +60,6 @@ class ProfileScreen extends React.Component {
       );
     }
   }
-
-  checkUserAuthentication = () => {
-    firebaseFunctions.checkUserAuthentication(user => {
-      this.setState({user: user});
-    });
-  };
 
   logout = () => {
     let profileScreen = this;
