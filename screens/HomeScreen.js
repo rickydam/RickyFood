@@ -3,8 +3,9 @@ import {Text, TouchableOpacity, View} from 'react-native';
 import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import RestaurantSelector from '../components/RestaurantSelector';
+import {connect} from 'react-redux';
 
-export default class HomeScreen extends React.Component {
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -38,3 +39,10 @@ export default class HomeScreen extends React.Component {
 
   clearSelectedRestaurant = () => {};
 }
+
+const mapStateToProps = (state) => {
+  const {redux} = state;
+  return {redux};
+};
+
+export default connect(mapStateToProps)(HomeScreen);
