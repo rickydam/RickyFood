@@ -126,8 +126,6 @@ class AuthenticationScreen extends React.Component {
   };
 
   login = () => {
-    console.log(this.state);
-    console.log(this.props);
     let authenticationScreen = this;
     if(this.state.email != null) {
       if(this.state.password != null) {
@@ -136,10 +134,8 @@ class AuthenticationScreen extends React.Component {
             ToastAndroid.show('Login successful.', ToastAndroid.LONG);
             firebaseFunctions.getUserData(userCredentials.user.uid, function(userData) {
               if(userData !== null) {
-                console.log("@@@@@@@@@@@@@");
-                console.log(userData);
                 authenticationScreen.props.setUserData(userData);
-                // authenticationScreen.props.navigation.goBack();
+                authenticationScreen.props.navigation.goBack();
               }
               else {
                 authenticationScreen.createSimpleAlert("Error", "Unable to get user data.");
