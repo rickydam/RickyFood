@@ -14,5 +14,5 @@ const reduxReducer = (state = initialState, action) => {
 };
 
 export default combineReducers({
-  reduxUserAuthentication: reduxReducer
+  redux: reduxReducer
 });

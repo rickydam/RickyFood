@@ -92,8 +92,8 @@ class ProfileScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const {reduxUserAuthentication} = state;
-  return {reduxUserAuthentication};
+  const {redux} = state;
+  return {redux};
 };
 
 const mapDispatchToProps = (dispatch) => {

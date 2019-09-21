@@ -24,8 +24,8 @@ class OrderScreen extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  const {reduxUserAuthentication} = state;
-  return {reduxUserAuthentication};
+  const {redux} = state;
+  return {redux};
 };
 
 export default connect(mapStateToProps)(OrderScreen);
