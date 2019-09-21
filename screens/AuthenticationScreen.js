@@ -97,8 +97,12 @@ class AuthenticationScreen extends React.Component {
         firebaseFunctions.register(this.state.email, this.state.password, function(userCredentials, err) {
           if(err === null) {
             ToastAndroid.show('Registration successful.', ToastAndroid.LONG);
-            firebaseFunctions.saveUserData(authenticationScreen.state.type, userCredentials.user.uid, function(err) {
-              if(err === null) authenticationScreen.props.navigation.goBack();
+            let userData = {userId: userCredentials.user.uid, userType: authenticationScreen.state.type};
+            firebaseFunctions.saveUserData(userData, function(err) {
+              if(err === null) {
+                authenticationScreen.props.setUserData(userData);
+                authenticationScreen.props.navigation.goBack();
+              }
               else ToastAndroid.show('Error saving user type.', ToastAndroid.LONG)
             });
           }

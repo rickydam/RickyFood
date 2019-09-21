@@ -302,17 +302,11 @@ module.exports = {
     });
   },
 
-  saveUserData: (type, uid, callback) => {
-    firebase.database().ref('users').child(uid).set({
-      type: type
-    }).then(async function () {
-      try {
-        let userData = {userId: uid, userType: type};
-        await AsyncStorage.setItem('user_data', JSON.stringify(userData));
-        callback(null);
-      } catch(e) {
-        ToastAndroid.show('Unable to save user type to AsyncStorage.', ToastAndroid.LONG);
-      }
+  saveUserData: (userData, callback) => {
+    firebase.database().ref('users').child(userData.userId).set({
+      type: userData.userType
+    }).then(function() {
+      callback(null);
     }).catch(function(err) {
       callback(err);
     });
