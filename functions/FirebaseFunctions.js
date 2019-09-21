@@ -337,10 +337,9 @@ module.exports = {
       if(snapshot.val() != null) {
         let userData = null;
         try {
-          ToastAndroid.show(snapshot.val().type, ToastAndroid.LONG);
           userData = {userId: uid, userType: snapshot.val().type};
         } catch(e) {
-          ToastAndroid.show("Hello: " + e.message, ToastAndroid.LONG);
+          ToastAndroid.show("getUserData error: " + e.message, ToastAndroid.LONG);
         }
         callback(userData);
       }
