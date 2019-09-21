@@ -4,7 +4,9 @@ import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
 import mainFunctions from '../functions/MainFunctions';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import {setUserData} from '../redux/reduxActions';
 
 class ProfileScreen extends React.Component {
   constructor(props) {
@@ -91,4 +93,10 @@ const mapStateToProps = (state) => {
   return {reduxUserAuthentication};
 };
 
-export default connect(mapStateToProps)(ProfileScreen);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    setUserData
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
