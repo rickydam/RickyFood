@@ -82,7 +82,10 @@ class ProfileScreen extends React.Component {
       ToastAndroid.show('Logout successful.', ToastAndroid.LONG);
       profileScreen.setState({user: null});
       mainFunctions.removeItemUserData(function(err) {
-        if(!err) profileScreen.setState({userData: null});
+        if(!err) {
+          profileScreen.props.setUserData(null);
+          profileScreen.setState({userData: null});
+        }
       });
     })
   };
