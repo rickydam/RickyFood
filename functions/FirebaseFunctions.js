@@ -339,7 +339,7 @@ module.exports = {
         try {
           userData = {userId: uid, userType: snapshot.val().type};
         } catch(e) {
-          ToastAndroid.show("getUserData error: " + e.message, ToastAndroid.LONG);
+          ToastAndroid.show('getUserData error: ' + e.message, ToastAndroid.LONG);
         }
         callback(userData);
       }

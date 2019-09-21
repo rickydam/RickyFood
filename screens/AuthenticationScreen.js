@@ -138,7 +138,7 @@ class AuthenticationScreen extends React.Component {
                 authenticationScreen.props.navigation.goBack();
               }
               else {
-                authenticationScreen.createSimpleAlert("Error", "Unable to get user data.");
+                authenticationScreen.createSimpleAlert('Error', 'Unable to get user data.');
               }
             });
           }
