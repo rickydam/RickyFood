@@ -6,9 +6,9 @@ let initialState = {userData: null};
 const reduxReducer = (state = initialState, action) => {
   switch(action.type) {
     case SET_USER_DATA:
-      let newState = {};
-      newState.userData = action.payload;
-      return newState;
+      let updatedState = {};
+      updatedState.userData = action.payload;
+      return updatedState;
     default:
       return state;
   }
