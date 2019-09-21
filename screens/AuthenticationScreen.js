@@ -5,7 +5,7 @@ import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import {setUserData} from '../reduxActions';
+import {setUserData} from '../redux/reduxActions';
 
 class AuthenticationScreen extends React.Component {
   constructor(props) {

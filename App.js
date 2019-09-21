@@ -4,7 +4,7 @@ import {createStackNavigator, createAppContainer, createBottomTabNavigator} from
 
 import {createStore} from 'redux';
 import {Provider} from 'react-redux';
-import reduxReducer from './reduxReducer';
+import reduxReducer from './redux/reduxReducer';
 
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import CreateRestaurantScreen from './screens/CreateRestaurantScreen';
