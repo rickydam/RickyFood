@@ -4,8 +4,9 @@ import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
 import mainFunctions from '../functions/MainFunctions';
+import {connect} from 'react-redux';
 
-export default class ProfileScreen extends React.Component {
+class ProfileScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {user: null, userData: null}
@@ -84,3 +85,10 @@ export default class ProfileScreen extends React.Component {
     })
   };
 }
+
+const mapStateToProps = (state) => {
+  const {reduxUserAuthentication} = state;
+  return {reduxUserAuthentication};
+};
+
+export default connect(mapStateToProps)(ProfileScreen);
