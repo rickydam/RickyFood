@@ -3,7 +3,6 @@ import {Text, ToastAndroid, TouchableOpacity, View} from 'react-native';
 import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
-import mainFunctions from '../functions/MainFunctions';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import {setUserData} from '../redux/reduxActions';
@@ -65,13 +64,7 @@ class ProfileScreen extends React.Component {
     let profileScreen = this;
     firebaseFunctions.logout(function() {
       ToastAndroid.show('Logout successful.', ToastAndroid.LONG);
-      profileScreen.setState({user: null});
-      mainFunctions.removeItemUserData(function(err) {
-        if(!err) {
-          profileScreen.props.setUserData(null);
-          profileScreen.setState({userData: null});
-        }
-      });
+      profileScreen.props.setUserData(null);
     })
   };
 }
