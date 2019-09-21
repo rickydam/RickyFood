@@ -1,1 +1,7 @@
-export const SET_USER_DATA = 'SET_USER_DATA';
+const SET_USER_DATA = 'SET_USER_DATA';
+const SET_RESTAURANT = 'SET_RESTAURANT';
+
+export {
+  SET_USER_DATA,
+  SET_RESTAURANT
+}
