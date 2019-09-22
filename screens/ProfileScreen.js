@@ -34,8 +34,8 @@ class ProfileScreen extends React.Component {
             </TouchableOpacity>
           </View>
           <View>
-            {this.props.redux.userData.userId ? <Text>{this.props.redux.userData.userId}</Text> : null }
-            {this.props.redux.userData.userType ? <Text>{this.props.redux.userData.userType}</Text> : null }
+            {this.props.redux.userData.userId ? <Text>userId: {this.props.redux.userData.userId}</Text> : null }
+            {this.props.redux.userData.userType ? <Text>userType: {this.props.redux.userData.userType}</Text> : null }
           </View>
         </View>
       );
