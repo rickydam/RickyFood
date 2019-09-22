@@ -29,11 +29,6 @@ export default class LayoutScreen extends React.Component {
           layoutScreen.setState({selectedRestaurant: null});
         }
       });
-    });
-    this.props.navigation.setParams({
-      addTable: this.addTable,
-      saveLayout: this.saveLayout
-    });
   }
 
   render() {
@@ -51,12 +46,12 @@ export default class LayoutScreen extends React.Component {
         return (
           <View style={mainStyles.container}>
             <View style={[mainStyles.row, mainStyles.buttonsContainer]}>
-              <TouchableOpacity onPress={() => this.props.navigation.state.params.addTable()}>
+              <TouchableOpacity onPress={() => this.addTable()}>
                 <View style={touchableOpacity('#9932CC', 30, 5, 50).view}>
                   <Text style={touchableOpacity().text}>Add</Text>
                 </View>
               </TouchableOpacity>
-              <TouchableOpacity onPress={() => this.props.navigation.state.params.saveLayout()}>
+              <TouchableOpacity onPress={() => this.saveLayout()}>
                 <View style={touchableOpacity('#9932CC', 30, 5, 50).view}>
                   <Text style={touchableOpacity().text}>Save</Text>
                 </View>
