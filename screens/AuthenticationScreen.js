@@ -184,7 +184,7 @@ const mapStateToProps = (state) => {
   return {redux};
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setUserData
   }, dispatch);
