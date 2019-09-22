@@ -4,13 +4,13 @@ import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
 import Table from '../components/Table';
-import mainFunctions from '../functions/MainFunctions';
 import RestaurantSelector from '../components/RestaurantSelector';
+import {connect} from 'react-redux';
 
-export default class RestaurantScreen extends React.Component {
+class RestaurantScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {selectedRestaurant: null, tables: []}
+    this.state = {tables: []}
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -20,16 +20,9 @@ export default class RestaurantScreen extends React.Component {
   componentDidMount() {
     let restaurantScreen = this;
     this.reRender = this.props.navigation.addListener('didFocus', () => {
-      mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
-        if(selectedRestaurant !== null) {
-          restaurantScreen.setState({selectedRestaurant: selectedRestaurant});
-          restaurantScreen.setState({tables: []});
-          restaurantScreen.loadTables();
-        }
-        else {
-          restaurantScreen.setState({selectedRestaurant: null});
-        }
-      });
+      if(this.props.redux.restaurant) {
+        restaurantScreen.loadTables();
+      }
     });
   }
 
@@ -38,7 +31,7 @@ export default class RestaurantScreen extends React.Component {
   }
 
   render() {
-    if(this.state.selectedRestaurant !== null) {
+    if(this.props.redux.restaurant !== null) {
       if(this.state.tables.length > 0) {
         let tables = this.state.tables.map((table) => {
           return <Table
@@ -70,19 +63,22 @@ export default class RestaurantScreen extends React.Component {
     }
     else {
       return (
-        <RestaurantSelector nav={this.props.navigation} restaurant={this.setSelectedRestaurant} />
+        <RestaurantSelector nav={this.props.navigation} />
       );
     }
   }
 
   loadTables = async () => {
+    this.setState({tables: []});
     let restaurantScreen = this;
-    let tables = await firebaseFunctions.loadTables(restaurantScreen.state.selectedRestaurant.key);
+    let tables = await firebaseFunctions.loadTables(restaurantScreen.props.redux.restaurant.key);
     this.setState({tables: tables});
   };
-
-  setSelectedRestaurant = (selectedRestaurant) => {
-    this.setState({selectedRestaurant: selectedRestaurant});
-    this.loadTables();
-  };
 }
+
+const mapStateToProps = (state) => {
+  const {redux} = state;
+  return {redux};
+};
+
+export default connect(mapStateToProps)(RestaurantScreen);
