@@ -19,9 +19,12 @@ class HomeScreen extends React.Component {
   componentDidMount() {}
 
   render() {
-    if(this.state.selectedRestaurant !== null) {
+    if(this.props.redux.restaurant !== null) {
       return (
         <View style={mainStyles.container}>
+          {this.props.redux.restaurant ? <Text>Name: {this.props.redux.restaurant.name}</Text> : null}
+          {this.props.redux.restaurant ? <Text>Key: {this.props.redux.restaurant.key}</Text> : null}
+          {this.props.redux.restaurant ? <Text>Owner: {this.props.redux.restaurant.owner}</Text> : null}
           <TouchableOpacity onPress={() => this.clearSelectedRestaurant()}>
             <View style={touchableOpacity('#9932CC', 40, 10, 60).view}>
               <Text style={touchableOpacity().text}>Switch</Text>
