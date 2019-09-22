@@ -32,7 +32,7 @@ class HomeScreen extends React.Component {
     }
     else {
       return (
-        <RestaurantSelector nav={this.props.navigation} restaurant={this.setSelectedRestaurant} />
+        <RestaurantSelector nav={this.props.navigation} />
       );
     }
   };
