@@ -18,10 +18,9 @@ class RestaurantScreen extends React.Component {
   });
 
   componentDidMount() {
-    let restaurantScreen = this;
     this.reRender = this.props.navigation.addListener('didFocus', () => {
       if(this.props.redux.restaurant) {
-        restaurantScreen.loadTables();
+        this.loadTables();
       }
     });
   }
@@ -63,11 +62,7 @@ class RestaurantScreen extends React.Component {
     if(this.props.redux.restaurant !== null) {
       if(this.state.tables.length > 0) {
         let tables = this.state.tables.map((table) => {
-          return <Table
-            key={table.createdAt}
-            table={table}
-            screen={'RestaurantScreen'}
-          />
+          return <Table key={table.createdAt} table={table} screen={'RestaurantScreen'}/>
         });
         return (
           <View style={mainStyles.container}>
