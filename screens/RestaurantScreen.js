@@ -69,10 +69,14 @@ class RestaurantScreen extends React.Component {
   }
 
   loadTables = async () => {
-    this.setState({tables: []});
+    this.clearTables();
     let restaurantScreen = this;
     let tables = await firebaseFunctions.loadTables(restaurantScreen.props.redux.restaurant.key);
     this.setState({tables: tables});
+  };
+
+  clearTables = () => {
+    this.setState({tables: []});
   };
 }
 
