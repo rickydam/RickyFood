@@ -4,13 +4,13 @@ import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import Table from '../components/Table';
 import firebaseFunctions from '../functions/FirebaseFunctions';
-import mainFunctions from '../functions/MainFunctions';
 import RestaurantSelector from '../components/RestaurantSelector';
+import {connect} from 'react-redux';
 
-export default class LayoutScreen extends React.Component {
+class LayoutScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {selectedRestaurant: null, tables: []};
+    this.state = {tables: []};
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -18,21 +18,44 @@ export default class LayoutScreen extends React.Component {
   });
 
   componentDidMount() {
-    let layoutScreen = this;
     this.reRender = this.props.navigation.addListener('didFocus', () => {
-      mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
-        if(selectedRestaurant !== null) {
-          layoutScreen.setState({selectedRestaurant: selectedRestaurant});
-          layoutScreen.loadTables();
-        }
-        else {
-          layoutScreen.setState({selectedRestaurant: null});
-        }
-      });
+      if(this.props.redux.restaurant) {
+        this.loadTables();
+      }
+    });
   }
 
+  componentDidUpdate(prevProps) {
+    if(this.props.redux.restaurant !== prevProps.redux.restaurant) {
+      if(this.props.redux.restaurant !== null) {
+        // case 1: object and null
+        // restaurant has been selected, load the tables
+        this.loadTables();
+      }
+      else {
+        // case 2: null and object
+        // restaurant cleared, clear the tables
+        this.clearTables();
+      }
+    }
+    else {
+      if(this.props.redux.restaurant !== null && prevProps.redux.restaurant !== null) {
+        // Make sure both, this.props and prevProps, have a non-null restaurant property before accessing it
+        if(this.props.redux.restaurant.key !== prevProps.redux.restaurant.key) {
+          // case 3: object and object
+          // restaurant has been switched, load the tables
+          this.loadTables();
+        }
+      }
+      else {
+        // case 4: null and null
+        // no action required
+      }
+    }
+  };
+
   render() {
-    if(this.state.selectedRestaurant) {
+    if(this.props.redux.restaurant) {
       if(this.state.tables.length > 0) {
         let tables = this.state.tables.map((table) => {
           return <Table
@@ -71,7 +94,7 @@ export default class LayoutScreen extends React.Component {
     }
     else {
       return (
-        <RestaurantSelector nav={this.props.navigation} restaurant={this.setSelectedRestaurant} />
+        <RestaurantSelector nav={this.props.navigation} />
       );
     }
   }
@@ -98,7 +121,7 @@ export default class LayoutScreen extends React.Component {
     let count = 0;
     let successCount = 0;
     tables.forEach(function(table, index) {
-      firebaseFunctions.saveTable(layoutScreen.state.selectedRestaurant.key, table, function(success) {
+      firebaseFunctions.saveTable(layoutScreen.props.redux.restaurant.key, table, function(success) {
         count++;
         if(success) successCount++;
         if(count === tables.length) {
@@ -115,10 +138,15 @@ export default class LayoutScreen extends React.Component {
     });
   };
 
-  loadTables = async() => {
+  loadTables = async () => {
+    this.clearTables();
     let layoutScreen = this;
-    let tables = await firebaseFunctions.loadTables(layoutScreen.state.selectedRestaurant.key);
+    let tables = await firebaseFunctions.loadTables(layoutScreen.props.redux.restaurant.key);
     this.setState({tables: tables});
+  };
+
+  clearTables = () => {
+    this.setState({tables: []});
   };
 
   deleteTable = (firebaseKey) => {
@@ -137,9 +165,11 @@ export default class LayoutScreen extends React.Component {
       this.loadTables();
     }
   };
-
-  setSelectedRestaurant = (selectedRestaurant) => {
-    this.setState({selectedRestaurant: selectedRestaurant});
-    this.loadTables();
-  };
 }
+
+const mapStateToProps = (state) => {
+  const {redux} = state;
+  return {redux};
+};
+
+export default connect(mapStateToProps)(LayoutScreen);
