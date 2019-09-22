@@ -11,5 +11,6 @@ const setRestaurant = (restaurant) => ({
 });
 
 export {
-  setUserData
+  setUserData,
+  setRestaurant
 }
