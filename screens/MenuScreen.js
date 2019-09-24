@@ -6,6 +6,7 @@ import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
 import RestaurantSelector from '../components/RestaurantSelector';
 import {connect} from 'react-redux';
+import reduxUpdate from '../redux/reduxUpdate';
 
 class MenuScreen extends React.Component {
   constructor(props) {
@@ -26,32 +27,7 @@ class MenuScreen extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(this.props.redux.restaurant !== prevProps.redux.restaurant) {
-      if(this.props.redux.restaurant !== null) {
-        // case 1: object and null
-        // restaurant has been selected, load the menu
-        this.loadMenu();
-      }
-      else {
-        // case 2: null and object
-        // restaurant cleared, clear the menu
-        this.clearMenuItems();
-      }
-    }
-    else {
-      if(this.props.redux.restaurant !== null && prevProps.redux.restaurant !== null) {
-        // Make sure both, this.props and prevProps, have a non-null restaurant property before accessing it
-        if(this.props.redux.restaurant.key !== prevProps.redux.restaurant.key) {
-          // case 3: object and object
-          // restaurant has been switched, load the menu
-          this.loadMenu();
-        }
-      }
-      else {
-        // case 4: null and null
-        // no action required
-      }
-    }
+    reduxUpdate(this.props, prevProps, this.loadMenu, this.clearMenuItems);
   }
 
   render() {
