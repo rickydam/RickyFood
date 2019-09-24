@@ -4,13 +4,13 @@ import mainStyles from '../styles/MainStyles';
 import menuStyles from '../styles/MenuStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
-import mainFunctions from '../functions/MainFunctions';
 import RestaurantSelector from '../components/RestaurantSelector';
+import {connect} from 'react-redux';
 
-export default class MenuScreen extends React.Component {
+class MenuScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {appetizers: [], beverages: [], desserts: [], mains: [], refreshing: false, selectedRestaurant: null};
+    this.state = {appetizers: [], beverages: [], desserts: [], mains: [], refreshing: false};
   }
 
   static navigationOptions = ({navigation}) => ({
@@ -18,22 +18,44 @@ export default class MenuScreen extends React.Component {
   });
 
   componentDidMount() {
-    let menuScreen = this;
     this.reRender = this.props.navigation.addListener('didFocus', () => {
-      mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
-        if(selectedRestaurant !== null) {
-          menuScreen.setState({selectedRestaurant: selectedRestaurant});
-          menuScreen.loadMenu();
-        }
-        else {
-          menuScreen.setState({selectedRestaurant: null});
-        }
-      });
+      if(this.props.redux.restaurant) {
+        this.loadMenu();
+      }
     });
   }
 
+  componentDidUpdate(prevProps) {
+    if(this.props.redux.restaurant !== prevProps.redux.restaurant) {
+      if(this.props.redux.restaurant !== null) {
+        // case 1: object and null
+        // restaurant has been selected, load the menu
+        this.loadMenu();
+      }
+      else {
+        // case 2: null and object
+        // restaurant cleared, clear the menu
+        this.clearMenuItems();
+      }
+    }
+    else {
+      if(this.props.redux.restaurant !== null && prevProps.redux.restaurant !== null) {
+        // Make sure both, this.props and prevProps, have a non-null restaurant property before accessing it
+        if(this.props.redux.restaurant.key !== prevProps.redux.restaurant.key) {
+          // case 3: object and object
+          // restaurant has been switched, load the menu
+          this.loadMenu();
+        }
+      }
+      else {
+        // case 4: null and null
+        // no action required
+      }
+    }
+  }
+
   render() {
-    if(this.state.selectedRestaurant !== null) {
+    if(this.props.redux.restaurant) {
       return (
         <View style={mainStyles.container}>
           <TouchableOpacity onPress={() => this.props.navigation.navigate('MenuItem', {purpose: 'Add'})}>
@@ -73,7 +95,7 @@ export default class MenuScreen extends React.Component {
     }
     else {
       return (
-        <RestaurantSelector nav={this.props.navigation} restaurant={this.setSelectedRestaurant} />
+        <RestaurantSelector nav={this.props.navigation} />
       );
     }
   }
@@ -82,14 +104,14 @@ export default class MenuScreen extends React.Component {
     this.clearMenuItems();
     this.setState({refreshing: true});
     let menuScreen = this;
-    firebaseFunctions.loadMenuItemsOnce(this, this.state.selectedRestaurant.key, function() {
+    firebaseFunctions.loadMenuItemsOnce(this, this.props.redux.restaurant.key, function() {
       menuScreen.setState({refreshing: false});
     });
   };
 
   loadMenuItems = () => {
     this.clearMenuItems();
-    firebaseFunctions.loadMenuItems(this, this.state.selectedRestaurant.key);
+    firebaseFunctions.loadMenuItems(this, this.props.redux.restaurant.key);
   };
 
   clearMenuItems = () => {
@@ -105,14 +127,16 @@ export default class MenuScreen extends React.Component {
     });
   };
 
-  setSelectedRestaurant = (selectedRestaurant) => {
-    this.setState({selectedRestaurant: selectedRestaurant});
-    this.loadMenu();
-  };
-
   loadMenu = () => {
     this.loadMenuItems();
-    firebaseFunctions.menuItemDeletedListener(this, this.state.selectedRestaurant.key);
-    firebaseFunctions.menuItemChangedListener(this, this.state.selectedRestaurant.key);
+    firebaseFunctions.menuItemDeletedListener(this, this.props.redux.restaurant.key);
+    firebaseFunctions.menuItemChangedListener(this, this.props.redux.restaurant.key);
   }
 }
+
+const mapStateToProps = (state) => {
+  const {redux} = state;
+  return {redux};
+};
+
+export default connect(mapStateToProps)(MenuScreen);
