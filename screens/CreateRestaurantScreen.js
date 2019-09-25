@@ -3,8 +3,9 @@ import {Text, TextInput, TouchableOpacity, View} from 'react-native';
 import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
+import {connect} from 'react-redux';
 
-export default class CreateRestaurantScreen extends React.Component {
+class CreateRestaurantScreen extends React.Component {
   constructor(props) {
     super(props);
     this.state = {restaurantName: null}
@@ -33,3 +34,10 @@ export default class CreateRestaurantScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const {redux} = state;
+  return {redux};
+};
+
+export default connect(mapStateToProps)(CreateRestaurantScreen);
