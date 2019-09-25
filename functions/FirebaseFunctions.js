@@ -1,9 +1,7 @@
 import React from 'react';
 import {ToastAndroid} from 'react-native';
-import AsyncStorage from '@react-native-community/async-storage';
 import firebase from 'firebase';
 import {API_KEY, AUTH_DOMAIN, DATABASE_URL, PROJECT_ID, MESSAGING_SENDER_ID, APP_ID} from 'react-native-dotenv';
-import mainFunctions from './MainFunctions';
 
 const firebaseConfig = {
   apiKey: API_KEY,
@@ -352,18 +350,11 @@ module.exports = {
     });
   },
 
-  createRestaurant: (createRestaurantScreen, restaurantName) => {
-    mainFunctions.getItemUserData(function(userData) {
-      if(userData !== null) {
-        let restaurantObj = {name: restaurantName, owner: userData.userId};
-        firebase.database().ref('restaurants').push(restaurantObj).then(() => {
-          ToastAndroid.show('Successfully created restaurant.', ToastAndroid.LONG);
-          createRestaurantScreen.props.navigation.goBack();
-        })
-      }
-      else {
-        ToastAndroid.show('Unable to get user data from AsyncStorage.', ToastAndroid.LONG);
-      }
+  createRestaurant: (createRestaurantScreen, restaurantName, userData) => {
+    let restaurantObj = {name: restaurantName, owner: userData.userId};
+    firebase.database().ref('restaurants').push(restaurantObj).then(() => {
+      ToastAndroid.show('Successfully created restaurant.', ToastAndroid.LONG);
+      createRestaurantScreen.props.navigation.goBack();
     });
   },
 
