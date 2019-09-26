@@ -26,6 +26,10 @@ class LayoutScreen extends React.Component {
     });
   }
 
+  componentWillUnmount() {
+    this.reRender.remove();
+  }
+
   componentDidUpdate(prevProps) {
     reduxUpdate(this.props, prevProps, this.loadTables, this.clearTables);
   };
