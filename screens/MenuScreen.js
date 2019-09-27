@@ -15,7 +15,7 @@ class MenuScreen extends React.Component {
   }
 
   static navigationOptions = ({navigation}) => ({
-    title: 'Menu Items'
+    title: 'Menu'
   });
 
   componentDidMount() {
