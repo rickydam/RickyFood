@@ -3,19 +3,15 @@ import {Picker, Text, TextInput, ToastAndroid, TouchableOpacity, View} from 'rea
 import mainStyles from '../styles/MainStyles';
 import touchableOpacity from '../styles/components/TouchableOpacity';
 import firebaseFunctions from '../functions/FirebaseFunctions';
-import mainFunctions from '../functions/MainFunctions';
+import {connect} from 'react-redux';
 
-export default class MenuItemScreen extends React.Component {
+class MenuItemScreen extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {type: 'appetizer', name: '', description: '', selectedRestaurant: null};
+    this.state = {type: 'appetizer', name: '', description: ''};
   }
 
   componentDidMount() {
-    let menuItemScreen = this;
-    mainFunctions.getItemSelectedRestaurant(function(selectedRestaurant) {
-      if(selectedRestaurant !== null) menuItemScreen.setState({selectedRestaurant: selectedRestaurant});
-    });
     if(this.props.navigation.state.params['purpose'] === 'Edit') {
       this.setState({
         type: this.props.navigation.state.params['type'],
@@ -76,8 +72,8 @@ export default class MenuItemScreen extends React.Component {
   addMenuItem = async () => {
     let menuItemScreen = this;
     let menuItemObj = {type: this.state.type, name: this.state.name, description: this.state.description};
-    if(this.state.selectedRestaurant !== null) {
-      if(await firebaseFunctions.addMenuItem(menuItemObj, menuItemScreen.state.selectedRestaurant.key)) {
+    if(this.props.redux.restaurant) {
+      if(await firebaseFunctions.addMenuItem(menuItemObj, menuItemScreen.props.redux.restaurant.key)) {
         ToastAndroid.show('Successfully added: ' + menuItemScreen.state.name, ToastAndroid.LONG);
         menuItemScreen.props.navigation.goBack();
         menuItemScreen.resetState();
@@ -95,7 +91,7 @@ export default class MenuItemScreen extends React.Component {
     let menuItemScreen = this;
     let menuItemKey = this.props.navigation.state.params.key;
     let menuItemObj = {type: this.state.type, name: this.state.name, description: this.state.description};
-    let restaurantKey = this.state.selectedRestaurant.key;
+    let restaurantKey = this.props.redux.restaurant.key;
     if(firebaseFunctions.editMenuItem(menuItemScreen, menuItemKey, menuItemObj, restaurantKey)) {
       this.resetState();
     }
@@ -109,3 +105,10 @@ export default class MenuItemScreen extends React.Component {
     })
   };
 }
+
+const mapStateToProps = (state) => {
+  const {redux} = state;
+  return {redux};
+};
+
+export default connect(mapStateToProps)(MenuItemScreen);
